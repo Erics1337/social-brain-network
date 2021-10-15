@@ -4,7 +4,7 @@ import Header from '../components/Header';
 
 export default function Home() {
   return (
-    <div className="">
+    <div className="bg-grey-50 h-screen overflow-y-scroll scrollbar-hide">
       <Head>
         <title>Instaclone build</title>
         <link rel="icon" href="/favicon.ico" />

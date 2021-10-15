@@ -31,6 +31,7 @@ Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&ut
 ## Important commands
 + npm install @heroicons/react
 + npm install @tailwindcss/forms
++ npm install @tailwindcss/scrollbar
 
 
 ## This Project Uses:
