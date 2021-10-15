@@ -36,4 +36,4 @@ Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&ut
 ## This Project Uses:
 + tailwind
 + heroicons
-+ 
++ faker.js - generate massive amounts of realistic data
