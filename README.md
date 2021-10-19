@@ -33,6 +33,8 @@ Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&ut
 + npm install @tailwindcss/forms
 + npm install @tailwindcss/scrollbar
 
+## From Tutorial:
+https://www.youtube.com/watch?v=a6Xs2Ir40OI&list=PLtisOZsxayjEC3ouCwhkTSG4twFqI7eo7&index=9&t=8517s
 
 ## This Project Uses:
 + tailwind
