@@ -32,6 +32,8 @@ Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&ut
 + npm install @heroicons/react
 + npm install @tailwindcss/forms
 + npm install @tailwindcss/scrollbar
++ npm install next-auth@beta
++ npm i firebase
 
 ## From Tutorial:
 https://www.youtube.com/watch?v=a6Xs2Ir40OI&list=PLtisOZsxayjEC3ouCwhkTSG4twFqI7eo7&index=9&t=8517s
@@ -40,3 +42,5 @@ https://www.youtube.com/watch?v=a6Xs2Ir40OI&list=PLtisOZsxayjEC3ouCwhkTSG4twFqI7
 + tailwind
 + heroicons
 + faker.js - generate massive amounts of realistic data
++ NextAuth.js
++ Firebase
