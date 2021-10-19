@@ -10,10 +10,12 @@ import {
 import { HomeIcon } from "@heroicons/react/solid"
 // Helper functions
 import { useSession, signIn, signOut } from "next-auth/react"
+import { useRouter } from 'next/router';
 
 function Header() {
     // Destruct session object and rename data to session
     const {data: session, status} = useSession()
+    const router = useRouter()
 
     // console.log(session)
 
@@ -21,11 +23,13 @@ function Header() {
         <div className="shadow-md border-b bg-white sticky top-0 z-50">
             <div className='flex justify-between max-w-6xl mx-5 lg:mx-auto'>
                 {/* Left Part */}
-                <div className='relative hidden lg:inline-grid w-24 cursor-pointer'>
+                <div onClick={() => router.push('/')} className='relative hidden lg:inline-grid w-24 cursor-pointer'>
                     <Image src="https://links.papareact.com/ocw" layout='fill' objectFit='contain' />
                 </div>
 
-
+                <div onClick={() => router.push('/')} className='relative w-10 lg:hidden flex-shrink-0 cursor-pointer'>
+                    <Image src="https://links.papareact.com/jjm" layout='fill' objectFit='contain' />
+                </div>
 
                 {/* Middle Part - Custom search input field */}
                 <div className='max-w-xs '>
@@ -41,7 +45,7 @@ function Header() {
 
                 {/* Right Part */}
                 <div className='flex items-center justify-end space-x-4'>
-                <HomeIcon className='navBtn h-10 w-10' />
+                <HomeIcon onClick={() => router.push('/')} className='navBtn h-10 w-10' />
                 <MenuIcon className='h-9 md:hidden cursor-pointer' />
 
                 {session ? (
