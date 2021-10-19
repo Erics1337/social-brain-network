@@ -10,10 +10,18 @@ export default NextAuth({
     }),
     // ...add more providers here
   ],
-
   pages: {
       signIn: "/auth/signin",
-  }
+  },
+  // Callbacks enhance the user object that is returned from signing in with upgraded data
+  callbacks: {
+    async session({ session, token, user }) {
+      // Create usernames off users name
+      session.user.username = session.user.name.split(' ').join('').toLowerCase()
+      session.user.uid = token.sub
+      return session
+    }
+  },
 
 //   Customizes default login screen
 

@@ -15,7 +15,7 @@ function Header() {
     // Destruct session object and rename data to session
     const {data: session, status} = useSession()
 
-    console.log(session)
+    // console.log(session)
 
     return (
         <div className="shadow-md border-b bg-white sticky top-0 z-50">
