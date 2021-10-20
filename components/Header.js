@@ -11,10 +11,13 @@ import { HomeIcon } from "@heroicons/react/solid"
 // Helper functions
 import { useSession, signIn, signOut } from "next-auth/react"
 import { useRouter } from 'next/router';
+import { useRecoilState } from "recoil";
+import { modalState } from '../atoms/modalAtom';
 
 function Header() {
     // Destruct session object and rename data to session
     const {data: session, status} = useSession()
+    const [open, setOpen] = useRecoilState(modalState)
     const router = useRouter()
 
     // console.log(session)
@@ -54,7 +57,7 @@ function Header() {
                     <PaperAirplaneIcon className='navBtn rotate-45' />
                     <div className="absolute -top-2 -right-1 text-xs w-5 h-5 bg-red-500 rounded-full flex items-center justify-center animate-pulse">3</div>
                 </div>
-                <PlusCircleIcon className='navBtn' />
+                <PlusCircleIcon onClick={() => setOpen(true)} className='navBtn' />
                 <UserGroupIcon className='navBtn' />
                 <HeartIcon className='navBtn' />
 
