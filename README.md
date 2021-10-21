@@ -33,5 +33,5 @@ https://www.youtube.com/watch?v=a6Xs2Ir40OI&list=PLtisOZsxayjEC3ouCwhkTSG4twFqI7
 + heroicons
 + faker.js - generate massive amounts of realistic data
 + NextAuth.js
-+ Firebase
++ Firebase v.9
 + Recoil - State management - good for non nested components that need a global store
