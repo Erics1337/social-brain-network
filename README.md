@@ -17,11 +17,12 @@ Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&ut
 
 ## Important commands
 + npm install @heroicons/react
-+ npm install @tailwindcss/forms
-+ npm install @tailwindcss/scrollbar
-+ npm install next-auth@beta
++ npm i @tailwindcss/forms
++ npm i @tailwindcss/scrollbar
++ npm i next-auth@beta
 + npm i firebase
-+ npm install recoil
++ npm i recoil
++ npm i react-moment
 
 ## From Tutorial:
 https://www.youtube.com/watch?v=a6Xs2Ir40OI&list=PLtisOZsxayjEC3ouCwhkTSG4twFqI7eo7&index=9&t=8517s
@@ -35,3 +36,4 @@ https://www.youtube.com/watch?v=a6Xs2Ir40OI&list=PLtisOZsxayjEC3ouCwhkTSG4twFqI7
 + NextAuth.js
 + Firebase v.9 - Storage solution from google; NoSQL and image hosting
 + Recoil - State management - good for non nested components that need a global store
++ react-moment - library that allows us to pass the timestamp into a string
