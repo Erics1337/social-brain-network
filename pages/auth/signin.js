@@ -13,7 +13,7 @@ function signin({ providers }) {
           <div className="mt-14">
           {Object.values(providers).map((provider) => (
             <div key={provider.name}>
-              <button onClick={() => signIn(provider.id, { callbackUrl: '/' })}
+              <button onClick={() => signIn(provider.id, { callbackUrl: NEXTAUTH_URL })}
               className="p-3 bg-blue-500 rounded-lg text-white">
                 Sign in with {provider.name}
               </button>
@@ -24,6 +24,8 @@ function signin({ providers }) {
       </>
     )
 }
+
+// added NEXTAUTH_URL
 
 // Server side render
 export async function getServerSideProps() {
