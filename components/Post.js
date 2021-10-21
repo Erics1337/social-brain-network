@@ -1,10 +1,13 @@
 import {
   addDoc,
   collection,
+  deleteDoc,
+  doc,
   onSnapshot,
   orderBy,
   query,
   serverTimestamp,
+  setDoc,
 } from "@firebase/firestore"
 import {
   BookmarkIcon,
@@ -24,8 +27,11 @@ function Post({ id, username, userImg, img, caption }) {
   const { data: session } = useSession()
   const [comment, setComment] = useState("")
   const [comments, setComments] = useState([])
+  const [likes, setLikes] = useState([])
+  const [hasLiked, setHasLiked] = useState(false)
 
-  useEffect( 
+  // Get post data
+  useEffect(
     () =>
       onSnapshot(
         query(
@@ -34,11 +40,39 @@ function Post({ id, username, userImg, img, caption }) {
         ),
         (snapshot) => setComments(snapshot.docs)
       ),
-    [db]
+    [db, id]
   )
 
-  // database dependency b/c this function has database calls
+  //  Get likes
+  useEffect(
+    () =>
+      onSnapshot(collection(db, "posts", id, "likes"), (snapshot) =>
+        setLikes(snapshot.docs)
+      ),
+    [db, id]
+  )
 
+  //   Searches likes array in state if user is in there, and if not (findIndex returns -1) setHasLiked to false
+  useEffect(
+    () =>
+      setHasLiked(
+        likes.findIndex((like) => like.id === session?.user?.uid) !== -1
+      ),
+    [likes]
+  )
+
+  //   Toggles like
+  const likePost = async () => {
+    if (hasLiked) {
+      await deleteDoc(doc(db, "posts", id, "likes", session.user.uid))
+    } else {
+      await setDoc(doc(db, "posts", id, "likes", session.user.uid), {
+        username: session.user.username,
+      })
+    }
+  }
+
+  //   Send comment to db
   const sendComment = async (e) => {
     // Disable default action of form submit to page refresh
     e.preventDefault()
@@ -75,7 +109,13 @@ function Post({ id, username, userImg, img, caption }) {
       {session && (
         <div className="flex justify-between px-4 pt-4">
           <div className="flex space-x-4">
-            <HeartIcon className="btn" />
+              {
+                  hasLiked ? (
+                      <HeartIconFilled className="btn text-red-500" onClick={likePost}/>
+                  ) : (
+                      <HeartIcon className="btn" onClick={likePost} />
+                  )
+              }
             <ChatIcon className="btn" />
             <PaperAirplaneIcon className="btn" />
           </div>
@@ -85,6 +125,9 @@ function Post({ id, username, userImg, img, caption }) {
 
       {/* caption */}
       <p className="p-5 truncate">
+          {likes.length > 0 && (
+              <p className="font-bold mb-1">{likes.length} likes</p>
+          )}
         <span className="font-bold mr-1">{username} </span>
         {caption}
       </p>
@@ -100,7 +143,9 @@ function Post({ id, username, userImg, img, caption }) {
                 alt=""
               />
               <p className="text-sm flex-1">
-                <span className="font-bold pr-2">{comment.data().username}</span>
+                <span className="font-bold pr-2">
+                  {comment.data().username}
+                </span>
                 {comment.data().comment}
               </p>
               <Moment interval={1000} fromNow className="pr-5 text-xs">
