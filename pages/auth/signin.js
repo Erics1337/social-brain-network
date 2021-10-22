@@ -7,7 +7,7 @@ function signin({ providers }) {
         <>
         <Header />
         <div className="flex flex-col items-center justify-center min-h-screen py-2 -mt-56 px-14 text-center">
-          <img src="https://links.papareact.com/ocw" 
+          <img src="/logoText.png" 
             className="w-80" alt="" /> 
 
           <div className="mt-14">

@@ -26,12 +26,12 @@ function Header() {
         <div className="shadow-md border-b bg-white sticky top-0 z-50">
             <div className='flex justify-between max-w-6xl mx-5 lg:mx-auto'>
                 {/* Left Part */}
-                <div onClick={() => router.push('/')} className='relative hidden lg:inline-grid w-24 cursor-pointer'>
-                    <Image src="https://links.papareact.com/ocw" layout='fill' objectFit='contain' />
+                <div onClick={() => router.push('/')} className='relative hidden lg:inline-grid w-60 cursor-pointer'>
+                    <Image src="/logoText.png" layout='fill' objectFit='contain'/>
                 </div>
 
                 <div onClick={() => router.push('/')} className='relative w-10 lg:hidden flex-shrink-0 cursor-pointer'>
-                    <Image src="https://links.papareact.com/jjm" layout='fill' objectFit='contain' />
+                    <Image src="/logo.png" layout='fill' objectFit='contain' />
                 </div>
 
                 {/* Middle Part - Custom search input field */}
