@@ -17,7 +17,7 @@ https://www.youtube.com/watch?v=a6Xs2Ir40OI&list=PLtisOZsxayjEC3ouCwhkTSG4twFqI7
     ++ Dialog, Transition - For modal
 + heroicons
 + faker.js - generate massive amounts of realistic data
-+ NextAuth.js
++ NextAuth.js - Handles CSRF tokens, password encryption, password reset emails, etc...
 + Firebase v.9 - Storage solution from google; NoSQL and image hosting
 + Recoil - State management - good for non nested components that need a global store
 + react-moment - library that allows us to pass the timestamp into a string

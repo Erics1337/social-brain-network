@@ -106,7 +106,6 @@ function Post({ id, username, userImg, img, caption }) {
       <img src={img} className="object-cover w-full" alt="" />
 
       {/* Buttons */}
-      {session && (
         <div className="flex justify-between px-4 pt-4">
           <div className="flex space-x-4">
               {
@@ -121,7 +120,7 @@ function Post({ id, username, userImg, img, caption }) {
           </div>
           <BookmarkIcon className="btn" />
         </div>
-      )}
+     
 
       {/* caption */}
       <p className="p-5 truncate">
@@ -157,7 +156,6 @@ function Post({ id, username, userImg, img, caption }) {
       )}
 
       {/* input box */}
-      {session && (
         <form className="flex items-center p-4">
           <EmojiHappyIcon className="h-7" />
           <input
@@ -179,7 +177,6 @@ function Post({ id, username, userImg, img, caption }) {
             Post
           </button>
         </form>
-      )}
     </div>
   )
 }
