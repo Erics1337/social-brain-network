@@ -7,3 +7,5 @@ module.exports = {
         domains: ['links.papareact.com']
     }
 }
+
+throwIfNamespace: false
