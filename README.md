@@ -1,7 +1,7 @@
 # The Social Brain Network
 Not a social network, but a social network management system
 	- A tool to manage the grouping of your social connections within the framework of the social brain hypothesis
-## Features
+## Feature Wish-list
 - Allows links (instagram does not, unless you are an influencer)
 - Friend Groupings associated with ranks of Dunbar's theory
 - A personal journal feature for non-visible posts
@@ -34,3 +34,6 @@ It uses the new [`Just-in-Time Mode`](https://tailwindcss.com/docs/just-in-time-
 + npm i firebase
 + npm i recoil
 + npm i react-moment
+
+## Get Started
+npm run dev

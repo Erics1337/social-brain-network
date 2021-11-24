@@ -12,3 +12,23 @@
         @apply h-7 hover:scale-125 cursor-pointer transition-all duration-150 ease-out;
     }
 }
+
+
+        .facebook-logo {
+            background-position: -414px -259px;
+            background-image: url(https://bit.ly/3v2LT17);
+            height: 16px;
+            width: 16px;
+        }
+        .apple-store-logo {
+            background-position: -132px -182px;
+            height: 42px;
+            width: 128px;
+            background-image: url(https://bit.ly/3v2LT17);
+        }
+        .google-store-logo {
+            background-position: 0 -182px;
+            height: 42px;
+            width: 130px;
+            background-image: url(https://bit.ly/3v2LT17);
+        }
