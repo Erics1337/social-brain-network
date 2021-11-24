@@ -81,8 +81,8 @@ function signUp() {
             <span className="bg-gray-300 h-px flex-grow t-2 relative top-2"></span>
         </div>
         <button className="mt-4 flex">
-            <div className="bg-no-repeat facebook-logo mr-1"></div>
-            <span className="text-xs text-blue-900 font-semibold">Sign Up with Facebook</span>
+            {/* <div className="bg-no-repeat facebook-logo mr-1"></div> */}
+            {/* <span className="text-xs text-blue-900 font-semibold">Sign Up with Facebook</span> */}
         </button>
         {/* <a className="text-xs text-blue-900 mt-4 cursor-pointer -mb-4">Forgot password?</a> */}
     </div>
