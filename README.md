@@ -26,14 +26,7 @@ https://www.youtube.com/watch?v=a6Xs2Ir40OI&list=PLtisOZsxayjEC3ouCwhkTSG4twFqI7
 This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v2.2)](https://blog.tailwindcss.com/tailwindcss-2-2) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
 It uses the new [`Just-in-Time Mode`](https://tailwindcss.com/docs/just-in-time-mode) for Tailwind CSS.
 
-## Setup
-+ npm install @heroicons/react
-+ npm i @tailwindcss/forms
-+ npm i @tailwindcss/scrollbar
-+ npm i next-auth@beta
-+ npm i firebase
-+ npm i recoil
-+ npm i react-moment
-
 ## Get Started
+```
 npm run dev
+```

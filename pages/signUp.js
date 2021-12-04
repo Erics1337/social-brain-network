@@ -4,7 +4,8 @@ import * as Yup from "yup"
 import { Formik, Field, Form } from "formik"
 import { db, auth } from '../firebase'
 import { collection, limit, onSnapshot, query, where, addDoc, setDoc, getDoc, doc } from "@firebase/firestore"
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword } from "firebase/auth";
+import router from 'next/router'
 
 
 
@@ -26,7 +27,7 @@ function signUp() {
         const data = await response.json()
         return data.results[0].picture.large
       }
-      
+
 
   const handleSignup = async (email, password, username) => {
     try {
@@ -40,7 +41,10 @@ function signUp() {
         email: authUser.user.email,
         profile_picture: await getRandomProfilePicture()
       })
-
+      .then(signInWithEmailAndPassword(auth, email, password))
+        .then(console.log('User Signed In Successfully'))
+    //   .then(sendEmailVerification(auth.currentUser))
+        .then(router.push('/'))
 
       console.log('Firebase User Added to Database', authUser.user.uid)
     } catch (error) {
@@ -100,5 +104,6 @@ function signUp() {
 </div>
     )
 }
+
 
 export default signUp

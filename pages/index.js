@@ -3,10 +3,41 @@ import Feed from '../components/Feed'
 import Header from '../components/Header';
 import Modal from '../components/Modal';
 import Homepage from '../components/Homepage';
-import { useSession } from "next-auth/react"
+import {useState, useEffect} from 'react'
+import { db, auth } from '../firebase';
+import { getDoc, doc } from "@firebase/firestore"
+
+
 
 export default function Home() {
-  const { data: session } = useSession()
+  const [currentUser, setCurrentUser] = useState(null)
+
+  const userHandler = user => user ? setCurrentUser(user) : setCurrentUser(null)
+
+  useEffect(() => 
+  // Global listener for auth state changes
+  auth.onAuthStateChanged(user => userHandler(user))
+, [])
+
+
+// On page load, queries db for user obj based on currentlyLoggedInUser and sets profilePicture to state
+useEffect(() => {
+  try { 
+    getDoc(doc(db, "users", auth.currentUser.email)).then(docSnap => {
+    if (docSnap.exists()) {
+        setCurrentUser({
+          ...currentUser,
+          username: docSnap.data().username,
+          profilePicture: docSnap.data().profile_picture,
+        })
+    } else {
+      console.log("No such document!");
+    }
+  })
+} catch (error) {
+  console.log(error)
+}
+}, [])
 
   return (
     <div className="bg-grey-50 h-screen overflow-y-scroll scrollbar-hide">
@@ -17,14 +48,14 @@ export default function Home() {
 
       <Header />
 
-      {session ? (
-      <Feed />
+      {currentUser ? (
+      <Feed currentUser={currentUser}/>
       ) : (
         <Homepage  />
     )}
 
       {/* Feed */}
-      <Modal />
+      <Modal currentUser={currentUser}/>
 
     </div>
   )

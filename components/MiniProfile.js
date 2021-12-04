@@ -1,20 +1,19 @@
-import { signOut, useSession } from "next-auth/react"
+import { signOut } from "firebase/auth";
+import { auth } from '../firebase';
 
-function MiniProfile() {
-    const { data: session } = useSession()
 
-    // console.log(session)
+function MiniProfile({ currentUser }) {
 
     return (
         <div className="flex items-center justify-between mt-14 ml-10">
-            <img className="rounded-full border w-16 h-16" src={session?.user?.image} alt="" />
+            <img className="rounded-full border w-16 h-16" src={currentUser.profilePicture} alt="" />
             <div className="mx-4">
                 {/* ? protects code from asynchronous behavior of the signin callback */}
-                <h2 className="font-bold">{session?.user?.username}</h2>
-                <h3 className="text-sm">Welcome to Instagram</h3>
+                <h2 className="font-bold">{currentUser.username}</h2>
+                <h3 className="text-sm">Welcome to Social Brain</h3>
             </div>
-            <button onClick={signOut}
-            className="text-blue-400 text-sm font-semibold">Sign Out</button>
+            <button onClick={()=> signOut(auth).then(() => {window.location.reload()})}
+                 className="text-blue-400 text-sm font-semibold cursor-pointer">Sign Out</button>
         </div>
     )
 }

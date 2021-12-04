@@ -10,18 +10,20 @@ import {
 } from '@heroicons/react/outline'
 import { HomeIcon } from "@heroicons/react/solid"
 // Helper functions
-import { useSession, signIn, signOut } from "next-auth/react"
 import { useRouter } from 'next/router';
 import { useRecoilState } from "recoil";
 import { modalState } from '../atoms/modalAtom';
+import { auth } from '../firebase';
+import { signOut } from "firebase/auth";
+import router from 'next/router';
+
+
 
 function Header() {
     // Destruct session object and rename data to session
-    const {data: session, status} = useSession()
+    // const {data: session, status} = useSession()
     const [open, setOpen] = useRecoilState(modalState)
     const router = useRouter()
-
-    // console.log(session)
 
     return (
         <div className="shadow-md border-b bg-white sticky top-0 z-50">
@@ -52,7 +54,7 @@ function Header() {
                 <HomeIcon onClick={() => router.push('/')} className='navBtn h-10 w-10' />
                 <MenuIcon className='h-9 md:hidden cursor-pointer' />
 
-                {session ? (
+                {auth.currentUser ? (
                     <>
                     <div className="relative navBtn">
                     <PaperAirplaneIcon className='navBtn rotate-45' />
@@ -62,13 +64,11 @@ function Header() {
                 <UserGroupIcon className='navBtn' />
                 <HeartIcon className='navBtn' />
 
-                <img src={session.user.image} alt="profile pic" 
-                onClick={signOut} className="h-10 w-10 rounded-full cursor-pointer" />
+                {/* <img src={} alt="profile pic" onClick={signOut} className="h-10 w-10 rounded-full cursor-pointer" /> */}
+                <button onClick={()=> signOut(auth).then(() => {window.location.reload()})} className="cursor-pointer">Sign Out</button>
                 </>
                 ) : (
-                    <Link href='/signUp'>
-                    <button>Sign In</button>
-                    </Link>
+                    <button onClick={()=> router.push('logIn')}>Log In</button>
                 )}
 
                 
