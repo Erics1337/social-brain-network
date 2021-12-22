@@ -6,18 +6,16 @@ import Homepage from '../components/Homepage';
 import {useState, useEffect} from 'react'
 import { db, auth } from '../firebase';
 import { getDoc, doc } from "@firebase/firestore"
-
+import { onAuthStateChanged } from "firebase/auth";
 
 
 export default function Home() {
   const [currentUser, setCurrentUser] = useState(null)
 
-  const userHandler = user => user ? setCurrentUser(user) : setCurrentUser(null)
-
-  useEffect(() => 
-  // Global listener for auth state changes
-  auth.onAuthStateChanged(user => userHandler(user))
-, [])
+  // By using an observer, you ensure that the Auth object isn't in an intermediate state
+  onAuthStateChanged(auth, (user) => {
+    user ? setCurrentUser(user) : setCurrentUser(null)
+  })
 
 
 // On page load, queries db for user obj based on currentlyLoggedInUser and sets profilePicture to state
