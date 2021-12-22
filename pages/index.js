@@ -12,10 +12,10 @@ import { onAuthStateChanged } from "firebase/auth";
 export default function Home() {
   const [currentUser, setCurrentUser] = useState(null)
 
-  // By using an observer, you ensure that the Auth object isn't in an intermediate state
-  onAuthStateChanged(auth, (user) => {
-    user ? setCurrentUser(user) : setCurrentUser(null)
-  })
+  // // By using an observer, you ensure that the Auth object isn't in an intermediate state
+  // onAuthStateChanged(auth, (user) => {
+  //   user ? setCurrentUser(user) : setCurrentUser(null)
+  // })
 
 
 // On page load, queries db for user obj based on currentlyLoggedInUser and sets profilePicture to state
@@ -24,10 +24,11 @@ useEffect(() => {
     getDoc(doc(db, "users", auth.currentUser.email)).then(docSnap => {
     if (docSnap.exists()) {
         setCurrentUser({
-          ...currentUser,
+          uid: auth.currentUser.uid,
           username: docSnap.data().username,
           profilePicture: docSnap.data().profile_picture,
         })
+        console.log(currentUser)
     } else {
       console.log("No such document!");
     }
@@ -47,6 +48,7 @@ useEffect(() => {
       <Header />
 
       {currentUser ? (
+      // <pre>{JSON.stringify(currentUser)}</pre>
       <Feed currentUser={currentUser}/>
       ) : (
         <Homepage  />

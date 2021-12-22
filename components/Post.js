@@ -18,13 +18,12 @@ import {
   PaperAirplaneIcon,
 } from "@heroicons/react/outline"
 import { HeartIcon as HeartIconFilled } from "@heroicons/react/solid"
-import { useSession } from "next-auth/react"
 import { useEffect, useState } from "react"
 import Moment from "react-moment"
-import { db } from "../firebase"
+import { db, auth } from "../firebase"
 
-function Post({ id, username, userImg, img, caption }) {
-  const { data: session } = useSession()
+
+function Post({ currentUser, id, username, userImg, img, caption }) {
   const [comment, setComment] = useState("")
   const [comments, setComments] = useState([])
   const [likes, setLikes] = useState([])
@@ -56,7 +55,7 @@ function Post({ id, username, userImg, img, caption }) {
   useEffect(
     () =>
       setHasLiked(
-        likes.findIndex((like) => like.id === session?.user?.uid) !== -1
+        likes.findIndex((like) => like.id === currentUser.uid) !== -1
       ),
     [likes]
   )
@@ -64,10 +63,10 @@ function Post({ id, username, userImg, img, caption }) {
   //   Toggles like
   const likePost = async () => {
     if (hasLiked) {
-      await deleteDoc(doc(db, "posts", id, "likes", session.user.uid))
+      await deleteDoc(doc(db, "posts", id, "likes", currentUser.uid))
     } else {
-      await setDoc(doc(db, "posts", id, "likes", session.user.uid), {
-        username: session.user.username,
+      await setDoc(doc(db, "posts", id, "likes", currentUser.uid), {
+        username: currentUser.username,
       })
     }
   }
@@ -83,8 +82,8 @@ function Post({ id, username, userImg, img, caption }) {
 
     await addDoc(collection(db, "posts", id, "comments"), {
       comment: commentToSend,
-      username: session.user.username,
-      userImage: session.user.image,
+      username: currentUser.username,
+      userImage: currentUser.profilePicture,
       timestamp: serverTimestamp(),
     })
   }

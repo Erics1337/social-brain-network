@@ -12,8 +12,7 @@ function Feed({ currentUser }) {
     >
       <section className="col-span-2">
         <Stories />
-        <Posts />
-        <h1>{currentUser.username}</h1>
+        <Posts currentUser={currentUser} />
       </section>
       <section className="hidden xl:inline-grid md:col-span-1">
         <div className="fixed top-20">
