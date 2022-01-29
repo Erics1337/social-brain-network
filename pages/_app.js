@@ -1,13 +1,16 @@
 import '../styles/globals.css'
 import { RecoilRoot } from 'recoil';
+import { UserProvider } from '../context/UserContext';
+
 
 
 function MyApp({ Component, pageProps: {...pageProps}}) {
   return (
-  // Session Provider allows us to keep our session state throughout our application
+  <UserProvider>
       <RecoilRoot>
         <Component {...pageProps} />
       </RecoilRoot>
+  </UserProvider>
   )
 }
 

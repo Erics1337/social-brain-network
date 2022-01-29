@@ -4,11 +4,14 @@ import TravelBooking from './svg/TravelBooking';
 import ConnectedWorld from './svg/ConnectedWorld';
 import WaveTop from './svg/WaveTop';
 
-import { useSession, signIn, signOut } from "next-auth/react"
+import { useRouter }  from 'next/router';
 
 
 
 function Homepage() {
+
+  const router = useRouter()
+
     return (
         <div>
         <div className="pt-24">
@@ -26,7 +29,7 @@ function Homepage() {
             It works with your biology instead of taking advantage of it, to empower you with tools you need to manage your social life
           </p>
 
-          <button onClick={signIn}
+          <button onClick={() => router.push('/signUp')}
             className="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
             Sign Up
           </button>
@@ -250,7 +253,9 @@ function Homepage() {
         </div>
       </div>
     </section>
+
     {/* <!-- Change the colour #f8fafc to match the previous section colour --> */}
+    
     <WaveTop />
     <section className="container mx-auto text-center py-6 mb-12">
       <h1 className="w-full my-2 text-5xl font-bold leading-tight text-center text-white">
