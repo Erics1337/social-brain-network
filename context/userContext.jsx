@@ -8,11 +8,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 const UserContext = createContext();
 export const UserProvider = ({ children }) => {
     
-    const initialState = {
-        uid: null,
-        username: null,
-        profilePicture: null,
-    }
+    const initialState = null
     const [state, dispatch] = useReducer(UserReducer, initialState);
     
 
@@ -20,12 +16,13 @@ export const UserProvider = ({ children }) => {
         const auth = getAuth();
         onAuthStateChanged(auth, (user) => {
         if (user) {
+          console.log('user logged in', user);
             loginUser(auth)
         } else {
             dispatch(setCurrentUser(initialState))
         }
         });
-    }
+      }
     
 
   // On page load, queries db for user obj based on currentlyLoggedInUser and sets profilePicture to state
@@ -48,8 +45,6 @@ export const UserProvider = ({ children }) => {
       console.log(error)
     }
 }
-
-
 
 
 
