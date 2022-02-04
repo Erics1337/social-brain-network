@@ -1,6 +1,6 @@
 import faker from "faker";
 import { useEffect, useState, useContext } from "react"
-import UserContext from "../../../context/userContext";
+import UserContext from "../../../../context/userContext";
 
 function Suggestions() {
     const { currentUser } = useContext(UserContext);

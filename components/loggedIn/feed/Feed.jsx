@@ -1,7 +1,7 @@
 import Stories from "../stories/Stories"
 import Posts from "./Posts"
-import MiniProfile from "./MiniProfile"
-import Suggestions from "./Suggestions"
+import MiniProfile from "./sidebar/MiniProfile"
+import Suggestions from "./sidebar/Suggestions"
 
 
 function Feed() {
