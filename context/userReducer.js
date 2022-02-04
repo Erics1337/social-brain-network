@@ -32,24 +32,6 @@ const UserReducer = (state, action) => {
                 currentUser: action.payload,
                 loading: false,
             };
-        // case "SET_USERNAME":
-        //     return {
-        //         ...state,
-        //         currentUser: {
-        //                 ...state.currentUser,
-        //                 username: action.payload,
-        //             },
-        //             loading: false,
-        //     };
-        // case "SET_PROFILE_PICTURE":
-        //     return {
-        //         ...state,
-        //         currentUser: {
-        //                 ...state.currentUser,
-        //                 profilePicture: action.payload,
-        //             },
-        //             loading: false,
-        //     };
         default:
             return state;
     }

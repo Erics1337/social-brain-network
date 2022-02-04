@@ -5,16 +5,20 @@ import Modal from '../components/Modal';
 import Homepage from '../components/landingPage/Homepage';
 import {useContext, useEffect} from 'react'
 import UserContext from '../context/userContext'
+import { auth } from '../firebase';
+import Loader from '../components/Loader';
+
 
 
 export default function Home() {
 
-  const { currentUser, loginUser, loginWithAuth } = useContext(UserContext);
+  const { currentUser, loginWithAuth, loading } = useContext(UserContext);
 
   useEffect(() => {
   loginWithAuth()
 }, [])
 
+  if (loading) return <Loader />
   return (
     <div className="bg-grey-50 h-screen overflow-y-scroll scrollbar-hide">
       <Head>
@@ -24,8 +28,7 @@ export default function Home() {
 
       <Navbar />
 
-      {currentUser ? (
-      // <pre>{JSON.stringify(currentUser)}</pre>
+      {auth.currentUser ? (
       <Feed />
       ) : (
         <Homepage  />

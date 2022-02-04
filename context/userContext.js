@@ -8,7 +8,17 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 const UserContext = createContext();
 export const UserProvider = ({ children }) => {
     
-    const initialState = null
+    const initialState = {
+        currentUser: {
+            id: "",
+            username: "",
+            profile_picture: "",
+            email: "",
+            friends: [],
+          },
+        loading: true,
+    }
+    // const initialState = null
     const [state, dispatch] = useReducer(UserReducer, initialState);
     
 
@@ -31,7 +41,7 @@ export const UserProvider = ({ children }) => {
             getDoc(doc(db, "users", auth.currentUser.email)).then(docSnap => {
                 if (docSnap.exists()) {
                     dispatch(setCurrentUser({
-                        uid: auth.currentUser.uid,
+                        id: auth.currentUser.uid,
                         username: docSnap.data().username,
                         profilePicture: docSnap.data().profile_picture,
                         email: docSnap.data().email

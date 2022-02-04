@@ -1,4 +1,5 @@
 import '../styles/globals.css'
+import '../styles/loaders.css'
 import { RecoilRoot } from 'recoil';
 import { UserProvider } from '../context/userContext';
 
