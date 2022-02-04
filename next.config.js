@@ -7,5 +7,8 @@ module.exports = {
         domains: ['links.papareact.com']
     },
 }
+{
+    swcMinify: false // it should be false by default 
+}
 
 throwIfNamespace: false
