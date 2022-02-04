@@ -7,6 +7,8 @@
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
+import { getAuth } from "firebase/auth";
+
 // import { getAnalytics } from "firebase/analytics";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -15,28 +17,29 @@ import { getStorage } from "firebase/storage";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyBYzJn0bz0GbLQzNWu84wZnejxA3FZuxsM",
-  authDomain: "social-brain-network.firebaseapp.com",
-  projectId: "social-brain-network",
-  storageBucket: "social-brain-network.appspot.com",
-  messagingSenderId: "42265920254",
-  appId: "1:42265920254:web:b66e1b246bde18f7bd9baf",
-  measurementId: "G-M4EK4MXEQK"
+  apiKey: "AIzaSyA3nNcamCycwq9q7za1p5ltS-tVGKQaT_8",
+  authDomain: "socialbrainnet.firebaseapp.com",
+  projectId: "socialbrainnet",
+  storageBucket: "socialbrainnet.appspot.com",
+  messagingSenderId: "199763983513",
+  appId: "1:199763983513:web:1e9575a944abcbe1a84c08"
 };
 
 // Initialize Firebase
 // const app = initializeApp(firebaseConfig);
 
 // Get the length of the apps currently initialized
-// if length of that is no, initialize a new app, otherwise use the app that is already initialized
+// if length of that is none, initialize a new app, otherwise use the app that is already initialized
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 // Initialize database and with helper functions
 const db = getFirestore();
 const storage = getStorage();
+const auth = getAuth();
+
 // const analytics = getAnalytics(app);
 
 // Explicit export means we are exporting more than one thing
-export { app, db, storage };
+export { app, db, storage, auth };
 
 
 // Singleton pattern is utalized here so that when rendering server-side

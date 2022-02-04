@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import Image from 'next/image'
 import {
     SearchIcon,
@@ -9,29 +10,31 @@ import {
 } from '@heroicons/react/outline'
 import { HomeIcon } from "@heroicons/react/solid"
 // Helper functions
-import { useSession, signIn, signOut } from "next-auth/react"
 import { useRouter } from 'next/router';
 import { useRecoilState } from "recoil";
 import { modalState } from '../atoms/modalAtom';
+import { auth } from '../firebase';
+import { signOut } from "firebase/auth";
+import router from 'next/router';
+
+
 
 function Header() {
     // Destruct session object and rename data to session
-    const {data: session, status} = useSession()
+    // const {data: session, status} = useSession()
     const [open, setOpen] = useRecoilState(modalState)
     const router = useRouter()
-
-    // console.log(session)
 
     return (
         <div className="shadow-md border-b bg-white sticky top-0 z-50">
             <div className='flex justify-between max-w-6xl mx-5 lg:mx-auto'>
                 {/* Left Part */}
-                <div onClick={() => router.push('/')} className='relative hidden lg:inline-grid w-24 cursor-pointer'>
-                    <Image src="https://links.papareact.com/ocw" layout='fill' objectFit='contain' />
+                <div onClick={() => router.push('/')} className='relative hidden lg:inline-grid w-60 cursor-pointer'>
+                    <Image src="/logoText.png" layout='fill' objectFit='contain'/>
                 </div>
 
                 <div onClick={() => router.push('/')} className='relative w-10 lg:hidden flex-shrink-0 cursor-pointer'>
-                    <Image src="https://links.papareact.com/jjm" layout='fill' objectFit='contain' />
+                    <Image src="/logo.png" layout='fill' objectFit='contain' />
                 </div>
 
                 {/* Middle Part - Custom search input field */}
@@ -51,7 +54,7 @@ function Header() {
                 <HomeIcon onClick={() => router.push('/')} className='navBtn h-10 w-10' />
                 <MenuIcon className='h-9 md:hidden cursor-pointer' />
 
-                {session ? (
+                {auth.currentUser ? (
                     <>
                     <div className="relative navBtn">
                     <PaperAirplaneIcon className='navBtn rotate-45' />
@@ -61,11 +64,11 @@ function Header() {
                 <UserGroupIcon className='navBtn' />
                 <HeartIcon className='navBtn' />
 
-                <img src={session.user.image} alt="profile pic" 
-                onClick={signOut} className="h-10 w-10 rounded-full cursor-pointer" />
+                {/* <img src={} alt="profile pic" onClick={signOut} className="h-10 w-10 rounded-full cursor-pointer" /> */}
+                <button onClick={()=> signOut(auth).then(() => {window.location.reload()})} className="cursor-pointer">Sign Out</button>
                 </>
                 ) : (
-                    <button onClick={signIn}>Sign In</button>
+                    <button onClick={()=> router.push('logIn')}>Log In</button>
                 )}
 
                 

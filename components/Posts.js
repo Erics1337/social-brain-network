@@ -3,13 +3,9 @@ import { useEffect, useState } from "react"
 import { db } from "../firebase"
 import Post from "./Post"
 
-function Posts() {
+function Posts({ currentUser }) {
   const [posts, setPosts] = useState([])
 
-//   useEffect(() => {
-//     // use query to get posts collection ordered by timestamp
-//     // snapshot is a real-time listener
-//     // returns unsubscribe function
 //     const unsubscribe = onSnapshot(
 //       query(collection(db, "posts"), orderBy("timestamp", "desc")),
 //       (snapshot) => {
@@ -22,7 +18,6 @@ function Posts() {
 //     return () => {
 //       unsubscribe()
 //     }
-//   }, [db])
 
 
 //   Light-weight refactored version
@@ -42,6 +37,7 @@ function Posts() {
     <div>
       {posts.map((post) => (
         <Post
+          currentUser={currentUser}
           key={post.id}
           id={post.id}
           username={post.data().username}

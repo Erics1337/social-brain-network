@@ -4,12 +4,10 @@ import { Dialog, Transition } from "@headlessui/react"
 import { Fragment, useRef, useState } from "react"
 import { CameraIcon } from "@heroicons/react/outline"
 import { db, storage } from "../firebase"
-import { useSession } from 'next-auth/react';
 import { addDoc, collection, doc, serverTimestamp, updateDoc } from "@firebase/firestore";
 import { ref, getDownloadURL, uploadString } from "@firebase/storage"
 
-function Modal() {
-  const { data: session } = useSession()
+function Modal({ currentUser }) {
   const [open, setOpen] = useRecoilState(modalState)
   const filePickerRef = useRef(null)
   const captionRef = useRef(null)
@@ -23,9 +21,9 @@ function Modal() {
 
     // 1. Create a post and add to firestore 'posts' collection
     const docRef = await addDoc(collection(db, 'posts'), {
-      username: session.user.username,
+      username: currentUser.username,
       caption: captionRef.current.value,
-      profileImg: session.user.image,
+      profilePicture: currentUser.profilePicture,
       // Use server timezone so we can query based on the same time
       timestamp: serverTimestamp()
     })

@@ -1,15 +1,16 @@
 import '../styles/globals.css'
-import { SessionProvider } from "next-auth/react"
 import { RecoilRoot } from 'recoil';
+import { UserProvider } from '../context/UserContext';
 
-function MyApp({ Component, pageProps: { session, ...pageProps} }) {
+
+
+function MyApp({ Component, pageProps: {...pageProps}}) {
   return (
-  // Session Provider allows us to keep our session state throughout our application
-  <SessionProvider session={session}>
-    <RecoilRoot>
-      <Component {...pageProps} />
-    </RecoilRoot>
-  </SessionProvider>
+  <UserProvider>
+      <RecoilRoot>
+        <Component {...pageProps} />
+      </RecoilRoot>
+  </UserProvider>
   )
 }
 
