@@ -5,6 +5,8 @@ import Modal from '../components/Modal';
 import Homepage from '../components/landingPage/Homepage';
 import {useContext, useEffect} from 'react'
 import UserContext from '../context/userContext'
+import { auth } from '../firebase';
+
 
 
 export default function Home() {
@@ -24,8 +26,7 @@ export default function Home() {
 
       <Navbar />
 
-      {currentUser ? (
-      // <pre>{JSON.stringify(currentUser)}</pre>
+      {auth ? (
       <Feed />
       ) : (
         <Homepage  />

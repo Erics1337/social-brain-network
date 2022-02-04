@@ -2,10 +2,7 @@ import { Profiler, useEffect, useState, useContext } from "react"
 import Story from "./Story"
 import { db } from "../../../firebase"
 import {
-	collection,
 	onSnapshot,
-	orderBy,
-	query,
 	getDoc,
 	doc,
 } from "@firebase/firestore"
