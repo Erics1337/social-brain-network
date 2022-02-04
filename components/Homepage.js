@@ -14,9 +14,9 @@ function Homepage() {
 	return (
 		<div>
 			<Header embedId='zZF6vXMGBOw' />
-			<Features />
+			{/* <Features />
 			<GettingStarted />
-			<Pricing />
+			<Pricing /> */}
 			<CallToAction />
 			<Footer />
 		</div>
