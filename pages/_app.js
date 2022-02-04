@@ -1,6 +1,6 @@
 import '../styles/globals.css'
 import { RecoilRoot } from 'recoil';
-import { UserProvider } from '../context/UserContext';
+import { UserProvider } from '../context/userContext';
 
 
 

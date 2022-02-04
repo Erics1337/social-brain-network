@@ -4,7 +4,7 @@ import Header from '../components/Header';
 import Modal from '../components/Modal';
 import Homepage from '../components/Homepage';
 import {useContext, useEffect} from 'react'
-import UserContext from '../context/UserContext'
+import UserContext from '../context/userContext'
 
 
 
