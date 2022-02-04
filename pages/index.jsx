@@ -1,11 +1,10 @@
 import Head from 'next/head'
-import Feed from '../components/Feed'
-import Header from '../components/Header';
+import Feed from '../components/loggedIn/feed/Feed'
+import Navbar from '../components/Navbar';
 import Modal from '../components/Modal';
-import Homepage from '../components/Homepage';
+import Homepage from '../components/landingPage/Homepage';
 import {useContext, useEffect} from 'react'
 import UserContext from '../context/userContext'
-
 
 
 export default function Home() {
@@ -23,11 +22,11 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Header />
+      <Navbar />
 
       {currentUser ? (
       // <pre>{JSON.stringify(currentUser)}</pre>
-      <Feed currentUser={currentUser}/>
+      <Feed />
       ) : (
         <Homepage  />
     )}

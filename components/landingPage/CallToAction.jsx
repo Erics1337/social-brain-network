@@ -1,6 +1,8 @@
 import React from "react"
+import { useRouter } from 'next/router';
 
 function CallToAction() {
+	const router = useRouter();
 	return (
 		<section className='container mx-auto text-center py-6 mb-12'>
 			<h1 className='w-full my-2 text-5xl font-bold leading-tight text-center'>

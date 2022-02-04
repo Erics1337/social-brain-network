@@ -1,9 +1,11 @@
 import { collection, onSnapshot, orderBy, query } from "@firebase/firestore"
-import { useEffect, useState } from "react"
-import { db } from "../firebase"
+import { useEffect, useState, useContext} from "react"
+import { db } from "../../../firebase"
 import Post from "./Post"
+import UserContext from "../../../context/userContext";
 
-function Posts({ currentUser }) {
+function Posts() {
+  const { currentUser } = useContext(UserContext);
   const [posts, setPosts] = useState([])
 
 //     const unsubscribe = onSnapshot(

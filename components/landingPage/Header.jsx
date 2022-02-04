@@ -1,8 +1,11 @@
 import React from "react"
 import YoutubeEmbed from "./YoutubeEmbed"
 import WaveTop from "../svg/WaveTop"
+import { useRouter } from 'next/router';
 
 function Header({ embedId }) {
+	const router = useRouter();
+
 	return (
 		<>
 			<div className='pt-24 bg-gray-50'>

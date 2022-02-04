@@ -20,7 +20,7 @@ import {
 import { HeartIcon as HeartIconFilled } from "@heroicons/react/solid"
 import { useEffect, useState } from "react"
 import Moment from "react-moment"
-import { db, auth } from "../firebase"
+import { db, auth } from "../../../firebase"
 
 
 function Post({ currentUser, id, username, userImg, img, caption }) {

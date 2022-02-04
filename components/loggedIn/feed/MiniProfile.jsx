@@ -1,8 +1,10 @@
 import { signOut } from "firebase/auth";
-import { auth } from '../firebase';
+import { auth } from '../../../firebase';
+import {useContext } from 'react'
+import UserContext from "../../../context/userContext";
 
-
-function MiniProfile({ currentUser }) {
+function MiniProfile() {
+    const { currentUser } = useContext(UserContext);
 
     return (
         <div className="flex items-center justify-between mt-14 ml-10">

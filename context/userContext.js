@@ -24,7 +24,6 @@ export const UserProvider = ({ children }) => {
         });
       }
     
-
   // On page load, queries db for user obj based on currentlyLoggedInUser and sets profilePicture to state
     const loginUser = (auth) => {
         dispatch(setLoading(true))
@@ -35,6 +34,7 @@ export const UserProvider = ({ children }) => {
                         uid: auth.currentUser.uid,
                         username: docSnap.data().username,
                         profilePicture: docSnap.data().profile_picture,
+                        email: docSnap.data().email
                     }))
                 } else {
                     console.log("No such document!");

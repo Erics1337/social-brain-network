@@ -1,8 +1,11 @@
 import React from 'react';
 import Image from "next/image"
+import { useRouter } from 'next/router';
 
 
 function Footer() {
+    const router = useRouter();
+
     return (
         <footer className='bg-white'>
         <div className='container mx-auto px-8'>
