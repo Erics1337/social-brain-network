@@ -6,6 +6,9 @@ import {
 	query,
 	limit,
 	where,
+	doc,
+	arrayUnion,
+	updateDoc,
 } from "@firebase/firestore"
 import UserContext from "../../../../context/userContext"
 
@@ -20,8 +23,8 @@ function Suggestions() {
 	)
 
 	useEffect(
-		() =>
-			onSnapshot(
+		() => {
+		const unsubscribe = onSnapshot(
 				query(
 					collection(db, "users"),
 					limit(suggestionCount),
@@ -39,20 +42,22 @@ function Suggestions() {
 						])
 					})
 				}
-			),
-		[db, suggestionCount]
+			)
+			return () => unsubscribe()
+		},
+		[db, suggestionCount, suggestions]
 	)
 
-	const followUser = (email) => {
-		const user = db.collection("users").doc(email)
-		user.update({
-			followers: firebase.firestore.FieldValue.arrayUnion(
+	const followUser = async (email) => {
+		await updateDoc(doc(collection(db, "users"), email),{
+			followers: arrayUnion(
 				currentUser.email
-			),
-		})
-		currentUser.update({
-			following: firebase.firestore.FieldValue.arrayUnion(email),
-		})
+			)})
+		
+		await updateDoc(doc(collection(db, "users"), currentUser.email),{
+			following: arrayUnion(email)
+		}
+		)
 	}
 
 	return (
