@@ -12,7 +12,7 @@ import Loader from '../components/Loader';
 
 export default function Home() {
 
-  const { currentUser, loginWithAuth, loading } = useContext(UserContext);
+  const { loginWithAuth, loading } = useContext(UserContext);
 
   useEffect(() => {
   loginWithAuth()
@@ -35,7 +35,7 @@ export default function Home() {
     )}
 
       {/* Feed */}
-      <Modal currentUser={currentUser}/>
+      <Modal />
 
     </div>
   )
