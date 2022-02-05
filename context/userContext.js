@@ -12,7 +12,8 @@ export const UserProvider = ({ children }) => {
 			username: "",
 			profile_picture: "",
 			email: "",
-			friends: [],
+			following: [],
+			followers: [],
 		},
 		loading: true,
 		modalState: false,
@@ -44,6 +45,8 @@ export const UserProvider = ({ children }) => {
 							username: docSnap.data().username,
 							profilePicture: docSnap.data().profile_picture,
 							email: docSnap.data().email,
+							following: docSnap.data().following,
+							followers: docSnap.data().followers,
 						})
 					)
 				} else {

@@ -13,7 +13,6 @@ export const setLoading = (loading) => {
 	}
 }
 export const setModal = (modalState) => {
-    console.log("setting modal state", modalState)
 	return {
 		type: "SET_MODAL_STATE",
 		modalState,

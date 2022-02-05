@@ -4,14 +4,7 @@ import * as Yup from "yup"
 import { Formik, Field, Form } from "formik"
 import { db, auth } from "../firebase"
 import {
-	collection,
-	limit,
-	onSnapshot,
-	query,
-	where,
-	addDoc,
 	setDoc,
-	getDoc,
 	doc,
 } from "@firebase/firestore"
 import {
@@ -53,7 +46,8 @@ function signUp() {
 				username: username,
 				email: authUser.user.email,
 				profile_picture: await getRandomProfilePicture(),
-                friends: ['user1@gmail.com']
+                following: ['user1@gmail.com'],
+                followers: []
 			})
 				.then(signInWithEmailAndPassword(auth, email, password))
 				.then(console.log("User Signed In Successfully"))

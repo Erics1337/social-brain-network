@@ -34,9 +34,6 @@ function Modal() {
 			timestamp: serverTimestamp(),
 		})
 
-    // useEffect(() => {
-    //   console.log(modalState)
-    // }, [])
 
 		// 2. Get the post ID for the newly created post
 		console.log("New doc added with ID", docRef.id)

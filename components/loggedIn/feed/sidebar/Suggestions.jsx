@@ -1,39 +1,110 @@
-import faker from "faker";
 import { useEffect, useState, useContext } from "react"
-import UserContext from "../../../../context/userContext";
+import { auth, db } from "../../../../firebase"
+import {
+	collection,
+	onSnapshot,
+	query,
+	limit,
+	where,
+} from "@firebase/firestore"
+import UserContext from "../../../../context/userContext"
 
 function Suggestions() {
-    const { currentUser } = useContext(UserContext);
-    const [suggestions, setSuggestions] = useState([])
+	const { currentUser } = useContext(UserContext)
 
-    useEffect(() => {
-        const suggestions = [...Array(5)].map((_,i) => (
-            {
-                ...faker.helpers.contextualCard(),
-                id: i
-            }
-        ))
+	const initialSuggestionCount = 1
+	const allSuggestionCount = 5
+	const [suggestions, setSuggestions] = useState([])
+	const [suggestionCount, setSuggestionCount] = useState(
+		initialSuggestionCount
+	)
 
-        setSuggestions(suggestions)
-    },[])
-    return (
-        <div className="mt-4 ml-10">
-            <div className="flex justify-between text-sm mb-5">
-                <h3 className="text-sm font-bold text-gray-400">Suggestions for you</h3>
-                <button className="text-gray-600 font-semibold">See All</button>
-            </div>
-                {suggestions.map((profile) => (
-                    <div key={profile.id} className="flex items-center justify-between mt-3">
-                        <img className="w-10 h-10 rounded-full border p-[2px]" src={profile.avatar} alt="" />
-                        <div className="flex-1 ml-4">
-                            <h2 className="font-semibold text-sm">{profile.username}</h2>
-                            <h3 className="text-xs text-gray-400">Works at {profile.company.name}</h3>
-                        </div>
-                        <button className="text-blue-400">Follow</button>
-                    </div>
-                ))}
-        </div>
-    )
+	useEffect(
+		() =>
+			onSnapshot(
+				query(
+					collection(db, "users"),
+					limit(suggestionCount),
+					where("email", "not-in", [
+						...currentUser.following,
+						currentUser.email,
+					])
+				),
+				(snapshot) => {
+					setSuggestions([])
+					snapshot.docs.forEach((user) => {
+						setSuggestions((prevSuggestions) => [
+							...prevSuggestions,
+							user.data(),
+						])
+					})
+				}
+			),
+		[db, suggestionCount]
+	)
+
+	const followUser = (email) => {
+		const user = db.collection("users").doc(email)
+		user.update({
+			followers: firebase.firestore.FieldValue.arrayUnion(
+				currentUser.email
+			),
+		})
+		currentUser.update({
+			following: firebase.firestore.FieldValue.arrayUnion(email),
+		})
+	}
+
+	return (
+		<div className='mt-4 ml-10'>
+			<div className='flex justify-between text-sm mb-5'>
+				<h3 className='text-sm font-bold text-gray-400'>
+					Suggestions for you
+				</h3>
+				{suggestionCount == initialSuggestionCount ? (
+					<button
+						onClick={() => setSuggestionCount(allSuggestionCount)}
+						className='text-gray-600 font-semibold'>
+						See All
+					</button>
+				) : (
+					<button
+						onClick={() =>
+							setSuggestionCount(initialSuggestionCount)
+						}
+						className='text-gray-600 font-semibold'>
+						See Less
+					</button>
+				)}
+			</div>
+			{/* {JSON.stringify(suggestions)} */}
+			{suggestions.map((profile, index) => (
+				<div
+					key={index}
+					className='flex items-center justify-between mt-3'>
+					<img
+						className='w-10 h-10 rounded-full border p-[2px]'
+						src={profile.profile_picture}
+						alt=''
+					/>
+					<div className='flex-1 ml-4'>
+						<h2 className='font-semibold text-sm'>
+							{profile.username}
+						</h2>
+						<h3 className='text-xs text-gray-400'>
+							Has {profile.following.length} Friend
+							{profile.following.length > 1 && "s"}
+						</h3>
+					</div>
+					<button
+						onClick={() => followUser(profile.email)}
+						className='text-blue-400'>
+						Follow
+					</button>
+				</div>
+			))}
+		</div>
+	)
 }
 
 export default Suggestions

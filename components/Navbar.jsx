@@ -16,7 +16,7 @@ import { useContext } from "react"
 import UserContext from "../context/userContext"
 
 function Navbar() {
-	const { modalState, setModalState } = useContext(UserContext)
+	const { setModalState } = useContext(UserContext)
 	const router = useRouter()
 	return (
 		<div className='shadow-md border-b bg-white sticky top-0 z-50'>
