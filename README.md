@@ -1,14 +1,15 @@
 # The Social Brain Network
 Not a social network, but a social network management system
 	- A tool to manage the grouping of your social connections within the framework of the social brain hypothesis
-<<<<<<< HEAD
-## Features
-=======
+## Functionality
+- Follow other users
+- Friend suggestions
+- Make a post
+- Like/comment on posts
 ## Feature Wish-list
->>>>>>> socialBrainNetwork
-- Allows links (instagram does not, unless you are an influencer)
 - Friend Groupings associated with ranks of Dunbar's theory
 - A personal journal feature for non-visible posts
+- 1-on-1 messaging and maybe group chats (using firebase live database!)
 
 ## The Social Brain Hypothesis and Dunbar's number
 https://youtu.be/zZF6vXMGBOw
@@ -30,18 +31,9 @@ https://www.youtube.com/watch?v=a6Xs2Ir40OI&list=PLtisOZsxayjEC3ouCwhkTSG4twFqI7
 This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v2.2)](https://blog.tailwindcss.com/tailwindcss-2-2) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
 It uses the new [`Just-in-Time Mode`](https://tailwindcss.com/docs/just-in-time-mode) for Tailwind CSS.
 
-<<<<<<< HEAD
-## Setup
-+ npm install @heroicons/react
-+ npm i @tailwindcss/forms
-+ npm i @tailwindcss/scrollbar
-+ npm i next-auth@beta
-+ npm i firebase
-+ npm i recoil
-+ npm i react-moment
-=======
 ## Get Started
+
 ```
+npm install
 npm run dev
 ```
->>>>>>> socialBrainNetwork
