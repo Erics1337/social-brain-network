@@ -12,7 +12,6 @@ import { HomeIcon } from "@heroicons/react/solid" // Helper functions
 import { useRouter } from "next/router"
 import { auth } from "../firebase"
 import { signOut } from "firebase/auth"
-import router from "next/router"
 import { useContext } from "react"
 import UserContext from "../context/userContext"
 
@@ -70,7 +69,7 @@ function Navbar() {
 								</div>
 							</div>
 							<PlusCircleIcon
-								onClick={() => setModalState(!modalState)}
+								onClick={() => setModalState(true)}
 								className='navBtn'
 							/>
 							<UserGroupIcon className='navBtn' />
