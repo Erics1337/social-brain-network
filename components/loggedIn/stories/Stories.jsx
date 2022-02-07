@@ -10,24 +10,32 @@ function Stories() {
 
 	// Get user's following w/ snapshot
 	useEffect(() => {
-		onSnapshot(doc(db, "users", currentUser.email), (snapshot) => {
-			if (snapshot.exists()) {
-				snapshot.data().following.forEach((friend) => {
-					getDoc(doc(db, "users", friend)).then((docSnap) => {
-						if (docSnap.exists()) {
-							setStories((prevStories) => [
-								...prevStories,
-								docSnap.data(),
-							])
-						} else console.log("No friend user with that email!")
+		console.log("running")
+		const unsubscribe = onSnapshot(
+			doc(db, "users", currentUser.email),
+			(snapshot) => {
+				if (snapshot.exists()) {
+					setStories([])
+					snapshot.data().following.forEach((friend) => {
+						getDoc(doc(db, "users", friend)).then((docSnap) => {
+							if (docSnap.exists()) {
+								setStories((prevStories) => [
+									...prevStories,
+									docSnap.data(),
+								])
+							} else
+								console.log("No friend user with that email!")
+						})
 					})
-				})
-			} else console.log("No current user with that email!")
-		})
+				} else console.log("No current user with that email!")
+			}
+		)
+		return () => unsubscribe()
 	}, [db, onSnapshot])
 
 	return (
-		<div className='flex space-x-2 p-6 bg-white mt-8 border border-gray-200 rounded-sm overflow-x-scroll
+		<div
+			className='flex space-x-2 p-6 bg-white mt-8 border border-gray-200 rounded-sm overflow-x-scroll
          scrollbar-thin scrollbar-thumb-black'>
 			{stories.map((profile, index) => (
 				<Story

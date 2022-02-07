@@ -1,7 +1,19 @@
 import { createContext, useReducer } from "react"
-import UserReducer, { setCurrentUser, setLoading, setModal } from "./userReducer"
+import UserReducer, {
+	setCurrentUser,
+	setLoading,
+	setModal,
+} from "./userReducer"
 import { db, auth } from "../firebase"
-import { getDoc, doc } from "@firebase/firestore"
+import {
+	getDoc,
+	doc,
+	onSnapshot,
+	query,
+	collection,
+	where,
+	limit,
+} from "@firebase/firestore"
 import { getAuth, onAuthStateChanged } from "firebase/auth"
 
 const UserContext = createContext()
@@ -37,8 +49,14 @@ export const UserProvider = ({ children }) => {
 	const loginUser = (auth) => {
 		dispatch(setLoading(true))
 		try {
-			getDoc(doc(db, "users", auth.currentUser.email)).then((docSnap) => {
-				if (docSnap.exists()) {
+			onSnapshot(
+				query(
+					collection(db, "users"),
+					where("email", "==", auth.currentUser.email),
+					limit(1)
+				),
+				(snapshot) => {
+					const docSnap = snapshot.docs[0]
 					dispatch(
 						setCurrentUser({
 							id: auth.currentUser.uid,
@@ -49,23 +67,27 @@ export const UserProvider = ({ children }) => {
 							followers: docSnap.data().followers,
 						})
 					)
-				} else {
-					console.log("No such document!")
 				}
-			})
-			dispatch(setLoading(false))
+			)
 		} catch (error) {
 			console.log(error)
 		}
+		dispatch(setLoading(false))
 	}
 
-  const setModalState = (modalState) => {
-    dispatch(setModal(modalState))
-  }
+	const setModalState = (modalState) => {
+		dispatch(setModal(modalState))
+	}
 
 	return (
 		<UserContext.Provider
-			value={{ ...state, dispatch, loginUser, loginWithAuth, setModalState}}>
+			value={{
+				...state,
+				dispatch,
+				loginUser,
+				loginWithAuth,
+				setModalState,
+			}}>
 			{children}
 		</UserContext.Provider>
 	)

@@ -6,6 +6,9 @@ import {
 	query,
 	limit,
 	where,
+	doc,
+	arrayUnion,
+	updateDoc,
 } from "@firebase/firestore"
 import UserContext from "../../../../context/userContext"
 
@@ -15,44 +18,47 @@ function Suggestions() {
 	const initialSuggestionCount = 1
 	const allSuggestionCount = 5
 	const [suggestions, setSuggestions] = useState([])
+	const [reload, setReload] = useState(true)
 	const [suggestionCount, setSuggestionCount] = useState(
 		initialSuggestionCount
 	)
 
-	useEffect(
-		() =>
-			onSnapshot(
-				query(
-					collection(db, "users"),
-					limit(suggestionCount),
-					where("email", "not-in", [
-						...currentUser.following,
-						currentUser.email,
-					])
+	useEffect(() => {
+		console.log("running")
+		const unsubscribe = onSnapshot(
+			query(
+				collection(db, "users"),
+				limit(suggestionCount),
+				where("email", "not-in", [
+					...currentUser.following,
+					currentUser.email,
+				])
 				),
 				(snapshot) => {
-					setSuggestions([])
-					snapshot.docs.forEach((user) => {
-						setSuggestions((prevSuggestions) => [
-							...prevSuggestions,
-							user.data(),
-						])
-					})
-				}
-			),
-		[db, suggestionCount]
-	)
+				setSuggestions([])
+				snapshot.docs.forEach((user) => {
+					setSuggestions((prevSuggestions) => [
+						...prevSuggestions,
+						user.data(),
+					])
+				})
+			}
+		)
+		return () => unsubscribe()
+	}, [db, suggestionCount, reload])
 
-	const followUser = (email) => {
-		const user = db.collection("users").doc(email)
-		user.update({
-			followers: firebase.firestore.FieldValue.arrayUnion(
-				currentUser.email
-			),
+	const followUser = async (email) => {
+		console.log(email)
+		await updateDoc(doc(collection(db, "users"), email), {
+			followers: arrayUnion(currentUser.email),
 		})
-		currentUser.update({
-			following: firebase.firestore.FieldValue.arrayUnion(email),
+		
+		await updateDoc(doc(collection(db, "users"), currentUser.email), {
+			following: arrayUnion(email),
 		})
+		// currentUser following list state updated by live listener, just need to reload suggestions component to re-query 
+		setReload(!reload)
+		// setSuggestionCount(suggestionCount)
 	}
 
 	return (

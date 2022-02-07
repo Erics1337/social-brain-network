@@ -15,7 +15,7 @@ export default function Home() {
   const { loginWithAuth, loading } = useContext(UserContext);
 
   useEffect(() => {
-  loginWithAuth()
+   loginWithAuth()
 }, [])
 
   if (loading) return <Loader />
