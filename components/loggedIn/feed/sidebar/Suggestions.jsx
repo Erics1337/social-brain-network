@@ -58,6 +58,7 @@ function Suggestions() {
 			following: arrayUnion(email)
 		}
 		)
+		// Update State with new following here -or- figure out firestore onSnapshot live updates
 	}
 
 	return (

@@ -6,6 +6,7 @@ Not a social network, but a social network management system
 - Friend suggestions
 - Make a post
 - Like/comment on posts
+- Landing page explaining the Social Brain Network
 ## Feature Wish-list
 - Friend Groupings associated with ranks of Dunbar's theory
 - A personal journal feature for non-visible posts
@@ -17,15 +18,13 @@ https://youtu.be/zZF6vXMGBOw
 https://www.youtube.com/watch?v=a6Xs2Ir40OI&list=PLtisOZsxayjEC3ouCwhkTSG4twFqI7eo7&index=9&t=8517s
 
 ## This Project Uses:
-+ tailwind
-+ headlessui - tailwind library we are using is tapping into
-    ++ Dialog, Transition - For modal
-+ heroicons
-+ faker.js - generate massive amounts of realistic data
-+ NextAuth.js - Handles CSRF tokens, password encryption, password reset emails, etc...
++ Tailwind
++ Headlessui - tailwind library for use with modal (Dialog, Transition)
++ Heroicons
 + Firebase v.9 - Storage solution from google; NoSQL and image hosting
-+ Recoil - State management - good for non nested components that need a global store
-+ react-moment - library that allows us to pass the timestamp into a string
++ Moment - library that allows us to parse timestamps to a string
++ Formik and Yup for forms and validation
++ randomuser.me - API for random user data to assign profile images
 
 ## Next.js + Tailwind CSS
 This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v2.2)](https://blog.tailwindcss.com/tailwindcss-2-2) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).

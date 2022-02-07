@@ -24,6 +24,7 @@ function Stories() {
 				})
 			} else console.log("No current user with that email!")
 		})
+		return () => unsubscribe()
 	}, [db, onSnapshot])
 
 	return (
