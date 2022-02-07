@@ -30,7 +30,7 @@ function Post({ currentUser, id, username, userImg, img, caption }) {
 
 	// Get post data
 	useEffect(() => {
-		onSnapshot(
+		const unsubscribe = onSnapshot(
 			query(
 				collection(db, "posts", id, "comments"),
 				orderBy("timestamp", "desc")

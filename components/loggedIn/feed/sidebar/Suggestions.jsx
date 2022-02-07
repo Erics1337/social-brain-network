@@ -18,47 +18,47 @@ function Suggestions() {
 	const initialSuggestionCount = 1
 	const allSuggestionCount = 5
 	const [suggestions, setSuggestions] = useState([])
+	const [reload, setReload] = useState(true)
 	const [suggestionCount, setSuggestionCount] = useState(
 		initialSuggestionCount
 	)
 
-	useEffect(
-		() => {
+	useEffect(() => {
+		console.log("running")
 		const unsubscribe = onSnapshot(
-				query(
-					collection(db, "users"),
-					limit(suggestionCount),
-					where("email", "not-in", [
-						...currentUser.following,
-						currentUser.email,
-					])
+			query(
+				collection(db, "users"),
+				limit(suggestionCount),
+				where("email", "not-in", [
+					...currentUser.following,
+					currentUser.email,
+				])
 				),
 				(snapshot) => {
-					setSuggestions([])
-					snapshot.docs.forEach((user) => {
-						setSuggestions((prevSuggestions) => [
-							...prevSuggestions,
-							user.data(),
-						])
-					})
-				}
-			)
-			return () => unsubscribe()
-		},
-		[db, suggestionCount, suggestions]
-	)
+				setSuggestions([])
+				snapshot.docs.forEach((user) => {
+					setSuggestions((prevSuggestions) => [
+						...prevSuggestions,
+						user.data(),
+					])
+				})
+			}
+		)
+		return () => unsubscribe()
+	}, [db, suggestionCount, reload])
 
 	const followUser = async (email) => {
-		await updateDoc(doc(collection(db, "users"), email),{
-			followers: arrayUnion(
-				currentUser.email
-			)})
+		console.log(email)
+		await updateDoc(doc(collection(db, "users"), email), {
+			followers: arrayUnion(currentUser.email),
+		})
 		
-		await updateDoc(doc(collection(db, "users"), currentUser.email),{
-			following: arrayUnion(email)
-		}
-		)
-		// Update State with new following here -or- figure out firestore onSnapshot live updates
+		await updateDoc(doc(collection(db, "users"), currentUser.email), {
+			following: arrayUnion(email),
+		})
+		// currentUser following list state updated by live listener, just need to reload suggestions component to re-query 
+		setReload(!reload)
+		// setSuggestionCount(suggestionCount)
 	}
 
 	return (

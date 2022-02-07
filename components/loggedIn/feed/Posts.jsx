@@ -23,7 +23,7 @@ function Posts() {
 
 	//   Light-weight refactored version
 	useEffect(() => {
-		onSnapshot(
+		const unsubscribe = onSnapshot(
 			query(collection(db, "posts"), orderBy("timestamp", "desc")),
 			(snapshot) => {
 				setPosts(snapshot.docs)
