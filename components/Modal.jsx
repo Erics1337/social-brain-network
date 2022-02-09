@@ -29,7 +29,7 @@ function Modal() {
 		const docRef = await addDoc(collection(db, "posts"), {
 			username: currentUser.username,
 			caption: captionRef.current.value,
-			profilePicture: currentUser.profilePicture,
+			profilePic: currentUser.profilePic,
 			// Use server timezone so we can query based on the same time
 			timestamp: serverTimestamp(),
 		})

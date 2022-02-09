@@ -22,7 +22,7 @@ export const UserProvider = ({ children }) => {
 		currentUser: {
 			id: "",
 			username: "",
-			profile_picture: "",
+			profilePic: "",
 			email: "",
 			following: [],
 			followers: [],
@@ -45,7 +45,7 @@ export const UserProvider = ({ children }) => {
 		})
 	}
 
-	// On page load, queries db for user obj based on currentlyLoggedInUser and sets profilePicture to state
+	// On page load, queries db for user obj based on currentlyLoggedInUser and sets profilePic to state
 	const loginUser = (auth) => {
 		dispatch(setLoading(true))
 		try {
@@ -61,7 +61,7 @@ export const UserProvider = ({ children }) => {
 						setCurrentUser({
 							id: auth.currentUser.uid,
 							username: docSnap.data().username,
-							profilePicture: docSnap.data().profile_picture,
+							profilePic: docSnap.data().profilePic,
 							email: docSnap.data().email,
 							following: docSnap.data().following,
 							followers: docSnap.data().followers,

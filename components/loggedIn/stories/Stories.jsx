@@ -40,7 +40,7 @@ function Stories() {
 			{stories.map((profile, index) => (
 				<Story
 					key={index}
-					img={profile.profile_picture}
+					img={profile.profilePic}
 					username={profile.username}
 				/>
 			))}

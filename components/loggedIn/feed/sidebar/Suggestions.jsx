@@ -90,7 +90,7 @@ function Suggestions() {
 					className='flex items-center justify-between mt-3'>
 					<img
 						className='w-10 h-10 rounded-full border p-[2px]'
-						src={profile.profile_picture}
+						src={profile.profilePic}
 						alt=''
 					/>
 					<div className='flex-1 ml-4'>

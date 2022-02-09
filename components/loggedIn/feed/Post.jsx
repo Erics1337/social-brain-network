@@ -42,10 +42,12 @@ function Post({ currentUser, id, username, userImg, img, caption }) {
 
 	//  Get likes
 	useEffect(
-		() =>
-			onSnapshot(collection(db, "posts", id, "likes"), (snapshot) =>
+		() => {
+			const unsubscribe = onSnapshot(collection(db, "posts", id, "likes"), (snapshot) =>
 				setLikes(snapshot.docs)
-			),
+			)
+			return () => unsubscribe()
+		},
 		[db, id]
 	)
 
@@ -81,7 +83,7 @@ function Post({ currentUser, id, username, userImg, img, caption }) {
 		await addDoc(collection(db, "posts", id, "comments"), {
 			comment: commentToSend,
 			username: currentUser.username,
-			userImage: currentUser.profilePicture,
+			userImage: currentUser.profilePic,
 			timestamp: serverTimestamp(),
 		})
 	}
