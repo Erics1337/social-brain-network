@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react"
-import { auth, db } from "../../../../firebase"
+import { auth, db } from "../../../firebase"
 import {
 	collection,
 	onSnapshot,
@@ -10,7 +10,7 @@ import {
 	arrayUnion,
 	updateDoc,
 } from "@firebase/firestore"
-import UserContext from "../../../../context/userContext"
+import UserContext from "../../../context/userContext"
 
 function Suggestions() {
 	const { currentUser } = useContext(UserContext)

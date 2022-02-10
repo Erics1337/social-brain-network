@@ -1,6 +1,6 @@
 import { Profiler, useEffect, useState, useContext } from "react"
 import Story from "./Story"
-import { db } from "../../../firebase"
+import { db } from "../../../../firebase"
 import {
 	onSnapshot,
 	getDoc,
@@ -9,7 +9,7 @@ import {
 	collection,
 	where,
 } from "@firebase/firestore"
-import UserContext from "../../../context/userContext"
+import UserContext from "../../../../context/userContext"
 
 function Stories({ currentGroup }) {
 	const { currentUser, combineGroups } = useContext(UserContext)

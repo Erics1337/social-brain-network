@@ -1,7 +1,7 @@
-import Stories from "../stories/Stories"
-import Posts from "./Posts"
-import MiniProfile from "./sidebar/MiniProfile"
-import Suggestions from "./sidebar/Suggestions"
+import Stories from "./stories/Stories"
+import Posts from "./posts/Posts"
+import MiniProfile from "../sidebar/MiniProfile"
+import Suggestions from "../sidebar/Suggestions"
 import { useState } from "react"
 
 function Feed() {
@@ -28,7 +28,7 @@ function Feed() {
 					<option>Recognizable</option>
 				</select>
 			</div>
-			<ul className='flex hidden rounded-lg divide-x divide-gray-200 shadow sm:flex dark:divide-gray-700'>
+			<ul className='flex rounded-lg divide-x divide-gray-200 shadow sm:flex dark:divide-gray-700'>
 				<li className='w-full'>
 					<button
 						onClick={()=>setCurrentGroup('all')}
