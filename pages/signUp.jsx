@@ -25,7 +25,7 @@ function signUp() {
 	})
 
 	// randomuser.me API
-	const getRandomprofilePic = async () => {
+	const getRandomProfilePic = async () => {
 		const response = await fetch("https://randomuser.me/api")
 		const data = await response.json()
 		return data.results[0].picture.large
@@ -41,12 +41,18 @@ function signUp() {
 			console.log("Firebase User Created Successfully", authUser.user.uid)
 
 			// Add user to the users collection with id of email
-			await setDoc(doc(db, "users", authUser.user.email), {
+			await setDoc(doc(db, "users", authUser.user.uid), {
 				owner_uid: authUser.user.uid,
 				username: username,
 				email: authUser.user.email,
-				profilePic: await getRandomprofilePic(),
-                following: ['user1@gmail.com'],
+				profilePic: await getRandomProfilePic(),
+                following: {
+					family: [],
+					friends: [],
+					acquaintances: [],
+					connections: [],
+					recognizable: [],
+				},
                 followers: []
 			})
 				.then(signInWithEmailAndPassword(auth, email, password))

@@ -22,7 +22,7 @@ import { useEffect, useState } from "react"
 import Moment from "react-moment"
 import { db, auth } from "../../../firebase"
 
-function Post({ currentUser, id, username, userImg, img, caption }) {
+function Post({ currentUser, id, username, userImg = null, img, caption }) {
 	const [comment, setComment] = useState("")
 	const [comments, setComments] = useState([])
 	const [likes, setLikes] = useState([])
@@ -83,7 +83,6 @@ function Post({ currentUser, id, username, userImg, img, caption }) {
 		await addDoc(collection(db, "posts", id, "comments"), {
 			comment: commentToSend,
 			username: currentUser.username,
-			userImage: currentUser.profilePic,
 			timestamp: serverTimestamp(),
 		})
 	}
