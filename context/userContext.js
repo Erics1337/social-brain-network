@@ -35,7 +35,7 @@ export const UserProvider = ({ children }) => {
 	// const initialState = null
 	const [state, dispatch] = useReducer(UserReducer, initialState)
 
-	const loginWithAuth = () => {
+	const checkLoggedIn = () => {
 		const auth = getAuth()
 		onAuthStateChanged(auth, (user) => {
 			if (user) {
@@ -149,7 +149,7 @@ export const UserProvider = ({ children }) => {
 				...state,
 				dispatch,
 				loginUser,
-				loginWithAuth,
+				checkLoggedIn,
 				setModalState,
 				setCurrentGroup,
 				combineGroupsUsers,
