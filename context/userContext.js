@@ -3,6 +3,7 @@ import UserReducer, {
 	setCurrentUser,
 	setLoading,
 	setModal,
+	setGroup,
 } from "./userReducer"
 import { db, auth } from "../firebase"
 import {
@@ -27,6 +28,7 @@ export const UserProvider = ({ children }) => {
 			following: [],
 			followers: [],
 		},
+		currentGroup: 'all',
 		loading: true,
 		modalState: false,
 	}
@@ -80,7 +82,7 @@ export const UserProvider = ({ children }) => {
 	}
 
 		// Returns a list of all users in the current Group
-		const combineGroups = (currentGroup, currentUser) => {
+		const combineGroupsUsers = (currentGroup, currentUser) => {
 			switch(currentGroup){
 				case "all":
 					return [
@@ -136,6 +138,11 @@ export const UserProvider = ({ children }) => {
 			}
 		}
 
+	// set currrentGroup
+	const setCurrentGroup = (group) => {
+		dispatch(setGroup(group))
+	}
+
 	return (
 		<UserContext.Provider
 			value={{
@@ -144,7 +151,8 @@ export const UserProvider = ({ children }) => {
 				loginUser,
 				loginWithAuth,
 				setModalState,
-				combineGroups,
+				setCurrentGroup,
+				combineGroupsUsers,
 			}}>
 			{children}
 		</UserContext.Provider>

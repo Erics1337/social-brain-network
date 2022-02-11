@@ -14,22 +14,40 @@ import { db } from "../../../../firebase"
 import Post from "./Post"
 import UserContext from "../../../../context/userContext"
 
-function Posts({ currentGroup }) {
-	const { currentUser, combineGroups } = useContext(UserContext)
+const outputGroups = (currentGroup) => {
+	var groupList = []
+	switch (currentGroup) {
+		case "all":
+			return ["all"]
+		case "friends":
+			return ["friends"]
+		case "family":
+			return ["family"]
+		case "work":
+			return ["work"]
+		case "school":
+			return ["school"]
+		default:
+			return ['']
+	}
+	return groupList
+}
+
+
+function Posts() {
+	const { currentUser, currentGroup, combineGroupsUsers } = useContext(UserContext)
 	const [posts, setPosts] = useState([])
 	
 	// Here we need to get all the posts where username is in currentUser.following and
 	// attach the associated post's username's profilePic to the post object
-
-
-	
 	useEffect(() => {
 			console.log('currentGroup', currentGroup);
-			console.log('arrayContains', combineGroups(currentGroup, currentUser));
+			console.log('arrayContains', combineGroupsUsers(currentGroup, currentUser));
 			const unsubscribe = onSnapshot(
 				query(
 					collection(db, "posts"),
-					where("userId", 'in', combineGroups(currentGroup, currentUser)),
+					where("userId", 'in', [...combineGroupsUsers(currentGroup, currentUser), currentUser.uid]),
+					// where('userGroup', '==', outputGroups(currentGroup)),
 					orderBy("timestamp", "desc")
 				),
 				(snapshot) => {

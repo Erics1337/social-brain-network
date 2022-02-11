@@ -18,6 +18,12 @@ export const setModal = (modalState) => {
 		modalState,
 	}
 }
+export const setGroup = (group) => {
+	return {
+		type: "SET_CURRANT_GROUP",
+		group,
+	}
+}
 
 /* Reducer */
 const UserReducer = (state, action) => {
@@ -38,6 +44,12 @@ const UserReducer = (state, action) => {
 			return {
 				...state,
 				modalState: action.modalState,
+			}
+		case "SET_CURRANT_GROUP":
+			console.log('setting group from reducer', action.group)
+			return {
+				...state,
+				currentGroup: action.group,
 			}
 		default:
 			return state

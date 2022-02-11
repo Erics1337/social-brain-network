@@ -11,8 +11,8 @@ import {
 } from "@firebase/firestore"
 import UserContext from "../../../../context/userContext"
 
-function Stories({ currentGroup }) {
-	const { currentUser, combineGroups } = useContext(UserContext)
+function Stories() {
+	const { currentUser, currentGroup, combineGroupsUsers } = useContext(UserContext)
 	const [stories, setStories] = useState([])
 
 	const groupNumber = (currentGroup) => {
@@ -41,7 +41,7 @@ function Stories({ currentGroup }) {
 		const unsubscribe = onSnapshot(
 			query(
 				collection(db, "users"),
-				where("uid", "in", combineGroups(currentGroup, currentUser)),
+				where("uid", "in", combineGroupsUsers(currentGroup, currentUser)),
 				where("uid", "!=", currentUser.uid)
 			),
 			(snapshot) => {

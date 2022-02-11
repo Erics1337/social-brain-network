@@ -13,7 +13,7 @@ import { ref, getDownloadURL, uploadString } from "@firebase/storage"
 import UserContext from "../context/userContext"
 
 function Modal() {
-	const {currentUser, modalState, setModalState} = useContext(UserContext)
+	const {currentUser, currentGroup, modalState, setModalState} = useContext(UserContext)
 	const filePickerRef = useRef(null)
 	const captionRef = useRef(null)
 	//  loading variable to lock out upload function

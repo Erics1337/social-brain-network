@@ -8,6 +8,7 @@ import {
 	query,
 	serverTimestamp,
 	setDoc,
+	getDoc,
 } from "@firebase/firestore"
 import {
 	BookmarkIcon,
@@ -22,7 +23,7 @@ import { useEffect, useState } from "react"
 import Moment from "react-moment"
 import { db, auth } from "../../../../firebase"
 
-function Post({ currentUser, id, username, userImg = null, img, caption }) {
+function Post({ currentUser, id, username, userImg, img, caption }) {
 	const [comment, setComment] = useState("")
 	const [comments, setComments] = useState([])
 	const [likes, setLikes] = useState([])
@@ -35,7 +36,21 @@ function Post({ currentUser, id, username, userImg = null, img, caption }) {
 				collection(db, "posts", id, "comments"),
 				orderBy("timestamp", "desc")
 			),
-			(snapshot) => setComments(snapshot.docs)
+			// set Profile Pic and username from userId for each comment
+			(snapshot) => snapshot.forEach((comment) => {
+				getDoc(doc(db, "users", comment.data().uid))
+				.then((docSnap) => {
+					setComments((prevComments) => [
+						...prevComments,
+						{
+							id: comment.id,
+							comment: comment.data().comment,
+							username: docSnap.data().username,
+							userImg: docSnap.data().profilePic,
+						},
+					])
+				})
+			})
 		)
 		return () => unsubscribe()
 	}, [db, id])
@@ -82,7 +97,7 @@ function Post({ currentUser, id, username, userImg = null, img, caption }) {
 
 		await addDoc(collection(db, "posts", id, "comments"), {
 			comment: commentToSend,
-			username: currentUser.username,
+			uid: currentUser.uid,
 			timestamp: serverTimestamp(),
 		})
 	}
@@ -138,20 +153,20 @@ function Post({ currentUser, id, username, userImg = null, img, caption }) {
 							className='flex items-center space-x-2 mb-3'>
 							<img
 								className='h-7 rounded-full'
-								src={comment.data().userImage}
+								src={comment.userImg}
 								alt=''
 							/>
 							<p className='text-sm flex-1'>
 								<span className='font-bold pr-2'>
-									{comment.data().username}
+									{comment.username}
 								</span>
-								{comment.data().comment}
+								{comment.comment}
 							</p>
 							<Moment
 								interval={1000}
 								fromNow
 								className='pr-5 text-xs'>
-								{comment.data().timestamp?.toDate()}
+								{comment.timestamp?.toDate()}
 							</Moment>
 						</div>
 					))}
