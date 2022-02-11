@@ -28,7 +28,7 @@ function Modal() {
 		// 1. Create a post and add to firestore 'posts' collection
 		const docRef = await addDoc(collection(db, "posts"), {
 			userGroup: currentGroup,
-			userId: currentUser.uid,
+			uid: currentUser.uid,
 			caption: captionRef.current.value,
 			// Use server timezone so we can query based on the same time
 			timestamp: serverTimestamp(),
