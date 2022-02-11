@@ -45,8 +45,10 @@ function Post({ currentUser, id, username, userImg, img, caption }) {
 						{
 							id: comment.id,
 							comment: comment.data().comment,
+							timestamp: comment.data().timestamp,
 							username: docSnap.data().username,
 							userImg: docSnap.data().profilePic,
+							
 						},
 					])
 				})
@@ -116,7 +118,7 @@ function Post({ currentUser, id, username, userImg, img, caption }) {
 			</div>
 
 			{/* img */}
-			<img src={img} className='object-cover w-full' alt='' />
+			<img src={img} className='object-cover w-full' alt={caption} />
 
 			{/* Buttons */}
 			<div className='flex justify-between px-4 pt-4'>
