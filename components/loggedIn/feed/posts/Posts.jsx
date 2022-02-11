@@ -8,30 +8,12 @@ import {
 	get,
 	getDocs,
 	getDoc,
+	doc
 } from "@firebase/firestore"
 import { useEffect, useState, useContext } from "react"
 import { db } from "../../../../firebase"
 import Post from "./Post"
 import UserContext from "../../../../context/userContext"
-
-const outputGroups = (currentGroup) => {
-	var groupList = []
-	switch (currentGroup) {
-		case "all":
-			return ["all"]
-		case "friends":
-			return ["friends"]
-		case "family":
-			return ["family"]
-		case "work":
-			return ["work"]
-		case "school":
-			return ["school"]
-		default:
-			return ['']
-	}
-	return groupList
-}
 
 
 function Posts() {
@@ -46,31 +28,21 @@ function Posts() {
 			const unsubscribe = onSnapshot(
 				query(
 					collection(db, "posts"),
-					where("userId", 'in', [...combineGroupsUsers(currentGroup, currentUser), currentUser.uid]),
-					// where('userGroup', '==', outputGroups(currentGroup)),
+					where("uid", 'in', [...combineGroupsUsers(currentGroup, currentUser), currentUser.uid]),
 					orderBy("timestamp", "desc")
 				),
-				(snapshot) => {
+				(postsSnapshot) => {
 					setPosts([])
-						snapshot.docs.map((doc) => {
-							getDocs(
-								query(
-									collection(db, "users"),
-									where(
-										"uid",
-										"==",
-										doc.data().userId
-									),
-									limit(1)
-								)
-								).then((snapshot) => {
+						postsSnapshot.docs.forEach((postSnap) => {
+							getDoc(doc(db, "users", postSnap.data().uid))
+							.then((userSnap) => {
 								setPosts((prevPosts) => [
 									...prevPosts,
 									{
-										id: doc.id,
-										...doc.data(),
-										username: snapshot.docs[0].data().username,
-										userImg: snapshot.docs[0].data().profilePic,
+										id: postSnap.id,
+										...postSnap.data(),
+										username: userSnap.data().username,
+										userImg: userSnap.data().profilePic,
 									},
 								])
 							})
