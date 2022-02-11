@@ -12,10 +12,10 @@ import Loader from '../components/Loader';
 
 export default function Home() {
 
-  const { loginWithAuth, loading } = useContext(UserContext);
+  const { checkLoggedIn, loading } = useContext(UserContext);
 
   useEffect(() => {
-   loginWithAuth()
+   checkLoggedIn()
 }, [])
 
   if (loading) return <Loader />

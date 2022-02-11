@@ -21,7 +21,7 @@ function Tabs() {
 					<option>Recognizable</option>
 				</select>
 			</div>
-			<ul className='flex rounded-lg divide-x divide-gray-200 shadow sm:flex dark:divide-gray-700'>
+			<ul className='flex hidden rounded-lg divide-x divide-gray-200 shadow sm:flex dark:divide-gray-700'>
 				<li className='w-full'>
 					<button
 						onClick={() => setCurrentGroup("all")}
