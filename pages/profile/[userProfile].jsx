@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react"
-import UserContext from "../context/userContext"
-import { auth, db } from "../firebase"
+import UserContext from "../../context/userContext"
+import { auth, db } from "../../firebase"
 import {
 	onSnapshot,
 	query,
@@ -10,13 +10,14 @@ import {
 	doc,
 	limit,
 } from "@firebase/firestore"
-import Profile from "../components/profiles/Profile"
-import Navbar from "../components/Navbar"
-import UploadPostModal from "../components/UploadPostModal"
+import Profile from "../../components/profiles/Profile"
+import Navbar from "../../components/Navbar"
+import UploadPostModal from "../../components/UploadPostModal"
+import Loader from '../../components/Loader';
 
 
 function userProfile({ userSlug }) {
-	const { checkLoggedIn, currentUser } = useContext(UserContext)
+	const { loading, checkLoggedIn, currentUser } = useContext(UserContext)
 	const [userPosts, setUserPosts] = useState([])
 	const [userData, setUserData] = useState(null)
 
@@ -63,6 +64,7 @@ function userProfile({ userSlug }) {
 		return () => unsubscribe()
 	}, [db, userSlug])
 
+	if (loading) return <Loader />
 	if (userData) {
 		return (
 			<>

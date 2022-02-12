@@ -118,7 +118,7 @@ function Post({ id, username, image, caption, userImg }) {
 					alt=''
 				/>
 				<p
-					onClick={() => router.push(`/${username}`)}
+					onClick={() => router.push(`/profile/${username}`)}
 					className='flex-1 font-bold hover:cursor-pointer hover:text-gray-600'>
 					{username}
 				</p>

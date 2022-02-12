@@ -59,7 +59,8 @@ function Navbar() {
 					{auth.currentUser ? (
 						<>
 							<HeartIcon className='navBtn' />
-							<div className='relative navBtn'>
+							<div className='relative navBtn'
+								onClick={() => router.push("/messaging")}>
 								<PaperAirplaneIcon className='navBtn rotate-45' />
 								<div className='absolute -top-2 -right-1 text-xs w-5 h-5 bg-red-500 rounded-full flex items-center justify-center animate-pulse'>
 									3
@@ -72,7 +73,7 @@ function Navbar() {
 							<UserGroupIcon className='navBtn' />
 							<UserIcon
 								onClick={() =>
-									router.push(`/${currentUser.username}`)
+									router.push(`/profile/${currentUser.username}`)
 								}
 								className='navBtn'
 							/>
@@ -89,7 +90,9 @@ function Navbar() {
 							</button>
 						</>
 					) : (
-						<button onClick={() => router.push("logIn")}>
+						<button className="inline-block bg-blue-500 px-2 py-1 text-white font-semibold 
+						text-sm rounded"
+						onClick={() => router.push("/logIn")}>
 							Log In
 						</button>
 					)}
