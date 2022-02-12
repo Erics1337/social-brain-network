@@ -1,7 +1,7 @@
 import { Dialog, Transition } from "@headlessui/react"
 import { useContext } from 'react'
 import ProfileContext from "../../context/profileContext"
-import Post from '../loggedin/feed/posts/post'
+import Post from '../feed/posts/post'
 
 function ViewPostModal({ postId, username, image, caption, userImg}) {
     const { modalState, setModalState } = useContext(ProfileContext)

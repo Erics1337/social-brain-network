@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import Feed from '../components/loggedIn/feed/Feed'
+import Feed from '../components/feed/Feed'
 import Navbar from '../components/Navbar';
 import UploadPostModal from '../components/UploadPostModal';
 import Homepage from '../components/landingPage/Homepage';

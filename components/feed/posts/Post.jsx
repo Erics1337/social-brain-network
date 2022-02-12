@@ -21,11 +21,13 @@ import {
 import { HeartIcon as HeartIconFilled } from "@heroicons/react/solid"
 import { useEffect, useState } from "react"
 import Moment from "react-moment"
-import { db, auth } from "../../../../firebase"
+import { db, auth } from "../../../firebase"
 import { useContext, useMemo } from "react"
-import UserContext from "../../../../context/userContext"
+import UserContext from "../../../context/userContext"
+import { useRouter } from "next/router";
 
 function Post({ id, username, image, caption, userImg }) {
+	const router = useRouter()
 	const { currentUser } = useContext(UserContext)
 	const [comment, setComment] = useState("")
 	const [comments, setComments] = useState([])
@@ -40,36 +42,35 @@ function Post({ id, username, image, caption, userImg }) {
 				orderBy("timestamp", "desc")
 			),
 			// set Profile Pic and username from userId for each comment
-			(snapshot) => snapshot.forEach((comment) => {
-				getDoc(doc(db, "users", comment.data().uid))
-				.then((docSnap) => {
-					setComments((prevComments) => [
-						...prevComments,
-						{
-							id: comment.id,
-							comment: comment.data().comment,
-							timestamp: comment.data().timestamp,
-							username: docSnap.data().username,
-							userImg: docSnap.data().profilePic,
-							
-						},
-					])
+			(snapshot) =>
+				snapshot.forEach((comment) => {
+					getDoc(doc(db, "users", comment.data().uid)).then(
+						(docSnap) => {
+							setComments((prevComments) => [
+								...prevComments,
+								{
+									id: comment.id,
+									comment: comment.data().comment,
+									timestamp: comment.data().timestamp,
+									username: docSnap.data().username,
+									userImg: docSnap.data().profilePic,
+								},
+							])
+						}
+					)
 				})
-			})
 		)
 		return () => unsubscribe()
 	}, [db, id])
 
 	//  Get likes
-	useEffect(
-		() => {
-			const unsubscribe = onSnapshot(collection(db, "posts", id, "likes"), (snapshot) =>
-				setLikes(snapshot.docs)
-			)
-			return () => unsubscribe()
-		},
-		[db, id]
-	)
+	useEffect(() => {
+		const unsubscribe = onSnapshot(
+			collection(db, "posts", id, "likes"),
+			(snapshot) => setLikes(snapshot.docs)
+		)
+		return () => unsubscribe()
+	}, [db, id])
 
 	//   Searches likes array in state if user is in there, and if not (findIndex returns -1) setHasLiked to false
 	useEffect(
@@ -116,7 +117,11 @@ function Post({ id, username, image, caption, userImg }) {
 					src={userImg}
 					alt=''
 				/>
-				<p className='flex-1 font-bold'>{username}</p>
+				<p
+					onClick={() => router.push(`/${username}`)}
+					className='flex-1 font-bold hover:cursor-pointer hover:text-gray-600'>
+					{username}
+				</p>
 				<DotsHorizontalIcon className='h-5' />
 			</div>
 
@@ -124,23 +129,23 @@ function Post({ id, username, image, caption, userImg }) {
 			<img src={image} className='object-cover w-full' alt={caption} />
 
 			{/* Buttons */}
-			{auth.currentUser &&
-			<div className='flex justify-between px-4 pt-4'>
-				<div className='flex space-x-4'>
-					{hasLiked ? (
-						<HeartIconFilled
-							className='btn text-red-500'
-							onClick={likePost}
-						/>
-					) : (
-						<HeartIcon className='btn' onClick={likePost} />
-					)}
-					<ChatIcon className='btn' />
-					<PaperAirplaneIcon className='btn' />
+			{auth.currentUser && (
+				<div className='flex justify-between px-4 pt-4'>
+					<div className='flex space-x-4'>
+						{hasLiked ? (
+							<HeartIconFilled
+								className='btn text-red-500'
+								onClick={likePost}
+							/>
+						) : (
+							<HeartIcon className='btn' onClick={likePost} />
+						)}
+						<ChatIcon className='btn' />
+						<PaperAirplaneIcon className='btn' />
+					</div>
+					<BookmarkIcon className='btn' />
 				</div>
-				<BookmarkIcon className='btn' />
-			</div>
-			}
+			)}
 
 			{/* caption */}
 			<p className='p-5 truncate'>
@@ -181,28 +186,28 @@ function Post({ id, username, image, caption, userImg }) {
 			)}
 
 			{/* input box */}
-			{auth.currentUser &&
-			<form className='flex items-center p-4'>
-				<EmojiHappyIcon className='h-7' />
-				<input
-					type='text'
-					value={comment}
-					// Capture comment in state
-					onChange={(e) => setComment(e.target.value)}
-					className='border-none flex-1 focus:ring-0 outline-none'
-					placeholder='Add a comment...'
-				/>
-				<button
-					// For form submit on enter key
-					type='submit'
-					// Prevents spamming comments with space
-					disabled={!comment.trim()}
-					onClick={sendComment}
-					className='font-semibold text-blue-400'>
-					Post
-				</button>
-			</form>
-			}
+			{auth.currentUser && (
+				<form className='flex items-center p-4'>
+					<EmojiHappyIcon className='h-7' />
+					<input
+						type='text'
+						value={comment}
+						// Capture comment in state
+						onChange={(e) => setComment(e.target.value)}
+						className='border-none flex-1 focus:ring-0 outline-none'
+						placeholder='Add a comment...'
+					/>
+					<button
+						// For form submit on enter key
+						type='submit'
+						// Prevents spamming comments with space
+						disabled={!comment.trim()}
+						onClick={sendComment}
+						className='font-semibold text-blue-400'>
+						Post
+					</button>
+				</form>
+			)}
 		</div>
 	)
 }

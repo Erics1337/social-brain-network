@@ -11,9 +11,9 @@ import {
 	doc
 } from "@firebase/firestore"
 import { useEffect, useState, useContext } from "react"
-import { db } from "../../../../firebase"
+import { db } from "../../../firebase"
 import Post from "./Post"
-import UserContext from "../../../../context/userContext"
+import UserContext from "../../../context/userContext"
 
 
 function Posts() {
