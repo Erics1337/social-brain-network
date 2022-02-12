@@ -10,7 +10,7 @@ function Profile({ userData, userPosts }) {
 	return (
 		<ProfileProvider>
 			<div className='lg:w-8/12 lg:mx-auto mb-8'>
-				<Header userData={userData} />
+				<Header userData={userData} postCount={userPosts.length} />
 				<div className='px-px md:px-3'>
 					<Features />
 					{/* <!-- flexbox grid --> */}

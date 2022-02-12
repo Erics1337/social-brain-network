@@ -54,8 +54,8 @@ function signUp() {
 					recognizable: [],
 				},
                 followers: [],
-				subName: '',
-				bio: '',
+				subName: 'click to add subName',
+				bio: 'No bio set yet: click to add bio',
 			})
 				.then(signInWithEmailAndPassword(auth, email, password))
 				.then(console.log("User Signed In Successfully"))

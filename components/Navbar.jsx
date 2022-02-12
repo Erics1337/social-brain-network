@@ -7,7 +7,7 @@ import {
 	HeartIcon,
 	PaperAirplaneIcon,
 	MenuIcon,
-	UserIcon
+	UserIcon,
 } from "@heroicons/react/outline"
 import { useRouter } from "next/router"
 import { auth } from "../firebase"
@@ -54,14 +54,11 @@ function Navbar() {
 
 				{/* Right Part */}
 				<div className='flex items-center justify-end space-x-4'>
-					<UserIcon
-						onClick={() => router.push(`/${currentUser.username}`)}
-						className='navBtn'
-					/>
 					<MenuIcon className='h-9 md:hidden cursor-pointer' />
 
 					{auth.currentUser ? (
 						<>
+							<HeartIcon className='navBtn' />
 							<div className='relative navBtn'>
 								<PaperAirplaneIcon className='navBtn rotate-45' />
 								<div className='absolute -top-2 -right-1 text-xs w-5 h-5 bg-red-500 rounded-full flex items-center justify-center animate-pulse'>
@@ -73,7 +70,12 @@ function Navbar() {
 								className='navBtn'
 							/>
 							<UserGroupIcon className='navBtn' />
-							<HeartIcon className='navBtn' />
+							<UserIcon
+								onClick={() =>
+									router.push(`/${currentUser.username}`)
+								}
+								className='navBtn'
+							/>
 
 							{/* <img src={} alt="profile pic" onClick={signOut} className="h-10 w-10 rounded-full cursor-pointer" /> */}
 							<button
