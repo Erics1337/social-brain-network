@@ -12,7 +12,8 @@ import {
 } from "@firebase/firestore"
 import Profile from "../components/profiles/Profile"
 import Navbar from "../components/Navbar"
-import Modal from "../components/Modal"
+import UploadPostModal from "../components/UploadPostModal"
+
 
 function userProfile({ userSlug }) {
 	const { checkLoggedIn, currentUser } = useContext(UserContext)
@@ -68,7 +69,7 @@ function userProfile({ userSlug }) {
 				<main className='bg-gray-100 bg-opacity-25 h-screen'>
 					<Navbar />
 					<Profile userData={userData} userPosts={userPosts} />
-					<Modal />
+					<UploadPostModal />
 				</main>
 			</>
 		)

@@ -61,7 +61,7 @@ function Posts() {
 					id={post.id}
 					username={post.username}
 					userImg={post.userImg}
-					img={post.image}
+					image={post.image}
 					caption={post.caption}
 				/>
 			))}

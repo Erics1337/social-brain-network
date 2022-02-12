@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
 import Link from "next/link"
 import Image from "next/image";
 import {
@@ -7,9 +7,12 @@ import {
 } from "@heroicons/react/outline"
 import { db } from "../../firebase";
 import { onSnapshot, collection, query, orderBy, getDoc, doc } from '@firebase/firestore';
+import ProfileContext from "../../context/profileContext"
+import ViewPostModal from "./ViewPostModal";
 
 
-function Post({ image, postId }) {
+function ProfilePost({ postId, username, image, caption, userImg, timestamp }) {
+	const { setModalState } = useContext(ProfileContext)
 	const [comments, setComments] = useState([])
 	const [likes, setLikes] = useState([])
 	
@@ -54,41 +57,40 @@ function Post({ image, postId }) {
 
 	return (
 		<>
+			<ViewPostModal postId={postId} username={username} userImg={userImg} image={image} caption={caption} />
 			{/* <!-- column --> */}
-			<div className='w-1/3 p-px md:px-3'>
-				<Link href='#'>
-					<article className='post bg-gray-100 text-white relative pb-full md:mb-6 hover:cursor-pointer'>
-						{/* <!-- post image--> */}
-						<Image
-							layout='fill'
-							className='w-full h-full absolute left-0 top-0 object-cover'
-							src={image}
-							alt='image'
-						/>
-						<i className='fas fa-square absolute right-0 top-0 m-1'></i>
-						{/* <!-- overlay--> */}
+			<div className='w-1/3 p-px md:px-3' onClick={() => setModalState(true)}>
+				<article className='post bg-gray-100 text-white relative pb-full md:mb-6 hover:cursor-pointer'>
+					{/* <!-- post image--> */}
+					<Image
+						layout='fill'
+						className='w-full h-full absolute left-0 top-0 object-cover'
+						src={image}
+						alt='image'
+					/>
+					<i className='fas fa-square absolute right-0 top-0 m-1'></i>
+					{/* <!-- overlay--> */}
+					<div
+						className='overlay bg-gray-800 bg-opacity-25 w-full h-full absolute 
+							left-0 top-0 hidden'>
 						<div
-							className='overlay bg-gray-800 bg-opacity-25 w-full h-full absolute 
-                                left-0 top-0 hidden'>
-							<div
-								className='flex justify-center items-center 
-                                    space-x-4 h-full'>
-								<span className='p-2'>
-									<HeartIcon className={'inline-block h-6 pr-2 pb-1'} />
-									{likes.length}
-								</span>
+							className='flex justify-center items-center 
+								space-x-4 h-full'>
+							<span className='p-2'>
+								<HeartIcon className={'inline-block h-6 pr-2 pb-1'} />
+								{likes.length}
+							</span>
 
-								<span className='p-2'>
-									<ChatIcon className={'inline-block h-6 pr-2 pb-1'} />
-									{comments.length}
-								</span>
-							</div>
+							<span className='p-2'>
+								<ChatIcon className={'inline-block h-6 pr-2 pb-1'} />
+								{comments.length}
+							</span>
 						</div>
-					</article>
-				</Link>
+					</div>
+				</article>
 			</div>
 		</>
 	)
 }
 
-export default Post
+export default ProfilePost

@@ -1,20 +1,11 @@
 import { createContext, useReducer } from "react"
 import ProfileReducer from "./profileReducer"
-import { db, auth } from "../firebase"
-import {
-	getDoc,
-	doc,
-	onSnapshot,
-	query,
-	collection,
-	where,
-	limit,
-} from "@firebase/firestore"
 
 const ProfileContext = createContext()
 export const ProfileProvider = ({ children }) => {
 	const initialState = {
 		postsView: "grid",
+		modalState: false
 	}
 	const [state, dispatch] = useReducer(ProfileReducer, initialState)
 
@@ -22,13 +13,16 @@ export const ProfileProvider = ({ children }) => {
         dispatch({ type: "SET_POSTS_VIEW", payload })
     }
 
+	const setModalState = (payload) => {
+		dispatch({ type: "SET_MODAL_STATE", payload })
+	}
+
 	return (
 		<ProfileContext.Provider
 			value={{
 				...state,
-                initialState,
-				dispatch,
                 setPostsView,
+				setModalState,
 			}}>
 			{children}
 		</ProfileContext.Provider>

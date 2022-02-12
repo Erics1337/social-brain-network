@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Feed from '../components/loggedIn/feed/Feed'
 import Navbar from '../components/Navbar';
-import Modal from '../components/Modal';
+import UploadPostModal from '../components/UploadPostModal';
 import Homepage from '../components/landingPage/Homepage';
 import {useContext, useEffect} from 'react'
 import UserContext from '../context/userContext'
@@ -34,8 +34,7 @@ export default function Home() {
         <Homepage  />
     )}
 
-      {/* Feed */}
-      <Modal />
+      <UploadPostModal />
 
     </div>
   )

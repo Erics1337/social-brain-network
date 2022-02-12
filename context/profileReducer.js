@@ -7,6 +7,11 @@ const ProfileReducer = (state, action) => {
                 ...state,
                 postsView: action.payload,
             }
+        case "SET_MODAL_STATE":
+            return {
+                ...state,
+                modalState: action.payload,
+            }
 		default:
 			return state
 	}

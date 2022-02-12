@@ -22,8 +22,11 @@ import { HeartIcon as HeartIconFilled } from "@heroicons/react/solid"
 import { useEffect, useState } from "react"
 import Moment from "react-moment"
 import { db, auth } from "../../../../firebase"
+import { useContext, useMemo } from "react"
+import UserContext from "../../../../context/userContext"
 
-function Post({ currentUser, id, username, userImg, img, caption }) {
+function Post({ id, username, image, caption, userImg }) {
+	const { currentUser } = useContext(UserContext)
 	const [comment, setComment] = useState("")
 	const [comments, setComments] = useState([])
 	const [likes, setLikes] = useState([])
@@ -118,9 +121,10 @@ function Post({ currentUser, id, username, userImg, img, caption }) {
 			</div>
 
 			{/* img */}
-			<img src={img} className='object-cover w-full' alt={caption} />
+			<img src={image} className='object-cover w-full' alt={caption} />
 
 			{/* Buttons */}
+			{auth.currentUser &&
 			<div className='flex justify-between px-4 pt-4'>
 				<div className='flex space-x-4'>
 					{hasLiked ? (
@@ -136,6 +140,7 @@ function Post({ currentUser, id, username, userImg, img, caption }) {
 				</div>
 				<BookmarkIcon className='btn' />
 			</div>
+			}
 
 			{/* caption */}
 			<p className='p-5 truncate'>
@@ -176,6 +181,7 @@ function Post({ currentUser, id, username, userImg, img, caption }) {
 			)}
 
 			{/* input box */}
+			{auth.currentUser &&
 			<form className='flex items-center p-4'>
 				<EmojiHappyIcon className='h-7' />
 				<input
@@ -196,6 +202,7 @@ function Post({ currentUser, id, username, userImg, img, caption }) {
 					Post
 				</button>
 			</form>
+			}
 		</div>
 	)
 }

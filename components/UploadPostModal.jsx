@@ -12,7 +12,7 @@ import {
 import { ref, getDownloadURL, uploadString } from "@firebase/storage"
 import UserContext from "../context/userContext"
 
-function Modal() {
+function UploadPostModal() {
 	const {currentUser, currentGroup, modalState, setModalState} = useContext(UserContext)
 	const filePickerRef = useRef(null)
 	const captionRef = useRef(null)
@@ -188,4 +188,4 @@ function Modal() {
 	)
 }
 
-export default Modal
+export default UploadPostModal

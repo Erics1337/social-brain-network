@@ -2,7 +2,7 @@ import React from "react"
 import Image from "next/image"
 import Header from "./Header"
 import Features from "./Features"
-import Post from "./Post"
+import ProfilePost from "./ProfilePost"
 import { ProfileProvider } from "../../context/profileContext"
 
 function Profile({ userData, userPosts }) {
@@ -16,13 +16,14 @@ function Profile({ userData, userPosts }) {
 					{/* <!-- flexbox grid --> */}
 					<div className='flex flex-wrap -mx-px md:-mx-3'>
 						{userPosts.map((post) => (
-							<Post
-								key={post.id}
+							<ProfilePost
+								key={post.postId}
 								postId={post.postId}
 								image={post.image}
-								comments={post.comments}
-								likes={post.likes}
+								caption={post.caption}
 								timestamp={post.timestamp}
+								username={userData.username}
+								userImg={userData.profilePic}
 							/>
 						))}
 					</div>
