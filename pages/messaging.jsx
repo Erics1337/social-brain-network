@@ -13,27 +13,40 @@ import {
 import Profile from "../components/profiles/Profile"
 import Navbar from "../components/Navbar"
 import UploadPostModal from "../components/UploadPostModal"
-import { useRouter } from "next/router";
-import Loader from '../components/Loader';
-
+import { useRouter } from "next/router"
+import Loader from "../components/Loader"
+import Tabs from "../components/feed/Tabs"
+import Head from "next/head"
+import Chat from "../components/chat/Chat"
+import { ChatProvider } from "../context/chatContext"
 
 function messaging() {
-    const router = useRouter()
-    const { loading, checkLoggedIn, currentUser } = useContext(UserContext)
+	const router = useRouter()
+	const { loading, checkLoggedIn, currentUser } = useContext(UserContext)
 
-
-    useEffect(() => {
+	useEffect(() => {
 		if (auth) checkLoggedIn()
-        else router.push('/login')
+		else router.push("/login")
 	}, [])
 
-    if (loading) return <Loader />
-  return (
-    <>
-        <Navbar />
-
-    </>
-  )
+	if (loading) return <Loader />
+	return (
+		<>
+			<ChatProvider>
+				<main className='bg-grey-50 h-screen overflow-y-scroll scrollbar-hide'>
+					<Head>
+						<title>Social Brain Messaging</title>
+						<link rel='icon' href='/favicon.ico' />
+					</Head>
+					<Navbar />
+					<div className='lg:w-8/12 lg:mx-auto mb-8'>
+						<Tabs />
+						<Chat />
+					</div>
+				</main>
+			</ChatProvider>
+		</>
+	)
 }
 
 export default messaging

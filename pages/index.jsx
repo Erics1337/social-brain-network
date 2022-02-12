@@ -22,7 +22,7 @@ export default function Home() {
   return (
     <div className="bg-grey-50 h-screen overflow-y-scroll scrollbar-hide">
       <Head>
-        <title>Social Brain</title>
+        <title>Social Brain Network</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 

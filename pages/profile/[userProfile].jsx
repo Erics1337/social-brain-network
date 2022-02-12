@@ -14,6 +14,7 @@ import Profile from "../../components/profiles/Profile"
 import Navbar from "../../components/Navbar"
 import UploadPostModal from "../../components/UploadPostModal"
 import Loader from '../../components/Loader';
+import Head from "next/head";
 
 
 function userProfile({ userSlug }) {
@@ -69,6 +70,10 @@ function userProfile({ userSlug }) {
 		return (
 			<>
 				<main className='bg-gray-100 bg-opacity-25 h-screen'>
+				<Head>
+					<title>{userSlug}'s Profile | Social Brain Network</title>
+					<link rel="icon" href="/favicon.ico" />
+				</Head>
 					<Navbar />
 					<Profile userData={userData} userPosts={userPosts} />
 					<UploadPostModal />
