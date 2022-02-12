@@ -53,7 +53,9 @@ function signUp() {
 					connections: [],
 					recognizable: [],
 				},
-                followers: []
+                followers: [],
+				subName: '',
+				bio: '',
 			})
 				.then(signInWithEmailAndPassword(auth, email, password))
 				.then(console.log("User Signed In Successfully"))

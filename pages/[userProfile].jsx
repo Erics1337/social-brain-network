@@ -24,7 +24,7 @@ function userProfile({ userSlug }) {
 	}, [])
 
 	useEffect(() => {
-		// Get user data from userSlug
+		// Get user data and posts from userSlug
 		const unsubscribe = onSnapshot(
 			query(
 				collection(db, "users"),
