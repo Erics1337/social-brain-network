@@ -1,7 +1,7 @@
 import Head from 'next/head'
-import Feed from '../components/loggedIn/feed/Feed'
+import Feed from '../components/feed/Feed'
 import Navbar from '../components/Navbar';
-import Modal from '../components/Modal';
+import UploadPostModal from '../components/UploadPostModal';
 import Homepage from '../components/landingPage/Homepage';
 import {useContext, useEffect} from 'react'
 import UserContext from '../context/userContext'
@@ -12,10 +12,10 @@ import Loader from '../components/Loader';
 
 export default function Home() {
 
-  const { loginWithAuth, loading } = useContext(UserContext);
+  const { checkLoggedIn, loading } = useContext(UserContext);
 
   useEffect(() => {
-   loginWithAuth()
+   checkLoggedIn()
 }, [])
 
   if (loading) return <Loader />
@@ -34,8 +34,7 @@ export default function Home() {
         <Homepage  />
     )}
 
-      {/* Feed */}
-      <Modal />
+      <UploadPostModal />
 
     </div>
   )

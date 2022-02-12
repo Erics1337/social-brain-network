@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react"
-import { auth, db } from "../../../../firebase"
+import { auth, db } from "../../firebase"
 import {
 	collection,
 	onSnapshot,
@@ -10,7 +10,7 @@ import {
 	arrayUnion,
 	updateDoc,
 } from "@firebase/firestore"
-import UserContext from "../../../../context/userContext"
+import UserContext from "../../context/userContext"
 
 function Suggestions() {
 	const { currentUser } = useContext(UserContext)
@@ -23,18 +23,42 @@ function Suggestions() {
 		initialSuggestionCount
 	)
 
+	const totalFriends = (profile) => {
+		let count = 0
+		Object.keys(profile.following).forEach((key) => {
+			count += profile.following[key].length
+		})
+		return count
+	}
+
 	useEffect(() => {
 		console.log("running")
+		// console.log(...Object.key(currentUser.following).forEach(list => list.forEach(user => user)))
+
 		const unsubscribe = onSnapshot(
 			query(
 				collection(db, "users"),
 				limit(suggestionCount),
-				where("email", "not-in", [
-					...currentUser.following,
-					currentUser.email,
+				where("uid", "not-in", [
+					...(currentUser.following.acquaintances
+						? currentUser.following.acquaintances
+						: []),
+					...(currentUser.following.connections
+						? currentUser.following.connections
+						: []),
+					...(currentUser.following.family
+						? currentUser.following.family
+						: []),
+					...(currentUser.following.friends
+						? currentUser.following.friends
+						: []),
+					...(currentUser.following.recognizable
+						? currentUser.following.recognizable
+						: []),
+					currentUser.uid,
 				])
-				),
-				(snapshot) => {
+			),
+			(snapshot) => {
 				setSuggestions([])
 				snapshot.docs.forEach((user) => {
 					setSuggestions((prevSuggestions) => [
@@ -47,16 +71,16 @@ function Suggestions() {
 		return () => unsubscribe()
 	}, [db, suggestionCount, reload])
 
-	const followUser = async (email) => {
-		console.log(email)
-		await updateDoc(doc(collection(db, "users"), email), {
-			followers: arrayUnion(currentUser.email),
+	const followUser = async (uid) => {
+		console.log(uid)
+		await updateDoc(doc(collection(db, "users"), uid), {
+			followers: arrayUnion(currentUser.uid),
 		})
-		
-		await updateDoc(doc(collection(db, "users"), currentUser.email), {
-			following: arrayUnion(email),
+
+		await updateDoc(doc(collection(db, "users"), currentUser.uid), {
+			following: { acquaintances: arrayUnion(uid) },
 		})
-		// currentUser following list state updated by live listener, just need to reload suggestions component to re-query 
+		// currentUser following list state updated by live listener, just need to reload suggestions component to re-query
 		setReload(!reload)
 		// setSuggestionCount(suggestionCount)
 	}
@@ -90,7 +114,7 @@ function Suggestions() {
 					className='flex items-center justify-between mt-3'>
 					<img
 						className='w-10 h-10 rounded-full border p-[2px]'
-						src={profile.profile_picture}
+						src={profile.profilePic}
 						alt=''
 					/>
 					<div className='flex-1 ml-4'>
@@ -98,12 +122,12 @@ function Suggestions() {
 							{profile.username}
 						</h2>
 						<h3 className='text-xs text-gray-400'>
-							Has {profile.following.length} Friend
-							{profile.following.length > 1 && "s"}
+							Has {totalFriends(profile)} Friend
+							{totalFriends(profile) != 1 && "s"}
 						</h3>
 					</div>
 					<button
-						onClick={() => followUser(profile.email)}
+						onClick={() => followUser(profile.uid)}
 						className='text-blue-400'>
 						Follow
 					</button>

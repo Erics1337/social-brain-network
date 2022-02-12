@@ -7,8 +7,8 @@ import {
 	HeartIcon,
 	PaperAirplaneIcon,
 	MenuIcon,
+	UserIcon,
 } from "@heroicons/react/outline"
-import { HomeIcon } from "@heroicons/react/solid" // Helper functions
 import { useRouter } from "next/router"
 import { auth } from "../firebase"
 import { signOut } from "firebase/auth"
@@ -16,7 +16,7 @@ import { useContext } from "react"
 import UserContext from "../context/userContext"
 
 function Navbar() {
-	const { setModalState } = useContext(UserContext)
+	const { setModalState, currentUser } = useContext(UserContext)
 	const router = useRouter()
 	return (
 		<div className='shadow-md border-b bg-white sticky top-0 z-50'>
@@ -54,14 +54,11 @@ function Navbar() {
 
 				{/* Right Part */}
 				<div className='flex items-center justify-end space-x-4'>
-					<HomeIcon
-						onClick={() => router.push("/")}
-						className='navBtn h-10 w-10'
-					/>
 					<MenuIcon className='h-9 md:hidden cursor-pointer' />
 
 					{auth.currentUser ? (
 						<>
+							<HeartIcon className='navBtn' />
 							<div className='relative navBtn'>
 								<PaperAirplaneIcon className='navBtn rotate-45' />
 								<div className='absolute -top-2 -right-1 text-xs w-5 h-5 bg-red-500 rounded-full flex items-center justify-center animate-pulse'>
@@ -73,7 +70,12 @@ function Navbar() {
 								className='navBtn'
 							/>
 							<UserGroupIcon className='navBtn' />
-							<HeartIcon className='navBtn' />
+							<UserIcon
+								onClick={() =>
+									router.push(`/${currentUser.username}`)
+								}
+								className='navBtn'
+							/>
 
 							{/* <img src={} alt="profile pic" onClick={signOut} className="h-10 w-10 rounded-full cursor-pointer" /> */}
 							<button

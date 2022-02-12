@@ -12,8 +12,8 @@ import {
 import { ref, getDownloadURL, uploadString } from "@firebase/storage"
 import UserContext from "../context/userContext"
 
-function Modal() {
-	const {currentUser, modalState, setModalState}= useContext(UserContext)
+function UploadPostModal() {
+	const {currentUser, currentGroup, modalState, setModalState} = useContext(UserContext)
 	const filePickerRef = useRef(null)
 	const captionRef = useRef(null)
 	//  loading variable to lock out upload function
@@ -27,9 +27,10 @@ function Modal() {
 
 		// 1. Create a post and add to firestore 'posts' collection
 		const docRef = await addDoc(collection(db, "posts"), {
-			username: currentUser.username,
+			userGroup: currentGroup,
+			uid: currentUser.uid,
 			caption: captionRef.current.value,
-			profilePicture: currentUser.profilePicture,
+			likes: [],
 			// Use server timezone so we can query based on the same time
 			timestamp: serverTimestamp(),
 		})
@@ -54,7 +55,7 @@ function Modal() {
 			}
 		)
 
-		setModal(false)
+		setModalState(false)
 		setLoading(false)
 		setSelectedFile(null)
 	}
@@ -187,4 +188,4 @@ function Modal() {
 	)
 }
 
-export default Modal
+export default UploadPostModal

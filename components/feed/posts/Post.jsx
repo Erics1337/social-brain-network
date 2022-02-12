@@ -8,6 +8,7 @@ import {
 	query,
 	serverTimestamp,
 	setDoc,
+	getDoc,
 } from "@firebase/firestore"
 import {
 	BookmarkIcon,
@@ -21,33 +22,55 @@ import { HeartIcon as HeartIconFilled } from "@heroicons/react/solid"
 import { useEffect, useState } from "react"
 import Moment from "react-moment"
 import { db, auth } from "../../../firebase"
+import { useContext, useMemo } from "react"
+import UserContext from "../../../context/userContext"
+import { useRouter } from "next/router";
 
-function Post({ currentUser, id, username, userImg, img, caption }) {
+function Post({ id, username, image, caption, userImg }) {
+	const router = useRouter()
+	const { currentUser } = useContext(UserContext)
 	const [comment, setComment] = useState("")
 	const [comments, setComments] = useState([])
 	const [likes, setLikes] = useState([])
 	const [hasLiked, setHasLiked] = useState(false)
 
-	// Get post data
+	// Get comments and combine user data
 	useEffect(() => {
 		const unsubscribe = onSnapshot(
 			query(
 				collection(db, "posts", id, "comments"),
 				orderBy("timestamp", "desc")
 			),
-			(snapshot) => setComments(snapshot.docs)
+			// set Profile Pic and username from userId for each comment
+			(snapshot) =>
+				snapshot.forEach((comment) => {
+					getDoc(doc(db, "users", comment.data().uid)).then(
+						(docSnap) => {
+							setComments((prevComments) => [
+								...prevComments,
+								{
+									id: comment.id,
+									comment: comment.data().comment,
+									timestamp: comment.data().timestamp,
+									username: docSnap.data().username,
+									userImg: docSnap.data().profilePic,
+								},
+							])
+						}
+					)
+				})
 		)
 		return () => unsubscribe()
 	}, [db, id])
 
 	//  Get likes
-	useEffect(
-		() =>
-			onSnapshot(collection(db, "posts", id, "likes"), (snapshot) =>
-				setLikes(snapshot.docs)
-			),
-		[db, id]
-	)
+	useEffect(() => {
+		const unsubscribe = onSnapshot(
+			collection(db, "posts", id, "likes"),
+			(snapshot) => setLikes(snapshot.docs)
+		)
+		return () => unsubscribe()
+	}, [db, id])
 
 	//   Searches likes array in state if user is in there, and if not (findIndex returns -1) setHasLiked to false
 	useEffect(
@@ -64,7 +87,7 @@ function Post({ currentUser, id, username, userImg, img, caption }) {
 			await deleteDoc(doc(db, "posts", id, "likes", currentUser.uid))
 		} else {
 			await setDoc(doc(db, "posts", id, "likes", currentUser.uid), {
-				username: currentUser.username,
+				uid: currentUser.uid,
 			})
 		}
 	}
@@ -80,8 +103,7 @@ function Post({ currentUser, id, username, userImg, img, caption }) {
 
 		await addDoc(collection(db, "posts", id, "comments"), {
 			comment: commentToSend,
-			username: currentUser.username,
-			userImage: currentUser.profilePicture,
+			uid: currentUser.uid,
 			timestamp: serverTimestamp(),
 		})
 	}
@@ -95,29 +117,35 @@ function Post({ currentUser, id, username, userImg, img, caption }) {
 					src={userImg}
 					alt=''
 				/>
-				<p className='flex-1 font-bold'>{username}</p>
+				<p
+					onClick={() => router.push(`/${username}`)}
+					className='flex-1 font-bold hover:cursor-pointer hover:text-gray-600'>
+					{username}
+				</p>
 				<DotsHorizontalIcon className='h-5' />
 			</div>
 
 			{/* img */}
-			<img src={img} className='object-cover w-full' alt='' />
+			<img src={image} className='object-cover w-full' alt={caption} />
 
 			{/* Buttons */}
-			<div className='flex justify-between px-4 pt-4'>
-				<div className='flex space-x-4'>
-					{hasLiked ? (
-						<HeartIconFilled
-							className='btn text-red-500'
-							onClick={likePost}
-						/>
-					) : (
-						<HeartIcon className='btn' onClick={likePost} />
-					)}
-					<ChatIcon className='btn' />
-					<PaperAirplaneIcon className='btn' />
+			{auth.currentUser && (
+				<div className='flex justify-between px-4 pt-4'>
+					<div className='flex space-x-4'>
+						{hasLiked ? (
+							<HeartIconFilled
+								className='btn text-red-500'
+								onClick={likePost}
+							/>
+						) : (
+							<HeartIcon className='btn' onClick={likePost} />
+						)}
+						<ChatIcon className='btn' />
+						<PaperAirplaneIcon className='btn' />
+					</div>
+					<BookmarkIcon className='btn' />
 				</div>
-				<BookmarkIcon className='btn' />
-			</div>
+			)}
 
 			{/* caption */}
 			<p className='p-5 truncate'>
@@ -137,20 +165,20 @@ function Post({ currentUser, id, username, userImg, img, caption }) {
 							className='flex items-center space-x-2 mb-3'>
 							<img
 								className='h-7 rounded-full'
-								src={comment.data().userImage}
+								src={comment.userImg}
 								alt=''
 							/>
 							<p className='text-sm flex-1'>
 								<span className='font-bold pr-2'>
-									{comment.data().username}
+									{comment.username}
 								</span>
-								{comment.data().comment}
+								{comment.comment}
 							</p>
 							<Moment
 								interval={1000}
 								fromNow
 								className='pr-5 text-xs'>
-								{comment.data().timestamp?.toDate()}
+								{comment.timestamp?.toDate()}
 							</Moment>
 						</div>
 					))}
@@ -158,26 +186,28 @@ function Post({ currentUser, id, username, userImg, img, caption }) {
 			)}
 
 			{/* input box */}
-			<form className='flex items-center p-4'>
-				<EmojiHappyIcon className='h-7' />
-				<input
-					type='text'
-					value={comment}
-					// Capture comment in state
-					onChange={(e) => setComment(e.target.value)}
-					className='border-none flex-1 focus:ring-0 outline-none'
-					placeholder='Add a comment...'
-				/>
-				<button
-					// For form submit on enter key
-					type='submit'
-					// Prevents spamming comments with space
-					disabled={!comment.trim()}
-					onClick={sendComment}
-					className='font-semibold text-blue-400'>
-					Post
-				</button>
-			</form>
+			{auth.currentUser && (
+				<form className='flex items-center p-4'>
+					<EmojiHappyIcon className='h-7' />
+					<input
+						type='text'
+						value={comment}
+						// Capture comment in state
+						onChange={(e) => setComment(e.target.value)}
+						className='border-none flex-1 focus:ring-0 outline-none'
+						placeholder='Add a comment...'
+					/>
+					<button
+						// For form submit on enter key
+						type='submit'
+						// Prevents spamming comments with space
+						disabled={!comment.trim()}
+						onClick={sendComment}
+						className='font-semibold text-blue-400'>
+						Post
+					</button>
+				</form>
+			)}
 		</div>
 	)
 }
