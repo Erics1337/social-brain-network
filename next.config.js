@@ -4,7 +4,7 @@
 // Whitelist
 module.exports = {
     images: {
-        domains: ['links.papareact.com']
+        domains: ['links.papareact.com', 'firebasestorage.googleapis.com', 'randomuser.me']
     },
 }
 {

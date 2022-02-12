@@ -29,7 +29,7 @@ function Post({ currentUser, id, username, userImg, img, caption }) {
 	const [likes, setLikes] = useState([])
 	const [hasLiked, setHasLiked] = useState(false)
 
-	// Get post data
+	// Get comments and combine user data
 	useEffect(() => {
 		const unsubscribe = onSnapshot(
 			query(
@@ -72,7 +72,7 @@ function Post({ currentUser, id, username, userImg, img, caption }) {
 	useEffect(
 		() =>
 			setHasLiked(
-				likes.findIndex((like) => like.id === currentUser.id) !== -1
+				likes.findIndex((like) => like.id === currentUser.uid) !== -1
 			),
 		[likes]
 	)
@@ -80,10 +80,10 @@ function Post({ currentUser, id, username, userImg, img, caption }) {
 	//   Toggles like
 	const likePost = async () => {
 		if (hasLiked) {
-			await deleteDoc(doc(db, "posts", id, "likes", currentUser.id))
+			await deleteDoc(doc(db, "posts", id, "likes", currentUser.uid))
 		} else {
-			await setDoc(doc(db, "posts", id, "likes", currentUser.id), {
-				username: currentUser.username,
+			await setDoc(doc(db, "posts", id, "likes", currentUser.uid), {
+				uid: currentUser.uid,
 			})
 		}
 	}

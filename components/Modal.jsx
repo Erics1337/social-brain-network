@@ -30,6 +30,7 @@ function Modal() {
 			userGroup: currentGroup,
 			uid: currentUser.uid,
 			caption: captionRef.current.value,
+			likes: [],
 			// Use server timezone so we can query based on the same time
 			timestamp: serverTimestamp(),
 		})
