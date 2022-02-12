@@ -12,7 +12,6 @@ import {
 } from "@firebase/firestore"
 import Profile from "../../components/profiles/Profile"
 import Navbar from "../../components/Navbar"
-import UploadPostModal from "../../components/UploadPostModal"
 import Loader from '../../components/Loader';
 import Head from "next/head";
 
@@ -76,7 +75,6 @@ function userProfile({ userSlug }) {
 				</Head>
 					<Navbar />
 					<Profile userData={userData} userPosts={userPosts} />
-					<UploadPostModal />
 				</main>
 			</>
 		)

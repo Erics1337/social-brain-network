@@ -1,5 +1,5 @@
 import { Dialog, Transition } from "@headlessui/react"
-import { Fragment, useRef, useState, useContext, useEffect } from "react"
+import { useRef, useState, useContext } from "react"
 import { CameraIcon } from "@heroicons/react/outline"
 import { db, storage } from "../firebase"
 import {
@@ -13,13 +13,13 @@ import { ref, getDownloadURL, uploadString } from "@firebase/storage"
 import UserContext from "../context/userContext"
 
 function UploadPostModal() {
-	const {currentUser, currentGroup, modalState, setModalState} = useContext(UserContext)
+	const { currentUser, modalState, setModalState } = useContext(UserContext)
 	const filePickerRef = useRef(null)
 	const captionRef = useRef(null)
+	const groupRef = useRef(null)
 	//  loading variable to lock out upload function
 	const [loading, setLoading] = useState(false)
 	const [selectedFile, setSelectedFile] = useState(null)
-
 
 	// Get post id and upload to firebase firestore, get download url and re-attach to original post
 	const uploadPost = async () => {
@@ -27,14 +27,13 @@ function UploadPostModal() {
 
 		// 1. Create a post and add to firestore 'posts' collection
 		const docRef = await addDoc(collection(db, "posts"), {
-			userGroup: currentGroup,
+			group: groupRef.current.value.toLowerCase(),
 			uid: currentUser.uid,
 			caption: captionRef.current.value,
 			likes: [],
 			// Use server timezone so we can query based on the same time
 			timestamp: serverTimestamp(),
 		})
-
 
 		// 2. Get the post ID for the newly created post
 		console.log("New doc added with ID", docRef.id)
@@ -161,6 +160,28 @@ function UploadPostModal() {
 										ref={captionRef}
 										placeholder='Please enter a caption...'
 									/>
+								</div>
+
+								{/* Choose Group to post to */}
+								<div className='pt-2'>
+									<label htmlFor='tabs' className='sr-only'>
+										Select a group to post to:
+									</label>
+									<select
+										ref={groupRef}
+										id='tabs'
+										className='bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg 
+										focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 
+										dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 
+										dark:focus:border-blue-500'>
+										<option>All</option>
+										<option>Loved</option>
+										<option>Family</option>
+										<option>Friends</option>
+										<option>Connections</option>
+										<option>Acquaintances</option>
+										<option>Recognizable</option>
+									</select>
 								</div>
 
 								{/* Upload Post Button */}

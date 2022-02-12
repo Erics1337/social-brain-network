@@ -12,7 +12,6 @@ import {
 } from "@firebase/firestore"
 import Profile from "../components/profiles/Profile"
 import Navbar from "../components/Navbar"
-import UploadPostModal from "../components/UploadPostModal"
 import { useRouter } from "next/router"
 import Loader from "../components/Loader"
 import Tabs from "../components/feed/Tabs"
@@ -32,12 +31,12 @@ function messaging() {
 	if (loading) return <Loader />
 	return (
 		<>
+            <Head>
+                <title>Social Brain Messaging</title>
+                <link rel='icon' href='/favicon.ico' />
+            </Head>
 			<ChatProvider>
 				<main className='bg-grey-50 h-screen overflow-y-scroll scrollbar-hide'>
-					<Head>
-						<title>Social Brain Messaging</title>
-						<link rel='icon' href='/favicon.ico' />
-					</Head>
 					<Navbar />
 					<div className='lg:w-8/12 lg:mx-auto mb-8'>
 						<Tabs />
