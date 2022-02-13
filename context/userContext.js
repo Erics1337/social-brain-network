@@ -127,7 +127,6 @@ export const UserProvider = ({ children }) => {
 						: ['']),
 					]
 				case "recognizable":
-					console.log('recognizable');
 					return [
 						...(currentUser.following.recognizable.length > 0
 						? currentUser.following.recognizable

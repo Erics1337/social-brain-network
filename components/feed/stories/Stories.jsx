@@ -45,7 +45,6 @@ function Stories() {
 				where("uid", "!=", currentUser.uid)
 			),
 			(snapshot) => {
-				console.log(snapshot.docs)
 				setStories(snapshot.docs.map((user) => user.data()))
 			}
 		)

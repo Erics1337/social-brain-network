@@ -65,7 +65,9 @@ function Navbar() {
 
 						{auth.currentUser ? (
 							<>
-								<HeartIcon className='navBtn' />
+								<HeartIcon className='navBtn' 
+								onClick={() => router.push("/activity")}
+								/>
 								<div
 									className='relative navBtn'
 									onClick={() => router.push("/messaging")}>
@@ -78,7 +80,8 @@ function Navbar() {
 									onClick={() => setModalState(true)}
 									className='navBtn'
 								/>
-								<UserGroupIcon className='navBtn' />
+								<UserGroupIcon className='navBtn' 
+								onClick={() => router.push("/groups")}/>
 								<UserIcon
 									onClick={() =>
 										router.push(
