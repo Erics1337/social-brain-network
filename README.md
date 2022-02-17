@@ -38,3 +38,10 @@ It uses the new [`Just-in-Time Mode`](https://tailwindcss.com/docs/just-in-time-
 npm install
 npm run dev
 ```
+
+## Testing
+```
+npx cypress open
+```
+### Specs
+1. user_login.spec.js - user can log in and out
