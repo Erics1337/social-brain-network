@@ -15,8 +15,8 @@ function activity() {
 	} = useContext(UserContext)
 
 	useEffect(() => {
-		if (auth) checkLoggedIn()
-		else router.push("/login")
+		if (auth.currentUser) checkLoggedIn()
+		else router.push("/loggin")
 	}, [])
 
 	if (loading) return <Loader />
