@@ -3,7 +3,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "e2e-test": "cypress open"
   },
   "dependencies": {
     "@headlessui/react": "^1.4.1",
@@ -22,6 +23,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.2.6",
+    "cypress": "^9.4.1",
     "postcss": "^8.3.5",
     "tailwindcss": "^2.2.4"
   }
