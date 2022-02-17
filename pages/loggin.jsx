@@ -3,23 +3,12 @@ import * as Yup from "yup"
 import { Formik, Field, Form } from "formik"
 import { db, auth } from "../firebase"
 import {
-	collection,
-	limit,
-	onSnapshot,
-	query,
-	where,
-	addDoc,
-	setDoc,
-	getDoc,
-	doc,
-} from "@firebase/firestore"
-import {
-	getAuth,
 	signInWithEmailAndPassword,
-	createUserWithEmailAndPassword,
 } from "firebase/auth"
 import router from "next/router"
-import { Head } from 'next/head';
+import Head from 'next/head'
+
+
 
 function logIn() {
 	// Login Form Validation Schema
