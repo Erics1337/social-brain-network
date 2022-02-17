@@ -10,7 +10,7 @@ import {
 	signInWithEmailAndPassword,
 } from "firebase/auth"
 import router from "next/router"
-import { Head } from 'next/head';
+import Head from 'next/head';
 
 function signUp() {
 	// Signup Form Validation Schema
