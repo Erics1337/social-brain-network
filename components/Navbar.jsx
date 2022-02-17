@@ -9,7 +9,7 @@ import {
 	MenuIcon,
 	UserIcon,
 } from "@heroicons/react/outline"
-import { useRouter } from "next/router"
+import router from "next/router"
 import { auth } from "../firebase"
 import { signOut } from "firebase/auth"
 import { useContext } from "react"
@@ -18,11 +18,10 @@ import UploadPostModal from "./UploadPostModal"
 
 function Navbar() {
 	const { setModalState, currentUser } = useContext(UserContext)
-	const router = useRouter()
 	return (
 		<>
 			<UploadPostModal />
-			<div className='shadow-md border-b bg-white sticky top-0 z-50'>
+			<nav className='shadow-md border-b bg-white sticky top-0 z-50'>
 				<div className='flex justify-between max-w-6xl mx-5 lg:mx-auto'>
 					{/* Left Part */}
 					<div
@@ -106,13 +105,12 @@ function Navbar() {
 							<button
 								className='inline-block bg-blue-500 px-2 py-1 text-white font-semibold 
 						text-sm rounded'
-								onClick={() => router.push("/logIn")}>
-								Log In
+								onClick={() => router.push("/loggin")}>Log In
 							</button>
 						)}
 					</div>
 				</div>
-			</div>
+			</nav>
 		</>
 	)
 }
