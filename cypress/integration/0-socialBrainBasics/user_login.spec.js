@@ -1,7 +1,7 @@
 describe('Social Brain Network Log In', () => {
     it.only('loads successfully', () => {
         // ARRANGE
-        cy.visit('http://localhost:3000')
+        cy.visit(CYPRESS_BASE_URL)
         // ACT
         // None: Loading only
         // ASSERT
