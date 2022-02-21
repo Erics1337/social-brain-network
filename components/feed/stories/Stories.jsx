@@ -12,29 +12,9 @@ import {
 import UserContext from "../../../context/userContext"
 
 function Stories() {
-	const { currentUser, currentGroup, combineGroupsUsers } = useContext(UserContext)
+	const { currentUser, currentGroup, combineGroupsUsers, groupNumber } = useContext(UserContext)
 	const [stories, setStories] = useState([])
 
-	const groupNumber = (currentGroup) => {
-		switch (currentGroup) {
-			case "loved":
-				return 7
-			case "family":
-				return 15
-			case "friends":
-				return 50
-			case "connections":
-				return 150
-			case "acquaintances":
-				return 500
-			case "recognizable":
-				return 1500
-			case "all":
-				return 2222
-			default:
-				return 0
-		}
-	}
 
 	// Get user's following from all groups w/ snapshot
 	useEffect(() => {
@@ -45,7 +25,6 @@ function Stories() {
 				where("uid", "!=", currentUser.uid)
 			),
 			(snapshot) => {
-				console.log(snapshot.docs)
 				setStories(snapshot.docs.map((user) => user.data()))
 			}
 		)

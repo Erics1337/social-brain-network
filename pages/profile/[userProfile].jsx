@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react"
-import UserContext from "../context/userContext"
-import { auth, db } from "../firebase"
+import UserContext from "../../context/userContext"
+import { auth, db } from "../../firebase"
 import {
 	onSnapshot,
 	query,
@@ -10,13 +10,14 @@ import {
 	doc,
 	limit,
 } from "@firebase/firestore"
-import Profile from "../components/profiles/Profile"
-import Navbar from "../components/Navbar"
-import UploadPostModal from "../components/UploadPostModal"
+import Profile from "../../components/profiles/Profile"
+import Navbar from "../../components/Navbar"
+import Loader from '../../components/Loader';
+import Head from "next/head";
 
 
 function userProfile({ userSlug }) {
-	const { checkLoggedIn, currentUser } = useContext(UserContext)
+	const { loading, checkLoggedIn, currentUser } = useContext(UserContext)
 	const [userPosts, setUserPosts] = useState([])
 	const [userData, setUserData] = useState(null)
 
@@ -63,13 +64,17 @@ function userProfile({ userSlug }) {
 		return () => unsubscribe()
 	}, [db, userSlug])
 
+	if (loading) return <Loader />
 	if (userData) {
 		return (
 			<>
 				<main className='bg-gray-100 bg-opacity-25 h-screen'>
+				<Head>
+					<title>{userSlug}'s Profile | Social Brain Network</title>
+					<link rel="icon" href="/favicon.ico" />
+				</Head>
 					<Navbar />
 					<Profile userData={userData} userPosts={userPosts} />
-					<UploadPostModal />
 				</main>
 			</>
 		)

@@ -6,6 +6,7 @@ function Tabs() {
 
 	return (
 		<div className='pt-5'>
+			{/* For Mobile */}
 			<div className='sm:hidden'>
 				<label htmlFor='tabs' className='sr-only'>
 					Select Your Social Group
@@ -14,6 +15,7 @@ function Tabs() {
 					id='tabs'
 					className='bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'>
 					<option>All</option>
+					<option>Loved</option>
 					<option>Family</option>
 					<option>Friends</option>
 					<option>Connections</option>
@@ -21,6 +23,7 @@ function Tabs() {
 					<option>Recognizable</option>
 				</select>
 			</div>
+			{/* Expanded */}
 			<ul className='flex hidden rounded-lg divide-x divide-gray-200 shadow sm:flex dark:divide-gray-700'>
 				<li className='w-full'>
 					<button
@@ -32,6 +35,17 @@ function Tabs() {
 						} rounded-l-lg inline-block relative py-4 px-4 w-full text-sm font-medium text-center hover:text-gray-700 hover:bg-gray-50 text-gray-900 focus:ring-4 focus:ring-blue-300 focus:z-20 active dark:bg-gray-700 dark:text-white`}
 						aria-current='page'>
 						All
+					</button>
+				</li>
+				<li className='w-full'>
+					<button
+						onClick={() => setCurrentGroup("loved")}
+						className={`${
+							currentGroup === "loved"
+								? "bg-gray-200 text-gray-900 hover:bg-gray-300"
+								: "text-gray-500"
+						} inline-block relative py-4 px-4 w-full text-sm font-medium text-center hover:text-gray-700 hover:bg-gray-50 text-gray-900 focus:ring-4 focus:ring-blue-300 focus:z-20 active dark:bg-gray-700 dark:text-white`}>
+						Loved
 					</button>
 				</li>
 				<li className='w-full'>

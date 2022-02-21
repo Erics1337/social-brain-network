@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import Feed from '../components/feed/Feed'
 import Navbar from '../components/Navbar';
-import UploadPostModal from '../components/UploadPostModal';
 import Homepage from '../components/landingPage/Homepage';
 import {useContext, useEffect} from 'react'
 import UserContext from '../context/userContext'
@@ -22,7 +21,7 @@ export default function Home() {
   return (
     <div className="bg-grey-50 h-screen overflow-y-scroll scrollbar-hide">
       <Head>
-        <title>Social Brain</title>
+        <title>Social Brain Network</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -33,9 +32,6 @@ export default function Home() {
       ) : (
         <Homepage  />
     )}
-
-      <UploadPostModal />
-
     </div>
   )
 }

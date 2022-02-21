@@ -7,8 +7,10 @@ Not a social network, but a social network management system
 - Make a post
 - Like/comment on posts
 - Landing page explaining the Social Brain Network
-## Feature Wish-list
 - Friend Groupings associated with ranks of Dunbar's theory
+- Feed that displays posts from members of each of your groups
+  - Your posts are viewable from any group
+## Feature Wish-list
 - A personal journal feature for non-visible posts
 - 1-on-1 messaging and maybe group chats (using firebase live database!)
 
@@ -36,3 +38,10 @@ It uses the new [`Just-in-Time Mode`](https://tailwindcss.com/docs/just-in-time-
 npm install
 npm run dev
 ```
+
+## Testing
+```
+npx cypress open
+```
+### Specs
+1. user_login.spec.js - user can log in and out

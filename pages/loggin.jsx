@@ -1,76 +1,40 @@
-import React from "react"
 import Image from "next/image"
 import * as Yup from "yup"
 import { Formik, Field, Form } from "formik"
 import { db, auth } from "../firebase"
-import { setDoc, doc } from "@firebase/firestore"
 import {
-	createUserWithEmailAndPassword,
-	sendEmailVerification,
 	signInWithEmailAndPassword,
 } from "firebase/auth"
 import router from "next/router"
-import Head from 'next/head';
+import Head from 'next/head'
 
-function signUp() {
-	// Signup Form Validation Schema
-	const SignupFormSchema = Yup.object().shape({
+
+
+function logIn() {
+	// Login Form Validation Schema
+	const LoginFormSchema = Yup.object().shape({
 		email: Yup.string().email().required("An email is required"),
-		username: Yup.string().required().min(2, "A username is required"),
 		password: Yup.string()
 			.required()
 			.min(6, "Password must be at least 6 characters long"),
 	})
 
-	// randomuser.me API
-	const getRandomProfilePic = async () => {
-		const response = await fetch("https://randomuser.me/api")
-		const data = await response.json()
-		return data.results[0].picture.large
-	}
-
-	const handleSignup = async (email, password, username) => {
+	// Firebase Login
+	const handleLogin = async (email, password) => {
 		try {
-			const authUser = await createUserWithEmailAndPassword(
-				auth,
-				email,
-				password
-			)
-			console.log("Firebase User Created Successfully", authUser.user.uid)
-
-			// Add user to the users collection with id of email
-			await setDoc(doc(db, "users", authUser.user.uid), {
-				owner_uid: authUser.user.uid,
-				username: username,
-				email: authUser.user.email,
-				profilePic: await getRandomProfilePic(),
-				following: {
-					loved: [],
-					family: [],
-					friends: [],
-					acquaintances: [],
-					connections: [],
-					recognizable: [],
-				},
-				followers: [],
-				subName: "click to add subName",
-				bio: "No bio set yet: click to add bio",
-			})
-				.then(signInWithEmailAndPassword(auth, email, password))
-				.then(console.log("User Signed In Successfully"))
-				//   .then(sendEmailVerification(auth.currentUser))
-				.then(router.push("/"))
-
-			console.log("Firebase User Added to Database", authUser.user.uid)
+			await signInWithEmailAndPassword(auth, email, password)
+			console.log("Firebase Login Successful", email, password)
+			router.push("/")
+			// navigation.navigate("Home")
 		} catch (error) {
-			console.log("Error Creating User", error)
+			console.log("Firebase Login Error", error)
 		}
 	}
 
 	return (
 		<main>
 			<Head>
-				<title>Sign Up | Social Brain Messaging</title>
+				<title>Login | Social Brain Network</title>
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 			<div className='h-screen bg-gray-50 flex flex-col justify-center items-center'>
@@ -85,21 +49,11 @@ function signUp() {
 							password: "",
 						}}
 						onSubmit={(values) =>
-							handleSignup(
-								values.email,
-								values.password,
-								values.username
-							)
+							handleLogin(values.email, values.password)
 						}
-						validationSchema={SignupFormSchema}
+						validationSchema={LoginFormSchema}
 						validateOnMount={false}>
 						<Form className='mt-8 w-64 flex flex-col'>
-							<Field
-								className='text-xs w-full mb-2 rounded border bg-gray-100 border-gray-300 px-2 py-2 focus:outline-none focus:border-gray-400 active:outline-none'
-								type='text'
-								name='username'
-								placeholder='Username'
-							/>
 							<Field
 								className='text-xs w-full mb-2 rounded border bg-gray-100 border-gray-300 px-2 py-2 focus:outline-none focus:border-gray-400 active:outline-none'
 								type='email'
@@ -115,7 +69,7 @@ function signUp() {
 							<button
 								type='submit'
 								className=' text-sm text-center bg-blue-500 text-white py-1 rounded font-medium'>
-								Sign Up
+								Log In
 							</button>
 						</Form>
 					</Formik>
@@ -134,12 +88,12 @@ function signUp() {
 					{/* <a className="text-xs text-blue-900 mt-4 cursor-pointer -mb-4">Forgot password?</a> */}
 				</div>
 				<div className='bg-white border border-gray-300 text-center w-80 py-4'>
-					<span className='text-sm'>Already have an account?</span>
+					<span className='text-sm'>Need an account?</span>
 					<a
-						href='/logIn'
+						href='/signUp'
 						className='text-blue-500 text-sm font-semibold'>
 						{" "}
-						Log In
+						Sign Up
 					</a>
 				</div>
 				<div className='mt-3 text-center'>
@@ -154,4 +108,4 @@ function signUp() {
 	)
 }
 
-export default signUp
+export default logIn

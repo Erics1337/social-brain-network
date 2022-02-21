@@ -31,6 +31,7 @@ function Post({ id, username, image, caption, userImg }) {
 	const { currentUser } = useContext(UserContext)
 	const [comment, setComment] = useState("")
 	const [comments, setComments] = useState([])
+	const [openComments, setOpenComments] = useState(false)
 	const [likes, setLikes] = useState([])
 	const [hasLiked, setHasLiked] = useState(false)
 
@@ -42,7 +43,8 @@ function Post({ id, username, image, caption, userImg }) {
 				orderBy("timestamp", "desc")
 			),
 			// set Profile Pic and username from userId for each comment
-			(snapshot) =>
+			(snapshot) => {
+				setComments([])
 				snapshot.forEach((comment) => {
 					getDoc(doc(db, "users", comment.data().uid)).then(
 						(docSnap) => {
@@ -59,6 +61,7 @@ function Post({ id, username, image, caption, userImg }) {
 						}
 					)
 				})
+			}
 		)
 		return () => unsubscribe()
 	}, [db, id])
@@ -118,7 +121,7 @@ function Post({ id, username, image, caption, userImg }) {
 					alt=''
 				/>
 				<p
-					onClick={() => router.push(`/${username}`)}
+					onClick={() => router.push(`/profile/${username}`)}
 					className='flex-1 font-bold hover:cursor-pointer hover:text-gray-600'>
 					{username}
 				</p>
@@ -140,7 +143,7 @@ function Post({ id, username, image, caption, userImg }) {
 						) : (
 							<HeartIcon className='btn' onClick={likePost} />
 						)}
-						<ChatIcon className='btn' />
+						<ChatIcon className='btn' onClick={()=> setOpenComments(!openComments)} />
 						<PaperAirplaneIcon className='btn' />
 					</div>
 					<BookmarkIcon className='btn' />
@@ -157,7 +160,8 @@ function Post({ id, username, image, caption, userImg }) {
 			</p>
 
 			{/* comments */}
-			{comments.length > 0 && (
+			{comments.length > 0 && openComments && (
+				<>
 				<div className='ml-10 h-20 overflow-y-scroll scrollbar-thumb-black scrollbar-thin'>
 					{comments.map((comment) => (
 						<div
@@ -183,31 +187,34 @@ function Post({ id, username, image, caption, userImg }) {
 						</div>
 					))}
 				</div>
-			)}
 
-			{/* input box */}
-			{auth.currentUser && (
-				<form className='flex items-center p-4'>
-					<EmojiHappyIcon className='h-7' />
-					<input
-						type='text'
-						value={comment}
-						// Capture comment in state
-						onChange={(e) => setComment(e.target.value)}
-						className='border-none flex-1 focus:ring-0 outline-none'
-						placeholder='Add a comment...'
-					/>
-					<button
-						// For form submit on enter key
-						type='submit'
-						// Prevents spamming comments with space
-						disabled={!comment.trim()}
-						onClick={sendComment}
-						className='font-semibold text-blue-400'>
-						Post
-					</button>
-				</form>
-			)}
+				{/* input box */}
+				{auth.currentUser && (
+					<form className='flex items-center p-4'>
+						<EmojiHappyIcon className='h-7' />
+						<input
+							type='text'
+							value={comment}
+							// Capture comment in state
+							onChange={(e) => setComment(e.target.value)}
+							className='border-none flex-1 focus:ring-0 outline-none'
+							placeholder='Add a comment...'
+						/>
+						<button
+							// For form submit on enter key
+							type='submit'
+							// Prevents spamming comments with space
+							disabled={!comment.trim()}
+							onClick={sendComment}
+							className='font-semibold text-blue-400'>
+							Post
+						</button>
+					</form>
+				)}
+				</>
+			)
+		}
+
 		</div>
 	)
 }
