@@ -19,16 +19,25 @@ import { getAuth, onAuthStateChanged } from "firebase/auth"
 
 const UserContext = createContext()
 export const UserProvider = ({ children }) => {
+	const groups = {
+		loved: [],
+		family: [],
+		friends: [],
+		connections: [],
+		acquaintances: [],
+		recognizable: [],
+	}
+
 	const initialState = {
 		currentUser: {
 			uid: "",
 			username: "",
 			profilePic: "",
 			email: "",
-			following: [],
-			followers: [],
+			following: groups,
+			followers: groups,
 		},
-		currentGroup: 'all',
+		currentGroup: "all",
 		loading: true,
 		modalState: false,
 	}
@@ -81,61 +90,88 @@ export const UserProvider = ({ children }) => {
 		dispatch(setModal(modalState))
 	}
 
-		// Returns a list of all users in the current Group
-		const combineGroupsUsers = (currentGroup, currentUser) => {
-			switch(currentGroup){
-				case "all":
-					return [
-						...(currentUser.following.acquaintances.length > 0
-							? currentUser.following.acquaintances
-							: ['']),
-						...(currentUser.following.connections.length > 0
-							? currentUser.following.connections
-							: ['']),
-						...(currentUser.following.family.length > 0
-							? currentUser.following.family
-							: ['']),
-						...(currentUser.following.friends.length > 0
-							? currentUser.following.friends
-							: ['']),
-						...(currentUser.following.recognizable.length > 0
-							? currentUser.following.recognizable
-							: ['']),
-					]
-				case "acquaintances":
-					return [
-						...(currentUser.following.acquaintances.length > 0
-						? currentUser.following.acquaintances
-						: ['']),
-					]
-				case "connections":
-					return [
-						...(currentUser.following.connections.length > 0
-						? currentUser.following.connections
-						: ['']),
-					]
-				case "family":
-					return [
-						...(currentUser.following.family.length > 0
-						? currentUser.following.family
-						: ['']),
-					]
-				case "friends":
-					return [
-						...(currentUser.following.friends.length > 0
-						? currentUser.following.friends
-						: ['']),
-					]
-				case "recognizable":
-					return [
-						...(currentUser.following.recognizable.length > 0
-						? currentUser.following.recognizable
-						: ['']),
-					]
-				default:
-					return ['']
-			}
+	const groupNumber = (currentGroup) => {
+		switch (currentGroup) {
+			case "loved":
+				return 7
+			case "family":
+				return 15
+			case "friends":
+				return 50
+			case "connections":
+				return 150
+			case "acquaintances":
+				return 500
+			case "recognizable":
+				return 1500
+			case "all":
+				return 2222
+			default:
+				return 0
 		}
+	}
+
+	// Returns a list of all users in the current Group
+	const combineGroupsUsers = (currentGroup, currentUser) => {
+		switch (currentGroup) {
+			case "all":
+				return [
+					...(currentUser.following.acquaintances.length > 0
+						? currentUser.following.acquaintances
+						: [""]),
+					...(currentUser.following.connections.length > 0
+						? currentUser.following.connections
+						: [""]),
+					...(currentUser.following.family.length > 0
+						? currentUser.following.family
+						: [""]),
+					...(currentUser.following.friends.length > 0
+						? currentUser.following.friends
+						: [""]),
+					...(currentUser.following.recognizable.length > 0
+						? currentUser.following.recognizable
+						: [""]),
+				]
+			case "loved":
+				return [
+					...(currentUser.following.loved.length > 0
+						? currentUser.following.loved
+						: [""]),
+				]
+			case "acquaintances":
+				return [
+					...(currentUser.following.acquaintances.length > 0
+						? currentUser.following.acquaintances
+						: [""]),
+				]
+			case "connections":
+				return [
+					...(currentUser.following.connections.length > 0
+						? currentUser.following.connections
+						: [""]),
+				]
+			case "family":
+				return [
+					...(currentUser.following.family.length > 0
+						? currentUser.following.family
+						: [""]),
+				]
+			case "friends":
+				return [
+					...(currentUser.following.friends.length > 0
+						? currentUser.following.friends
+						: [""]),
+				]
+			case "recognizable":
+				return [
+					...(currentUser.following.recognizable.length > 0
+						? currentUser.following.recognizable
+						: [""]),
+				]
+			default:
+				return [""]
+		}
+	}
 
 	// set currrentGroup
 	const setCurrentGroup = (group) => {
@@ -152,6 +188,7 @@ export const UserProvider = ({ children }) => {
 				setModalState,
 				setCurrentGroup,
 				combineGroupsUsers,
+				groupNumber
 			}}>
 			{children}
 		</UserContext.Provider>

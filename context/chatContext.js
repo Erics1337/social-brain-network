@@ -1,15 +1,15 @@
 import { createContext, useReducer } from "react"
-import ProfileReducer from "./profileReducer"
+import ChatReducer from "./chatReducer"
 
 const ChatContext = createContext()
 export const ChatProvider = ({ children }) => {
 	const initialState = {
 		currentChat: null
 	}
-	const [state, dispatch] = useReducer(ProfileReducer, initialState)
+	const [state, dispatch] = useReducer(ChatReducer, initialState)
 
-    const setPostsView = (payload) => {
-        dispatch({ type: "SET_POSTS_VIEW", payload })
+    const setCurrentChat = (payload=null) => {
+        dispatch({ type: "SET_CURRENT_CHAT", payload })
     }
 
 
@@ -17,6 +17,7 @@ export const ChatProvider = ({ children }) => {
 		<ChatContext.Provider
 			value={{
 				...state,
+				setCurrentChat,
 			}}>
 			{children}
 		</ChatContext.Provider>
