@@ -1,7 +1,7 @@
 describe('Social Brain Network Log In', () => {
     it.only('loads successfully', () => {
         // ARRANGE
-        cy.visit(Cypress.env('BASE_URL'));
+        cy.visit('/');
         // ACT
         // None: Loading only
         // ASSERT
