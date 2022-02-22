@@ -4,11 +4,12 @@ import Header from "./Header"
 import Features from "./Features"
 import ProfilePost from "./ProfilePost"
 import { ProfileProvider } from "../../context/profileContext"
+import ViewPostModal from "./ViewPostModal"
 
 function Profile({ userData, userPosts }) {
-	console.log(userPosts)
 	return (
 		<ProfileProvider>
+			<ViewPostModal />
 			<div className='lg:w-8/12 lg:mx-auto mb-8'>
 				<Header userData={userData} postCount={userPosts.length} />
 				<div className='px-px md:px-3'>
@@ -18,12 +19,8 @@ function Profile({ userData, userPosts }) {
 						{userPosts.map((post) => (
 							<ProfilePost
 								key={post.postId}
-								postId={post.postId}
-								image={post.image}
-								caption={post.caption}
-								timestamp={post.timestamp}
-								username={userData.username}
-								userImg={userData.profilePic}
+								postData={post}
+								userData={userData}
 							/>
 						))}
 					</div>

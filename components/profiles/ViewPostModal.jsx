@@ -1,14 +1,19 @@
 import { Dialog, Transition } from "@headlessui/react"
-import { useContext } from 'react'
+import { useContext } from "react"
 import ProfileContext from "../../context/profileContext"
-import Post from "../feed/posts/Post";
+import Post from "../feed/posts/Post"
 
-function ViewPostModal({ postId, username, image, caption, userImg}) {
-    const { modalState, setModalState } = useContext(ProfileContext)
+function ViewPostModal() {
+	if (postData === null) return null
+	const { modalState, setModalState, postData } = useContext(ProfileContext)
 
+	const { image, caption, postId } = postData.postData
+	const { username, profilePic } = postData.userData
 
-    return (
-		<Transition.Root show={modalState} appear={true} as='Fragment'>
+	console.log("postData", postData)
+
+	return (
+		<Transition.Root open show={modalState} appear={true} as='Fragment'>
 			<Dialog
 				as='div'
 				className='fixed z-10 inset-0 overflow-y-auto'
@@ -33,6 +38,7 @@ function ViewPostModal({ postId, username, image, caption, userImg}) {
 					</Transition.Child>
 
 					<Transition.Child
+						onClick={() => setModalState(true)}
 						as='Fragment'
 						enter='ease-out duration-300'
 						enterFrom='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
@@ -43,7 +49,13 @@ function ViewPostModal({ postId, username, image, caption, userImg}) {
 						<div
 							className='inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden
                             shadow-xl transform transition-all sm:mt-5 sm:align-middle sm:max-w-sm sm:w-full sm:p-6'>
-                            <Post userImg={userImg} id={postId} username={username} image={image} caption={caption} />
+							<Post
+								userImg={profilePic}
+								id={postId}
+								username={username}
+								image={image}
+								caption={caption}
+							/>
 						</div>
 					</Transition.Child>
 				</div>

@@ -1,31 +1,38 @@
 import { useState, useEffect, useContext } from "react"
 import Link from "next/link"
-import Image from "next/image";
+import Image from "next/image"
+import { ChatIcon, HeartIcon } from "@heroicons/react/outline"
+import { db } from "../../firebase"
 import {
-	ChatIcon,
-	HeartIcon
-} from "@heroicons/react/outline"
-import { db } from "../../firebase";
-import { onSnapshot, collection, query, orderBy, getDoc, doc } from '@firebase/firestore';
+	onSnapshot,
+	collection,
+	query,
+	orderBy,
+	getDoc,
+	doc,
+} from "@firebase/firestore"
 import ProfileContext from "../../context/profileContext"
-import ViewPostModal from "./ViewPostModal";
 
-
-function ProfilePost({ postId, username, image, caption, userImg, timestamp }) {
-	const { setModalState } = useContext(ProfileContext)
+function ProfilePost({ postData, userData }) {
+	const { setModalState, setPostData } = useContext(ProfileContext)
 	const [comments, setComments] = useState([])
 	const [likes, setLikes] = useState([])
-	
+
+	const { postId, image } = postData
+
+	const handlePostModal = () => {
+		setPostData({ postData, userData })
+		setModalState(true)
+	}
+
 	//  Get likes
-	useEffect(
-		() => {
-			const unsubscribe = onSnapshot(collection(db, "posts", postId, "likes"), (snapshot) =>
-				setLikes(snapshot.docs)
-			)
-			return () => unsubscribe()
-		},
-		[db]
-	)
+	useEffect(() => {
+		const unsubscribe = onSnapshot(
+			collection(db, "posts", postId, "likes"),
+			(snapshot) => setLikes(snapshot.docs)
+		)
+		return () => unsubscribe()
+	}, [db])
 
 	// Get comments and combine user data
 	useEffect(() => {
@@ -35,31 +42,31 @@ function ProfilePost({ postId, username, image, caption, userImg, timestamp }) {
 				orderBy("timestamp", "desc")
 			),
 			// set Profile Pic and username from userId for each comment
-			(snapshot) => snapshot.forEach((comment) => {
-				getDoc(doc(db, "users", comment.data().uid))
-				.then((docSnap) => {
-					setComments((prevComments) => [
-						...prevComments,
-						{
-							id: comment.id,
-							comment: comment.data().comment,
-							timestamp: comment.data().timestamp,
-							username: docSnap.data().username,
-							userImg: docSnap.data().profilePic,
-							
-						},
-					])
+			(snapshot) =>
+				snapshot.forEach((comment) => {
+					getDoc(doc(db, "users", comment.data().uid)).then(
+						(docSnap) => {
+							setComments((prevComments) => [
+								...prevComments,
+								{
+									id: comment.id,
+									comment: comment.data().comment,
+									timestamp: comment.data().timestamp,
+									username: docSnap.data().username,
+									userImg: docSnap.data().profilePic,
+								},
+							])
+						}
+					)
 				})
-			})
 		)
 		return () => unsubscribe()
 	}, [db])
 
 	return (
 		<>
-			<ViewPostModal postId={postId} username={username} userImg={userImg} image={image} caption={caption} />
 			{/* <!-- column --> */}
-			<div className='w-1/3 p-px md:px-3' onClick={() => setModalState(true)}>
+			<div className='w-1/3 p-px md:px-3' onClick={handlePostModal}>
 				<article className='post bg-gray-100 text-white relative pb-full md:mb-6 hover:cursor-pointer'>
 					{/* <!-- post image--> */}
 					<Image
@@ -77,12 +84,16 @@ function ProfilePost({ postId, username, image, caption, userImg, timestamp }) {
 							className='flex justify-center items-center 
 								space-x-4 h-full'>
 							<span className='p-2'>
-								<HeartIcon className={'inline-block h-6 pr-2 pb-1'} />
+								<HeartIcon
+									className={"inline-block h-6 pr-2 pb-1"}
+								/>
 								{likes.length}
 							</span>
 
 							<span className='p-2'>
-								<ChatIcon className={'inline-block h-6 pr-2 pb-1'} />
+								<ChatIcon
+									className={"inline-block h-6 pr-2 pb-1"}
+								/>
 								{comments.length}
 							</span>
 						</div>
