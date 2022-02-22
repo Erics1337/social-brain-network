@@ -1,16 +1,16 @@
 import React from 'react'
+import { auth } from '../../firebase';
 import ChatBubble from './ChatBubble';
 
 
 function ChatMessages({messages}) {
+  console.log('messages', messages);
   return (
     <div className="relative w-full p-6 overflow-y-auto h-[40rem]">
     <ul className="space-y-2">
-      <ChatBubble amSender={false} text={'Hi'} />
-      <ChatBubble amSender={true} text={'Hiiii'} />
-      <ChatBubble amSender={true} text={'how are you?'} />
-      <ChatBubble amSender={false} text={'Lorem ipsum dolor sit, amet consectetur adipisicing elit.'} />
-      <ChatBubble amSender={true} text={'fuck you'} />
+      {messages.map((message, i) => (
+        <ChatBubble key={i} amSender={message.to === auth.currentUser.uid} text={message.text} />
+      ))}
     </ul>
   </div>
   )
