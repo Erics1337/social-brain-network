@@ -40,23 +40,26 @@ function Chat() {
 				])
 			),
 			(usersSnapshot) => {
+				// Get messages
 				setUsers([])
 				usersSnapshot.docs.forEach((userSnap) => {
 					getDocs(
 						query(
-							collection(db, "messages"),
-							where("uid", "==", userSnap.data().uid),
+							collection(db, "users", userSnap.data().uid, 'messages'),
+							where("to", "==", currentUser.uid),
 							orderBy("timestamp", "desc"),
 							limit(1)
-						)
-					).then((message) => {
+							)
+							).then((message) => {
 						setUsers((prevUsers) => [
 							...prevUsers,
 							{
 								profilePic: userSnap.data().profilePic,
-								username: userSnap.data().username, 
-								timestamp: message.docs[0].data().timestamp,
-								text: message.docs[0].data().text,
+								username: userSnap.data().username,
+								latestMessage: {
+									timestamp: message.size > 0 ? message.docs[0].data().timestamp : null,
+									text: message.size > 0 ? message.docs[0].data().text : null,
+								}
 							},
 						])
 					})

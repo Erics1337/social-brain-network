@@ -32,11 +32,11 @@ function ChatUser({ user }) {
 							interval={1000}
 							fromNow
 							className='pr-5 text-xs'>
-							{user.timestamp?.toDate()}
+							{user.latestMessage.timestamp?.toDate()}
 						</Moment>
 					</div>
 					<span className='block ml-2 text-sm text-gray-600'>
-						{user.text}
+						{user.latestMessage.text}
 					</span>
 				</div>
 			</a>
