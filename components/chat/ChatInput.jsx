@@ -1,25 +1,29 @@
 import { useState, useContext } from "react"
-import { addDoc, doc, setDoc, collection, serverTimestamp } from "firebase/firestore"
+import {
+	addDoc,
+	doc,
+	setDoc,
+	collection,
+	serverTimestamp,
+} from "firebase/firestore"
 import { auth, db } from "../../firebase"
 import ChatContext from "../../context/chatContext"
+import UserContext from "../../context/userContext"
 
 function ChatInput() {
 	const [message, setMessage] = useState("")
 	const { currentChat } = useContext(ChatContext)
+	const { currentGroup } = useContext(UserContext)
 
 	const uploadMessage = async (message) => {
-
-		// 1. Create a post and add to firestore 'posts' collection
 		const docRef = await addDoc(
 			collection(db, "users", auth.currentUser.uid, "messages"),
 			{
-				to: currentChat.uid,
+				to: currentChat ? currentChat.uid : currentGroup,
 				text: message,
 				timestamp: serverTimestamp(),
 			}
 		)
-
-		// 2. Get the post ID for the newly created post
 		console.log("New doc added with ID", docRef.id)
 	}
 

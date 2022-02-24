@@ -21,53 +21,67 @@ import {
 function ChatColumn({currentGroup}) {
     const { currentChat } = useContext(ChatContext)
     const [messages, setMessages] = useState([])
-
-
-    
-    // Post a message
     
     // Get messages
     useEffect(() => {
-        console.log(currentChat)
         if (currentChat) {
-            // Get other user's messages to user
+            // Get currentUser's messages to currentChat user
             const unsubscribe = onSnapshot(
                 query(
-                    collection(db, "users", currentChat.uid, 'messages'),
-                    where("to", "==", auth.currentUser.uid),
+                    collection(db, "users", auth.currentUser.uid, 'messages'),
+                    where("to", "==", currentChat.uid),
                     ),
-                    (otherUserMessagesSnap) => {
-                        var otherUserMessages = []
-                        otherUserMessagesSnap.forEach((message) => {
-                            otherUserMessages.push(message.data())
+                    (userMessagesSnap) => {
+                        console.log('messages', messages)
+                        var userMessages = []
+                        userMessagesSnap.forEach((message) => {
+                            userMessages.push(message.data())
                         })
-                        // Get current user's messages to other user
+                        console.log('user messages read from db')
+                        // Get other user's messages to user
                         onSnapshot(
-                            query(collection(db, "users", auth.currentUser.uid, 'messages'),
-                            where("to", "==", currentChat.uid),
+                            query(collection(db, "users", currentChat.uid, 'messages'),
+                            where("to", "==", auth.currentUser.uid),
                             ),
-                            (userMessagesSnap) => {
-                            var userMessages = []
-                            userMessagesSnap.forEach((message) => {
-                                userMessages.push(message.data())
+                            (otherUserMessagesSnap) => {
+                                console.log('other user messages read from db')
+                            var otherUserMessages = []
+                            otherUserMessagesSnap.forEach((message) => {
+                                otherUserMessages.push(message.data())
                             })
                             // Combine messages from other user and user
                             const combinedMessages = [...otherUserMessages, ...userMessages]
                             console.log('combinedMessages', combinedMessages)
                             // Sort messages by timestamp
                             const sortedMessages = combinedMessages.sort((a, b) => {
-                                return a.data().timestamp - b.data().timestamp
+                                return a.timestamp - b.timestamp
                             })
                             setMessages(sortedMessages)
                         })
                 })
                 return () => unsubscribe()
-            // Get current user's messages to other user
 
-            // Get messages from all users in current user's group (do later)
-        } else 
-            setMessages([])
-    }, [db, currentChat])
+            // Get messages from all users in current user's group (todo later)
+        } else {
+            // Get user's own messages to their broadcast group
+            const unsubscribe = onSnapshot(
+                query(
+                    collection(db, "users", auth.currentUser.uid, 'messages'),
+                    where("to", "==", currentGroup),
+                    ),
+                    (userMessagesSnap) => {
+                        console.log('messages', messages)
+                        var userMessages = []
+                        userMessagesSnap.forEach((message) => {
+                            userMessages.push(message.data())
+                        })
+                        console.log('user messages read from db')
+                        setMessages(userMessages)
+                        // Search for messages from all users in currentUser's currentGroup that have currentUser in any of their groups
+                })
+                return () => unsubscribe()
+        }
+    }, [db, currentChat, currentGroup])
 
   return (
       <>
