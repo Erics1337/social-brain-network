@@ -40,7 +40,7 @@ function signUp() {
 
 			// Add user to the users collection with id of email
 			await setDoc(doc(db, "users", authUser.user.uid), {
-				owner_uid: authUser.user.uid,
+				uid: authUser.user.uid,
 				username: username,
 				email: authUser.user.email,
 				profilePic: await getRandomProfilePic(),
@@ -52,8 +52,15 @@ function signUp() {
 					connections: [],
 					recognizable: [],
 				},
-				followers: [],
-				subName: "click to add subName",
+				followers: {
+					loved: [],
+					family: [],
+					friends: [],
+					acquaintances: [],
+					connections: [],
+					recognizable: [],
+				},
+				subName: "Click to add subName",
 				bio: "No bio set yet: click to add bio",
 			})
 				.then(signInWithEmailAndPassword(auth, email, password))

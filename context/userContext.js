@@ -61,21 +61,18 @@ export const UserProvider = ({ children }) => {
 		dispatch(setLoading(true))
 		try {
 			onSnapshot(
-				query(
-					collection(db, "users"),
-					where("uid", "==", auth.currentUser.uid),
-					limit(1)
+				doc(
+					collection(db, "users"), auth.currentUser.uid
 				),
-				(snapshot) => {
-					const docSnap = snapshot.docs[0].data()
+				(docSnap) => {
 					dispatch(
 						setCurrentUser({
 							uid: auth.currentUser.uid,
-							username: docSnap.username,
-							profilePic: docSnap.profilePic,
-							email: docSnap.email,
-							following: docSnap.following,
-							followers: docSnap.followers,
+							username: docSnap.data().username,
+							profilePic: docSnap.data().profilePic,
+							email: docSnap.data().email,
+							following: docSnap.data().following,
+							followers: docSnap.data().followers,
 						})
 					)
 				}

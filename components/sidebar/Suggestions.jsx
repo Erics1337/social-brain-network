@@ -11,6 +11,7 @@ import {
 	updateDoc,
 } from "@firebase/firestore"
 import UserContext from "../../context/userContext"
+import Router from "next/router";
 
 function Suggestions() {
 	const { currentUser } = useContext(UserContext)
@@ -32,9 +33,6 @@ function Suggestions() {
 	}
 
 	useEffect(() => {
-		console.log("running")
-		// console.log(...Object.key(currentUser.following).forEach(list => list.forEach(user => user)))
-
 		const unsubscribe = onSnapshot(
 			query(
 				collection(db, "users"),
@@ -72,13 +70,12 @@ function Suggestions() {
 	}, [db, suggestionCount, reload])
 
 	const followUser = async (uid) => {
-		console.log(uid)
 		await updateDoc(doc(collection(db, "users"), uid), {
-			followers: arrayUnion(currentUser.uid),
+			'followers': arrayUnion(currentUser.uid),
 		})
 
 		await updateDoc(doc(collection(db, "users"), currentUser.uid), {
-			following: { acquaintances: arrayUnion(uid) },
+			'following.recognizable': arrayUnion(uid)
 		})
 		// currentUser following list state updated by live listener, just need to reload suggestions component to re-query
 		setReload(!reload)
@@ -113,12 +110,15 @@ function Suggestions() {
 					key={index}
 					className='flex items-center justify-between mt-3'>
 					<img
-						className='w-10 h-10 rounded-full border p-[2px]'
+						className='w-10 h-10 rounded-full border p-[2px] hover:cursor-pointer'
 						src={profile.profilePic}
-						alt=''
+						alt='user profile pic'
+						onClick={()=> Router.push(`/profile/${profile.username}`)}
 					/>
 					<div className='flex-1 ml-4'>
-						<h2 className='font-semibold text-sm'>
+						<h2 className='font-semibold text-sm hover:cursor-pointer hover:text-gray-600'
+						onClick={()=> Router.push(`/profile/${profileusername}`)}
+						>
 							{profile.username}
 						</h2>
 						<h3 className='text-xs text-gray-400'>
