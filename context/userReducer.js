@@ -34,7 +34,6 @@ const UserReducer = (state, action) => {
 				loading: true,
 			}
 		case "SET_CURRENT_USER":
-			console.log("logging in user from reducer", action.payload)
 			return {
 				...state,
 				currentUser: action.payload,

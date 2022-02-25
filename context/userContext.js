@@ -185,7 +185,8 @@ export const UserProvider = ({ children }) => {
 				setModalState,
 				setCurrentGroup,
 				combineGroupsUsers,
-				groupNumber
+				groupNumber,
+				setCurrentUser
 			}}>
 			{children}
 		</UserContext.Provider>
