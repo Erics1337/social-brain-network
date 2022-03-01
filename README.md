@@ -27,7 +27,8 @@ https://www.youtube.com/watch?v=a6Xs2Ir40OI&list=PLtisOZsxayjEC3ouCwhkTSG4twFqI7
 + Moment - formatting dates
 + Formik and Yup for forms and validation
 + randomuser.me - API for random user data to assign profile images
-+ react-dnd - drag and drop library
++ react-dnd - drag and drop library for groups page
++ react-select - dropdown menu library for search box with dynamic options
 
 ## Next.js + Tailwind CSS
 This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v2.2)](https://blog.tailwindcss.com/tailwindcss-2-2) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).

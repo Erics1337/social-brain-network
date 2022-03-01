@@ -15,6 +15,7 @@ import { signOut } from "firebase/auth"
 import { useContext, useState } from "react"
 import UserContext from "../context/userContext"
 import UploadPostModal from "./UploadPostModal"
+import SearchBox from "./SearchBox";
 
 function Navbar() {
 	const { setModalState, currentUser } = useContext(UserContext)
@@ -48,16 +49,7 @@ function Navbar() {
 
 					{/* Middle Part - Custom search input field */}
 					<div className='max-w-xs '>
-						<div className='relative mt-1 p-3 rounded-md'>
-							<div className='absolute inset-y-0 pl-3 flex items-center pointer-events-none'>
-								<SearchIcon className='h-5 w-5 text-grey-500' />
-							</div>
-							<input
-								className='bg-grey-50 block w-full pl-10 sm:text-sm border-grey-300 focus:ring-black focus:border-black rounded-md border-grey-300'
-								type='text'
-								placeholder='Search'
-							/>
-						</div>
+						<SearchBox />
 					</div>
 
 					{/* Right Part */}
