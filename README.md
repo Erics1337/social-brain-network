@@ -2,13 +2,13 @@
 Not a social network, but a social network management system
 	- A tool to manage the grouping of your social connections within the framework of the social brain hypothesis
 ## Functionality
-- Follow other users
+- Follow/Unfollow other users
 - Friend suggestions
-- Make a post
+- Feed that displays posts from members of each of your groups
+- Make a post from anywhere in app with modal
 - Like/comment on posts
 - Landing page explaining the Social Brain Network
 - Friend Groupings associated with ranks of Dunbar's theory
-- Feed that displays posts from members of each of your groups
 - 1-on-1 messaging
 ## Feature Wish-list
 - Group chat messaging

@@ -5,6 +5,7 @@ import EditableText from "./EditableText"
 import { useContext } from "react"
 import UserContext from "../../context/userContext"
 import UnfollowButton from "./UnfollowButton"
+import DeleteButton from "./DeleteButton";
 
 function Header({ userData, postCount }) {
 	const { currentUser } = useContext(UserContext)
@@ -53,7 +54,7 @@ function Header({ userData, postCount }) {
 							{userData.username}
 						</h2>
 						{userIsLoggedIn() &&
-							!userIsCurrentUser() &&
+							!userIsCurrentUser() ? (
 							(!userIsFollowed() ? (
 								<FollowButton
 									follower={currentUser.uid}
@@ -64,7 +65,10 @@ function Header({ userData, postCount }) {
 										follower={currentUser.uid}
 										followee={userData.uid}
 									/>
-							))}
+							)))
+						: 
+							<DeleteButton currentUser={currentUser} />
+							}
 					</div>
 
 					{/* <!-- post, following, followers list for medium screens --> */}

@@ -51,7 +51,7 @@ const EditableInput = (props) => {
 		<div>
 			{inputVisible ? (
 				<input
-                    autofocus="autofocus"
+                    autoFocus="autofocus"
 					className={`${
 						props.type == "subName"
 							? "text-gray-800 font-semibold"
