@@ -18,7 +18,7 @@ function CallToAction() {
 				Do It!
 			</button>
 			<div className='h-1 mx-auto bg-white w-1/6 opacity-25 my-0 py-0 rounded-t'>
-				You know you want to
+				You can delete your account and all user data at any time.
 			</div>
 		</section>
 	)
