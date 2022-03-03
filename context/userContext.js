@@ -58,13 +58,14 @@ export const UserProvider = ({ children }) => {
 
 	// On page load, queries db for user obj based on currentlyLoggedInUser and sets profilePic to state
 	const loginUser = (auth) => {
+		if (!auth.currentUser) return
 		dispatch(setLoading(true))
-		try {
 			onSnapshot(
 				doc(
 					collection(db, "users"), auth.currentUser.uid
 				),
 				(docSnap) => {
+					if (!docSnap.exists || !docSnap.data() || !auth.currentUser) return
 					dispatch(
 						setCurrentUser({
 							uid: auth.currentUser.uid,
@@ -75,11 +76,9 @@ export const UserProvider = ({ children }) => {
 							followers: docSnap.data().followers,
 						})
 					)
+
 				}
 			)
-		} catch (error) {
-			console.log(error)
-		}
 		dispatch(setLoading(false))
 	}
 
