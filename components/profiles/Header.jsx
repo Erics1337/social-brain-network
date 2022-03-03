@@ -1,14 +1,35 @@
 import Image from "next/image"
-import { auth } from "../../firebase";
+import { auth } from "../../firebase"
 import FollowButton from "./FollowButton"
+import EditableText from "./EditableText"
+import { useContext } from "react"
+import UserContext from "../../context/userContext"
+import UnfollowButton from "./UnfollowButton"
 
 function Header({ userData, postCount }) {
+	const { currentUser } = useContext(UserContext)
 
-// Get number of posts (need to query firestore for this one)
-// Get number of followers
-const followers = userData.followers.length
-// Get number of following
-const following = Object.values(userData.following).map(element => element.length).reduce((a, b) => a + b, 0)
+	// anonymous function to assign value to followers w/gaurd clause to prevent error if no followers
+	const followers = (function () {
+		if (userData.followers.length) return userData.followers.length
+		else return 0
+	})()
+
+	// Get number of following
+	const following = Object.values(userData?.following)
+		.map((element) => element.length)
+		.reduce((a, b) => a + b, 0)
+
+	// Check if user whose page it is is being followed by currentUser in any of their groups
+	const userIsFollowed = () => {
+		if (currentUser.following == undefined) return
+		return Object.values(currentUser?.following).some((a) =>
+			a.includes(userData.uid)
+		)
+	}
+
+	const userIsCurrentUser = () => currentUser.uid === userData.uid
+	const userIsLoggedIn = () => currentUser.uid != undefined
 
 	return (
 		<>
@@ -31,37 +52,56 @@ const following = Object.values(userData.following).map(element => element.lengt
 						<h2 className='text-3xl inline-block font-light md:mr-2 mb-2 sm:mb-0 pr-5'>
 							{userData.username}
 						</h2>
-            {auth.currentUser?.uid != userData.uid && <FollowButton /> }
+						{userIsLoggedIn() &&
+							!userIsCurrentUser() &&
+							(!userIsFollowed() ? (
+								<FollowButton
+									follower={currentUser.uid}
+									followee={userData.uid}
+								/>
+							) : (
+									<UnfollowButton
+										follower={currentUser.uid}
+										followee={userData.uid}
+									/>
+							))}
 					</div>
 
 					{/* <!-- post, following, followers list for medium screens --> */}
 					<ul className='hidden md:flex space-x-8 mb-4'>
 						<li>
-							<span className='font-semibold pr-2'>{postCount}</span>
+							<span className='font-semibold pr-2'>
+								{postCount}
+							</span>
 							post{postCount != 1 && "s"}
 						</li>
 
 						<li>
-							<span className='font-semibold pr-2'>{followers}</span>
+							<span className='font-semibold pr-2'>
+								{followers}
+							</span>
 							follower{followers != 1 && "s"}
 						</li>
 						<li>
-							<span className='font-semibold pr-2'>{following}</span>
+							<span className='font-semibold pr-2'>
+								{following}
+							</span>
 							following
 						</li>
 					</ul>
-
-					{/* <!-- user meta form medium screens --> */}
-					<div className='hidden md:block'>
-						<h1 className='font-semibold'>{userData.subname}</h1>
-						<p>{userData.bio}</p>
+					{/* user meta */}
+					<div className='text-sm my-2 md:text-lg md:my-0'>
+						<EditableText
+							text={userData.subName}
+							type={"subName"}
+							username={userData.username}
+						/>
+						<EditableText
+							text={userData.bio}
+							type={"bio"}
+							username={userData.username}
+						/>
 					</div>
-				</div>
-
-				{/* <!-- user meta form small screens --> */}
-				<div className='md:hidden text-sm my-2'>
-					<h1 className='font-semibold'>{userData.subName}</h1>
-					<p>{userData.bio}</p>
 				</div>
 			</header>
 			{/* <!-- user following for mobile only --> */}

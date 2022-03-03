@@ -15,7 +15,7 @@ function Features() {
 				className='flex items-center justify-around md:justify-center space-x-12  
           uppercase tracking-widest font-semibold text-xs text-gray-600
           border-t'>
-				<li className={postsView == "grid" && selectedClass}>
+				<li className={`${postsView == "grid" && selectedClass}`}>
 					<div
 						className='flex p-3 hover:cursor-pointer hover:text-gray-500'
 						onClick={() => {
@@ -27,7 +27,7 @@ function Features() {
 						</span>
 					</div>
 				</li>
-				<li className={postsView == "feed" && selectedClass}>
+				<li className={`${postsView == "feed" && selectedClass}`}>
 					<a
 						className='flex p-3 hover:cursor-pointer hover:text-gray-500'
 						onClick={() => {
@@ -39,7 +39,7 @@ function Features() {
 						</span>
 					</a>
 				</li>
-				<li className={postsView == "videos" && selectedClass}>
+				<li className={`${postsView == "videos" && selectedClass}`}>
 					<a
 						className='flex p-3 hover:cursor-pointer hover:text-gray-500'
 						onClick={() => {
