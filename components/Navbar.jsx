@@ -12,14 +12,21 @@ import {
 import Router from "next/router"
 import { auth } from "../firebase"
 import { signOut } from "firebase/auth"
-import { useContext, useState } from "react"
+import { useContext, useState, useEffect } from "react"
 import UserContext from "../context/userContext"
 import UploadPostModal from "./UploadPostModal"
 import SearchBox from "./SearchBox";
+import ChatContext from "../context/chatContext";
 
 function Navbar() {
-	const { setModalState, currentUser } = useContext(UserContext)
+	const { setModalState, currentUser,  } = useContext(UserContext)
+	const { newMessageCount, getNewMessageCount, currentChat, clearMessageCountFromUser } = useContext(ChatContext)
 	const [showMobileMenu, setShowMobileMenu] = useState(false)
+
+	useEffect(() => {
+		const unsubscribe = getNewMessageCount(currentUser)
+		return () => unsubscribe()
+	}, [currentChat])
 
 	return (
 		<>
@@ -66,9 +73,11 @@ function Navbar() {
 									className='relative navBtn'
 									onClick={() => Router.push("/messaging")}>
 									<PaperAirplaneIcon className='navBtn rotate-45' />
+									{newMessageCount > 0 && (
 									<div className='absolute -top-2 -right-1 text-xs w-5 h-5 bg-red-500 rounded-full flex items-center justify-center animate-pulse'>
-										3
+										{newMessageCount}
 									</div>
+									)}
 								</div>
 								<PlusCircleIcon
 									onClick={() => setModalState(true)}

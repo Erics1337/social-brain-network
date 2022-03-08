@@ -24,7 +24,6 @@ function messaging() {
                 <title>Social Brain Messaging</title>
                 <link rel='icon' href='/favicon.ico' />
             </Head>
-			<ChatProvider>
 				<main className='bg-grey-50 h-screen overflow-y-scroll scrollbar-hide'>
 					<Navbar />
 					<div className='lg:w-8/12 lg:mx-auto mb-8'>
@@ -32,7 +31,6 @@ function messaging() {
 						<Chat />
 					</div>
 				</main>
-			</ChatProvider>
 		</>
 	)
 }

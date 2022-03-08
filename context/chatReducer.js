@@ -8,6 +8,12 @@ const ChatReducer = (state, action) => {
                 ...state,
                 currentChat: action.payload,
             }
+        case "SET_NEW_MESSAGE_COUNT":
+            console.log("SET_NEW_MESSAGE_COUNT", action.payload)
+            return {
+                ...state,
+                newMessageCount: action.payload,
+            }
         default:
             return state
     }

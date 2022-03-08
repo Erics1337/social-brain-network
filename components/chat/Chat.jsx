@@ -27,11 +27,6 @@ function Chat() {
 	// Get all users who are in the currentUser's currentGroup
 	// And get latest message from them if there is one
 	useEffect(() => {
-		console.log("currentGroup", currentGroup)
-		console.log(
-			"arrayContains",
-			combineGroupsUsers(currentGroup, currentUser)
-		)
 		const unsubscribe = onSnapshot(
 			query(
 				collection(db, "users"),

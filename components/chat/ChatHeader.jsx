@@ -14,7 +14,6 @@ function ChatHeader({currentChat, currentGroup}) {
     } else {
       setChatImg(`https://ui-avatars.com/api/?name=${currentGroup}`)
     }
-    console.log('chatImg', chatImg);
   }, [currentChat, currentGroup])
 
   return (

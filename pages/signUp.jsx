@@ -44,14 +44,7 @@ function signUp() {
 				username: username,
 				email: authUser.user.email,
 				profilePic: await getRandomProfilePic(),
-				following: {
-					loved: [],
-					family: [],
-					friends: [],
-					acquaintances: [],
-					connections: [],
-					recognizable: [],
-				},
+				following: [],
 				followers: {
 					loved: [],
 					family: [],

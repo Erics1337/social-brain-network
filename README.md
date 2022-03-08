@@ -10,6 +10,7 @@ Not a social network, but a social network management system
 - Landing page explaining the Social Brain Network
 - Friend Groupings associated with ranks of Dunbar's theory
 - 1-on-1 messaging
+- Unread message notifications
 ## Feature Wish-list
 - Group chat messaging
 - A personal journal feature for non-visible posts

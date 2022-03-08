@@ -5,6 +5,8 @@ import {
 	setDoc,
 	collection,
 	serverTimestamp,
+	updateDoc,
+	increment
 } from "firebase/firestore"
 import { auth, db } from "../../firebase"
 import ChatContext from "../../context/chatContext"
@@ -16,12 +18,15 @@ function ChatInput() {
 	const { currentGroup } = useContext(UserContext)
 
 	const uploadMessage = async (message) => {
+		// Add new message
 		const docRef = await addDoc(
 			collection(db, "users", auth.currentUser.uid, "messages"),
 			{
 				to: currentChat ? currentChat.uid : currentGroup,
+				from: auth.currentUser.uid,
 				text: message,
 				timestamp: serverTimestamp(),
+				seen: false,
 			}
 		)
 		console.log("New doc added with ID", docRef.id)

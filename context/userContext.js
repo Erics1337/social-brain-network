@@ -35,7 +35,7 @@ export const UserProvider = ({ children }) => {
 			profilePic: "",
 			email: "",
 			following: groups,
-			followers: groups,
+			followers: [],
 		},
 		currentGroup: "all",
 		loading: true,
@@ -48,7 +48,6 @@ export const UserProvider = ({ children }) => {
 		const auth = getAuth()
 		onAuthStateChanged(auth, (user) => {
 			if (user) {
-				console.log("user logged in", user)
 				loginUser(auth)
 			} else {
 				dispatch(setCurrentUser(initialState))
@@ -111,23 +110,8 @@ export const UserProvider = ({ children }) => {
 	const combineGroupsUsers = (currentGroup, currentUser) => {
 		switch (currentGroup) {
 			case "all":
-				return [
-					...(currentUser.following.acquaintances.length > 0
-						? currentUser.following.acquaintances
-						: [""]),
-					...(currentUser.following.connections.length > 0
-						? currentUser.following.connections
-						: [""]),
-					...(currentUser.following.family.length > 0
-						? currentUser.following.family
-						: [""]),
-					...(currentUser.following.friends.length > 0
-						? currentUser.following.friends
-						: [""]),
-					...(currentUser.following.recognizable.length > 0
-						? currentUser.following.recognizable
-						: [""]),
-				]
+				return Object.values(currentUser.following).flat().length == 0 ? [""] 
+				: Object.values(currentUser.following).flat()
 			case "loved":
 				return [
 					...(currentUser.following.loved.length > 0

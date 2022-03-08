@@ -23,8 +23,6 @@ function Posts() {
 	// Here we need to get all the posts where username is in currentUser.following and
 	// attach the associated post's username's profilePic to the post object
 	useEffect(() => {
-			console.log('currentGroup', currentGroup);
-			console.log('arrayContains', combineGroupsUsers(currentGroup, currentUser));
 			const unsubscribe = onSnapshot(
 				query(
 					collection(db, "posts"),

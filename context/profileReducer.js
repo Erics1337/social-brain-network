@@ -13,6 +13,7 @@ const ProfileReducer = (state, action) => {
 				modalState: action.payload,
 			}
 		case "SET_POST_DATA":
+			console.log("setting post data to", action.payload)
 			return {
 				...state,
 				postData: action.payload,

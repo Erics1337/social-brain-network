@@ -14,7 +14,6 @@ const EditableInput = (props) => {
         updateDoc(doc(db, 'users', currentUser.uid), {
             [props.type]: text
         })
-        console.log('input updated')
 		setInputVisible(false) // Disable text input
 	}
 

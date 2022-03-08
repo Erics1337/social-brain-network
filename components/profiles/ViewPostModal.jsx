@@ -10,8 +10,6 @@ function ViewPostModal() {
 	const { image, caption, postId } = postData.postData
 	const { username, profilePic } = postData.userData
 
-	console.log("postData", postData)
-
 	return (
 		<Transition.Root open show={modalState} appear={true} as='Fragment'>
 			<Dialog
