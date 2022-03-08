@@ -37,24 +37,10 @@ function Suggestions() {
 			query(
 				collection(db, "users"),
 				limit(suggestionCount),
-				where("uid", "not-in", [
-					...(currentUser.following.acquaintances
-						? currentUser.following.acquaintances
-						: []),
-					...(currentUser.following.connections
-						? currentUser.following.connections
-						: []),
-					...(currentUser.following.family
-						? currentUser.following.family
-						: []),
-					...(currentUser.following.friends
-						? currentUser.following.friends
-						: []),
-					...(currentUser.following.recognizable
-						? currentUser.following.recognizable
-						: []),
+				where("uid", "not-in", [ 
+					...Object.values(currentUser.following).flat(),
 					currentUser.uid,
-				])
+				 ]),
 			),
 			(snapshot) => {
 				setSuggestions([])
