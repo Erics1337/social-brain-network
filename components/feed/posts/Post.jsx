@@ -162,7 +162,7 @@ function Post({ id, username, image, caption, userImg }) {
 			{/* comments */}
 			{openComments && (
 				<>
-				<div className='ml-10 h-20 overflow-y-scroll scrollbar-thumb-black scrollbar-thin'>
+				<div className='ml-10 overflow-y-scroll scrollbar-thumb-black scrollbar-thin'>
 					{comments.map((comment) => (
 						<div
 							key={comment.id}
