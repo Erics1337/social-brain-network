@@ -36,8 +36,8 @@ function ChatUser({ user }) {
 						</Moment>
 					</div>
 					<span className='block ml-2 text-sm text-gray-600'>
-						{user.latestMessage.text.substring(0, 20)}
-						{user.latestMessage.text.length > 20 && '...'}
+						{user.latestMessage.text?.substring(0, 20)}
+						{user.latestMessage.text?.length > 20 && '...'}
 					</span>
 				</div>
 			</a>
