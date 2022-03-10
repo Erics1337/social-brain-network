@@ -33,7 +33,7 @@ function Navbar() {
 			<nav className='shadow-md border-b bg-white sticky top-0 z-50 dark:bg-gray-800 dark:border-b-gray-900 dark:text-gray-100'>
 				<div className='flex justify-between max-w-6xl mx-5 lg:mx-auto'>
 					{/* Left Part */}
-					<div className='hidden lg:inline-grid'>
+					<div className='hidden md:inline-grid'>
 						<div
 							onClick={() => Router.push("/")}
 							className='relative w-60 cursor-pointer dark:hidden'>

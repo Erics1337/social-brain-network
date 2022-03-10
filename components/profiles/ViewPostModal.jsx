@@ -25,7 +25,7 @@ function ViewPostModal() {
 						leave='ease-in duration-200'
 						leaveFrom='opacity-100'
 						leaveTo='opacity-0'>
-						<Dialog.Overlay className='fixed inset-0 bg-gray-500 dark:bg-white dark:bg-opacity-75 bg-opacity-75 transition-opacity' />
+						<Dialog.Overlay className='fixed inset-0 bg-gray-500 dark:bg-gray-300 dark:bg-opacity-75 bg-opacity-75 transition-opacity' />
 
 						{/* Trick the browser into centering the modal contents */}
 						<span
