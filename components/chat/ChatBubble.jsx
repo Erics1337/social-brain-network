@@ -18,7 +18,7 @@ function ChatBubble({text, timestamp, amSender}) {
         <Moment
           interval={1000}
           fromNow
-          className='pr-5 text-xs'>
+          className='pr-5 text-xs dark:text-gray-300'>
           {timestamp?.toDate()}
         </Moment>
         </div>

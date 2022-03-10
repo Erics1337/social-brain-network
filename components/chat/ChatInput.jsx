@@ -55,9 +55,9 @@ function ChatInput() {
 					name='message'
 					required
 				/>
-				<button type='submit'>
+				<button type='submit' className='navBtn mb-0'>
 					<svg
-						className='w-5 h-5 text-gray-500 origin-center transform rotate-90'
+						className='w-5 h-5 text-gray-500 dark:text-gray-100 origin-center transform rotate-90'
 						xmlns='http://www.w3.org/2000/svg'
 						viewBox='0 0 20 20'
 						fill='currentColor'>
