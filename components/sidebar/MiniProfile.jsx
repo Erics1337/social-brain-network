@@ -7,7 +7,7 @@ function MiniProfile() {
     const { currentUser } = useContext(UserContext);
 
     return (
-        <div className="flex items-center justify-between mt-14 ml-10">
+        <div className="flex items-center justify-between mt-14 ml-10 dark:text-gray-100">
             <img className="rounded-full border w-16 h-16" src={currentUser.profilePic} alt="" />
             <div className="mx-4">
                 {/* ? protects code from asynchronous behavior of the signin callback */}

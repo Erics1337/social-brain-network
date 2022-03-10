@@ -126,9 +126,9 @@ function UploadPostModal() {
 										onClick={() =>
 											filePickerRef.current.click()
 										}
-										className='mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 cursor-pointer'>
+										className='group mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 hover:bg-red-600 cursor-pointer'>
 										<CameraIcon
-											className='h-6 w-6 text-red-600'
+											className='h-6 w-6 text-red-600 group-hover:text-red-100'
 											aria-hidden='true'
 										/>
 									</div>
@@ -171,7 +171,7 @@ function UploadPostModal() {
 										ref={groupRef}
 										id='tabs'
 										className='bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg 
-										focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 
+										focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-800 
 										dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 
 										dark:focus:border-blue-500 dark:text-gray-100'>
 										<option>All</option>

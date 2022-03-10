@@ -112,7 +112,7 @@ function Post({ id, username, image, caption, userImg }) {
 	}
 
 	return (
-		<div className='bg-white my-7 border rounded-sm'>
+		<div className='bg-white my-7 border rounded-sm dark:bg-gray-500 dark:border-gray-700 dark:text-gray-100'>
 			{/* Header */}
 			<div className='flex items-center p-5'>
 				<img
@@ -122,7 +122,7 @@ function Post({ id, username, image, caption, userImg }) {
 				/>
 				<p
 					onClick={() => router.push(`/profile/${username}`)}
-					className='flex-1 font-bold hover:cursor-pointer hover:text-gray-600'>
+					className='flex-1 font-bold hover:cursor-pointer hover:text-gray-600 dark:hover:text-gray-300'>
 					{username}
 				</p>
 				<DotsHorizontalIcon className='h-5' />

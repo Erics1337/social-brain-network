@@ -71,13 +71,13 @@ function Suggestions() {
 	return (
 		<div className='mt-4 ml-10'>
 			<div className='flex justify-between text-sm mb-5'>
-				<h3 className='text-sm font-bold text-gray-400'>
+				<h3 className='text-sm font-bold text-gray-400 dark:text-gray-100'>
 					Suggestions for you
 				</h3>
 				{suggestionCount == initialSuggestionCount ? (
 					<button
 						onClick={() => setSuggestionCount(allSuggestionCount)}
-						className='text-gray-600 font-semibold'>
+						className='text-gray-600 dark:text-gray-300 font-semibold'>
 						See All
 					</button>
 				) : (
@@ -85,7 +85,7 @@ function Suggestions() {
 						onClick={() =>
 							setSuggestionCount(initialSuggestionCount)
 						}
-						className='text-gray-600 font-semibold'>
+						className='text-gray-600 dark:text-gray-300 font-semibold'>
 						See Less
 					</button>
 				)}
@@ -102,7 +102,7 @@ function Suggestions() {
 						onClick={()=> Router.push(`/profile/${profile.username}`)}
 					/>
 					<div className='flex-1 ml-4'>
-						<h2 className='font-semibold text-sm hover:cursor-pointer hover:text-gray-600'
+						<h2 className='font-semibold text-sm hover:cursor-pointer hover:text-gray-600 dark:text-gray-100 dark:hover:text-gray-300'
 						onClick={()=> Router.push(`/profile/${profileusername}`)}
 						>
 							{profile.username}
