@@ -13,6 +13,7 @@ Not a social network, but a social network management system
 - Friend Groupings associated with ranks of Dunbar's theory
 - 1-on-1 messaging
 - Unread message notifications
+- Dark/Light UI mode based on user system preference
 ## Feature Wish-list
 - Group chat messaging
 - A personal journal feature for non-visible posts

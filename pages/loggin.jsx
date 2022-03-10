@@ -1,7 +1,7 @@
 import Image from "next/image"
 import * as Yup from "yup"
 import { Formik, Field, Form } from "formik"
-import { db, auth } from "../firebase"
+import { auth } from "../firebase"
 import {
 	signInWithEmailAndPassword,
 } from "firebase/auth"
@@ -38,7 +38,7 @@ function logIn() {
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 			<div className='h-screen bg-gray-50 flex flex-col justify-center items-center dark:bg-gray-700'>
-				<div className='bg-white border border-gray-300 w-80 py-8 flex items-center flex-col mb-3'>
+				<div className='bg-white border border-gray-300 w-80 py-8 flex items-center flex-col mb-3 dark:bg-gray-200'>
 					<a className='cursor-pointer' href='/'>
 						<Image src='/logoText.png' width='240' height='50' />
 					</a>
@@ -87,7 +87,7 @@ function logIn() {
 					</button>
 					{/* <a className="text-xs text-blue-900 mt-4 cursor-pointer -mb-4">Forgot password?</a> */}
 				</div>
-				<div className='bg-white border border-gray-300 text-center w-80 py-4'>
+				<div className='bg-white border border-gray-300 text-center w-80 py-4 dark:bg-gray-200'>
 					<span className='text-sm'>Need an account?</span>
 					<a
 						href='/signUp'
@@ -96,13 +96,13 @@ function logIn() {
 						Sign Up
 					</a>
 				</div>
-				<div className='mt-3 text-center'>
+				{/* <div className='mt-3 text-center dark:text-gray-200'>
 					<span className='text-xs'>Get the app</span>
 					<div className='flex mt-3 space-x-2'>
 						<div className='bg-no-repeat apple-store-logo'></div>
 						<div className='bg-no-repeat google-store-logo'></div>
 					</div>
-				</div>
+				</div> */}
 			</div>
 		</main>
 	)
