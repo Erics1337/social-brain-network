@@ -160,7 +160,7 @@ function Post({ id, username, image, caption, userImg }) {
 			</p>
 
 			{/* comments */}
-			{comments.length > 0 && openComments && (
+			{openComments && (
 				<>
 				<div className='ml-10 h-20 overflow-y-scroll scrollbar-thumb-black scrollbar-thin'>
 					{comments.map((comment) => (
@@ -191,13 +191,13 @@ function Post({ id, username, image, caption, userImg }) {
 				{/* input box */}
 				{auth.currentUser && (
 					<form className='flex items-center p-4'>
-						<EmojiHappyIcon className='h-7' />
+						<EmojiHappyIcon className='h-7 mr-3' />
 						<input
 							type='text'
 							value={comment}
 							// Capture comment in state
 							onChange={(e) => setComment(e.target.value)}
-							className='border-none flex-1 focus:ring-0 outline-none'
+							className='border-none flex-1 focus:ring-0 outline-none dark:text-gray-800 rounded-lg'
 							placeholder='Add a comment...'
 						/>
 						<button
@@ -206,7 +206,7 @@ function Post({ id, username, image, caption, userImg }) {
 							// Prevents spamming comments with space
 							disabled={!comment.trim()}
 							onClick={sendComment}
-							className='font-semibold text-blue-400'>
+							className='font-semibold text-blue-400 ml-3 p-2 rounded-lg hover:bg-blue-400 hover:text-gray-100'>
 							Post
 						</button>
 					</form>
