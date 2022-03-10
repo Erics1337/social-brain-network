@@ -27,9 +27,9 @@ function groups() {
 				<title>Social Brain Groups</title>
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
-				<main className='bg-grey-50 h-screen overflow-y-scroll scrollbar-hide'>
+			<main className='bg-gray-50 h-screen overflow-y-scroll scrollbar-hide dark:bg-gray-700'>
 					<Navbar />
-					<div className='lg:w-8/12 lg:mx-auto mb-8 text-center'>
+					<div className='lg:w-8/12 lg:mx-auto mb-8 text-center dark:text-gray-100'>
 						<h1 className={'py-5 font-semibold'}>This is where you can adjust your groups of user's that you follow and that you broadcast to</h1>
 						<h1 className={'pt-5'}>Loved</h1>
 						<Stories group={'loved'}/>

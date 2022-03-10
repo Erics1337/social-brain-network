@@ -24,7 +24,7 @@ function messaging() {
                 <title>Social Brain Messaging</title>
                 <link rel='icon' href='/favicon.ico' />
             </Head>
-				<main className='bg-grey-50 h-screen overflow-y-scroll scrollbar-hide'>
+				<main className='bg-grey-50 h-screen overflow-y-scroll scrollbar-hide dark:bg-gray-700'>
 					<Navbar />
 					<div className='lg:w-8/12 lg:mx-auto mb-8'>
 						<Tabs />

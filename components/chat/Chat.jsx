@@ -66,15 +66,15 @@ function Chat() {
 
 	return (
 		<div className='mx-auto mt-5'>
-			<div className='min-w-full border rounded sm:grid sm:grid-cols-3'>
+			<div className='min-w-full border rounded sm:grid sm:grid-cols-3 dark:border-gray-800'>
 				{/* Side Column */}
-				<div className='border-r border-gray-300 sm:col-span-1'>
+				<div className='border-r border-gray-300 sm:col-span-1 dark:border-gray-800'>
 					{/* <ChatSearch /> */}
 
 					{/* Broadcast Button */}
 					<div className='mx-3 my-3 grid place-items-center'>
 						<div className='relative text-gray-600'>
-							<button className='bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow'
+							<button className='bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow dark:border-gray-800 dark:bg-gray-300 dark:hover:bg-gray-400'
 							onClick={()=> setCurrentChat(null)}>
 								Broadcast
 							</button>
@@ -83,7 +83,7 @@ function Chat() {
 
 					{/* Users */}
 					<ul className='overflow-auto h-[32rem]'>
-						<h2 className='my-2 mb-2 ml-2 text-lg text-gray-600'>
+						<h2 className='my-2 mb-2 ml-2 text-lg text-gray-600 dark:text-white'>
 							Chats
 						</h2>
             {users

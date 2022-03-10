@@ -44,8 +44,7 @@ function signUp() {
 				username: username,
 				email: authUser.user.email,
 				profilePic: await getRandomProfilePic(),
-				following: [],
-				followers: {
+				following: {
 					loved: [],
 					family: [],
 					friends: [],
@@ -53,8 +52,10 @@ function signUp() {
 					connections: [],
 					recognizable: [],
 				},
+				followers: [],
 				subName: "Click to add subName",
 				bio: "No bio set yet: click to add bio",
+				darkMode: false,
 			})
 				.then(signInWithEmailAndPassword(auth, email, password))
 				.then(console.log("User Signed In Successfully"))
@@ -73,7 +74,7 @@ function signUp() {
 				<title>Sign Up | Social Brain Messaging</title>
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
-			<div className='h-screen bg-gray-50 flex flex-col justify-center items-center'>
+			<div className='h-screen bg-gray-50 flex flex-col justify-center items-center dark:bg-gray-700'>
 				<div className='bg-white border border-gray-300 w-80 py-8 flex items-center flex-col mb-3'>
 					<a className='cursor-pointer' href='/'>
 						<Image src='/logoText.png' width='240' height='50' />

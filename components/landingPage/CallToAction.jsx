@@ -4,7 +4,7 @@ import { useRouter } from "next/router"
 function CallToAction() {
 	const router = useRouter()
 	return (
-		<section className='container mx-auto text-center py-6 mb-12'>
+		<section className='container mx-auto text-center py-6 mb-12 dark:text-gray-100'>
 			<h1 className='w-full my-2 text-5xl font-bold leading-tight text-center'>
 				Try It For Free!
 			</h1>
@@ -17,7 +17,7 @@ function CallToAction() {
 				className='mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out'>
 				Do It!
 			</button>
-			<div className='h-1 mx-auto bg-white w-1/6 opacity-25 my-0 py-0 rounded-t'>
+			<div className='h-1 mx-auto w-1/6 opacity-25 my-0 py-0 rounded-t pb-5 dark:text-gray-100'>
 				You can delete your account and all user data at any time.
 			</div>
 		</section>

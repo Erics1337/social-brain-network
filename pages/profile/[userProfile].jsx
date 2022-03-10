@@ -68,7 +68,7 @@ function userProfile({ userSlug }) {
 	if (userData) {
 		return (
 			<>
-				<main className='bg-gray-100 bg-opacity-25 h-screen'>
+				<main className='bg-gray-100 bg-opacity-25 h-screen dark:bg-gray-700'>
 				<Head>
 					<title>{userSlug}'s Profile | Social Brain Network</title>
 					<link rel="icon" href="/favicon.ico" />

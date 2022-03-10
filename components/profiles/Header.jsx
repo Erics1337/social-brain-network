@@ -50,7 +50,7 @@ function Header({ userData, postCount }) {
 				{/* <!-- profile meta --> */}
 				<div className='w-8/12 md:w-7/12 ml-4'>
 					<div className='md:flex md:flex-wrap md:items-center mb-4'>
-						<h2 className='text-3xl inline-block font-light md:mr-2 mb-2 sm:mb-0 pr-5'>
+						<h2 className='text-3xl inline-block font-light md:mr-2 mb-2 sm:mb-0 pr-5 dark:text-gray-100'>
 							{userData.username}
 						</h2>
 						{userIsLoggedIn() &&
@@ -72,7 +72,7 @@ function Header({ userData, postCount }) {
 					</div>
 
 					{/* <!-- post, following, followers list for medium screens --> */}
-					<ul className='hidden md:flex space-x-8 mb-4'>
+					<ul className='hidden md:flex space-x-8 mb-4 dark:text-gray-300'>
 						<li>
 							<span className='font-semibold pr-2'>
 								{postCount}
@@ -111,22 +111,22 @@ function Header({ userData, postCount }) {
 			{/* <!-- user following for mobile only --> */}
 			<ul
 				className='flex md:hidden justify-around space-x-8 border-t 
-        text-center p-2 text-gray-600 leading-snug text-sm'>
+        text-center p-2 text-gray-600 leading-snug text-sm dark:border-t-gray-800 dark:text-gray-100'>
 				<li>
-					<span className='font-semibold text-gray-800 block'>
+					<span className='font-semibold text-gray-800 dark:text-gray-200 block'>
 						{postCount}
 					</span>
 					post{postCount != 1 && "s"}
 				</li>
 
 				<li>
-					<span className='font-semibold text-gray-800 block'>
+					<span className='font-semibold text-gray-800 dark:text-gray-200 block'>
 						{followers}
 					</span>
 					follower{followers != 1 && "s"}
 				</li>
 				<li>
-					<span className='font-semibold text-gray-800 block'>
+					<span className='font-semibold text-gray-800 dark:text-gray-200 block'>
 						{following}
 					</span>
 					following

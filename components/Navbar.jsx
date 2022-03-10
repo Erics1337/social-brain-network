@@ -20,18 +20,17 @@ import ChatContext from "../context/chatContext";
 
 function Navbar() {
 	const { setModalState, currentUser,  } = useContext(UserContext)
-	const { newMessageCount, getNewMessageCount, currentChat, clearMessageCountFromUser } = useContext(ChatContext)
+	const { newMessageCount, getNewMessageCount, currentChat } = useContext(ChatContext)
 	const [showMobileMenu, setShowMobileMenu] = useState(false)
 
 	useEffect(() => {
-		const unsubscribe = getNewMessageCount(currentUser)
-		return () => unsubscribe()
+		getNewMessageCount(currentUser)
 	}, [currentChat])
 
 	return (
 		<>
 			<UploadPostModal />
-			<nav className='shadow-md border-b bg-white sticky top-0 z-50'>
+			<nav className='shadow-md border-b bg-white sticky top-0 z-50 dark:bg-gray-800 dark:border-b-gray-900 dark:text-gray-100'>
 				<div className='flex justify-between max-w-6xl mx-5 lg:mx-auto'>
 					{/* Left Part */}
 					<div
@@ -126,7 +125,7 @@ function Navbar() {
 								</div>
 								<div className='col-span-1 btn mx-auto mb-5'>
 									<PaperAirplaneIcon className='ml-4 rotate-45 mx-auto' 
-									onClick={() => Router.push("/activity")}
+									onClick={() => Router.push("/messaging")}
 									/>
 									<h1>Messaging</h1>
 								</div>

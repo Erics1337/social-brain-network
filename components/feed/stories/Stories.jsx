@@ -66,7 +66,7 @@ function Stories({ group=null}) {
 		<div
 			ref={drop}
 			className={`border-gray-200 flex space-x-2 p-6 bg-white mt-8 border rounded-sm overflow-x-scroll
-         scrollbar-thin scrollbar-thumb-black ${isOver && 'border-red-300 bg-yellow-50'}`}>
+         scrollbar-thin scrollbar-thumb-black dark:bg-gray-500 dark:text-gray-100 dark:border-gray-500 ${isOver && 'border-red-300 bg-yellow-50 dark:border-red-300 dark:bg-yellow-50'}`}>
 			<h3>{stories.length + "/" + groupNumber(group)}</h3>
 			{stories.map((profile, index) => (
 				<Story

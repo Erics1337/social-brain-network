@@ -66,8 +66,8 @@ const EditableInput = (props) => {
 				<span
                 className={`${
                     props.type == "subName"
-                        ? "text-gray-800 font-semibold"
-                        : "text-gray-600"
+                        ? "text-gray-800 dark:text-gray-200 font-semibold"
+                        : "text-gray-600 dark:text-gray-300 "
                 }`}
                 // Make input visible if profile belongs to logged in user
                 onClick={() => currentUser.username == props.username && setInputVisible(true)}>

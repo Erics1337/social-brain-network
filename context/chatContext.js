@@ -52,7 +52,7 @@ export const ChatProvider = ({ children }) => {
 					},
 					clearMessageCountFromUser(currentUser)
 					)
-					return unsubscribe
+					// return unsubscribe
 		}
 		else {
 			const unsubscribe = onSnapshot(
@@ -70,7 +70,7 @@ export const ChatProvider = ({ children }) => {
 					})			
 				}
 			)
-			return unsubscribe
+			// return unsubscribe
 		}
 	}
 

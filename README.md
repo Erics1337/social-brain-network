@@ -4,6 +4,8 @@ Not a social network, but a social network management system
 ## Functionality
 - Follow/Unfollow other users
 - Friend suggestions
+- User profile that displays user's posts and account management options
+- Search for users
 - Feed that displays posts from members of each of your groups
 - Make a post from anywhere in app with modal
 - Like/comment on posts

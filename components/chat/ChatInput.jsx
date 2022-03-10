@@ -42,7 +42,7 @@ function ChatInput() {
 	return (
 		<div>
 			<form
-				className='flex items-center justify-between w-full p-3 border-t border-gray-300'
+				className='flex items-center justify-between w-full p-3 border-t border-gray-300 dark:border-gray-800'
 				onSubmit={(e) => {
 					handleSubmit(e)
 				}}>

@@ -1,8 +1,10 @@
 import { useContext } from "react"
 import UserContext from "../../context/userContext"
+import TabButton from './TabButton';
+
 
 function Tabs() {
-	const { currentGroup, setCurrentGroup } = useContext(UserContext)
+    const { darkMode } = useContext(UserContext)
 
 	return (
 		<div className='pt-5'>
@@ -13,7 +15,8 @@ function Tabs() {
 				</label>
 				<select
 					id='tabs'
-					className='bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'>
+					className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 
+					${darkMode && "dark"}`}>
 					<option>All</option>
 					<option>Loved</option>
 					<option>Family</option>
@@ -24,84 +27,30 @@ function Tabs() {
 				</select>
 			</div>
 			{/* Expanded */}
-			<ul className='flex hidden rounded-lg divide-x divide-gray-200 shadow sm:flex dark:divide-gray-700'>
+			<ul
+				className={`flex hidden rounded-lg divide-x divide-gray-200 shadow sm:flex dark:divide-gray-700 ${
+					darkMode && "dark"
+				}`}>
 				<li className='w-full'>
-					<button
-						onClick={() => setCurrentGroup("all")}
-						className={`${
-							currentGroup === "all"
-								? "bg-gray-200 text-gray-900 hover:bg-gray-300"
-								: "text-gray-500"
-						} rounded-l-lg inline-block relative py-4 px-4 w-full text-sm font-medium text-center hover:text-gray-700 hover:bg-gray-50 text-gray-900 focus:ring-4 focus:ring-blue-300 focus:z-20 active dark:bg-gray-700 dark:text-white`}
-						aria-current='page'>
-						All
-					</button>
+					<TabButton group={'all'} otherStyles={'rounded-l-lg'} />
 				</li>
 				<li className='w-full'>
-					<button
-						onClick={() => setCurrentGroup("loved")}
-						className={`${
-							currentGroup === "loved"
-								? "bg-gray-200 text-gray-900 hover:bg-gray-300"
-								: "text-gray-500"
-						} inline-block relative py-4 px-4 w-full text-sm font-medium text-center hover:text-gray-700 hover:bg-gray-50 text-gray-900 focus:ring-4 focus:ring-blue-300 focus:z-20 active dark:bg-gray-700 dark:text-white`}>
-						Loved
-					</button>
+					<TabButton group={'loved'} />
 				</li>
 				<li className='w-full'>
-					<button
-						onClick={() => setCurrentGroup("family")}
-						className={`${
-							currentGroup === "family"
-								? "bg-gray-200 text-gray-900 hover:bg-gray-300"
-								: "text-gray-500"
-						} inline-block relative py-4 px-4 w-full text-sm font-medium text-center hover:text-gray-700 hover:bg-gray-50 text-gray-900 focus:ring-4 focus:ring-blue-300 focus:z-20 active dark:bg-gray-700 dark:text-white`}>
-						Family
-					</button>
+					<TabButton group={'family'} />
 				</li>
 				<li className='w-full'>
-					<button
-						onClick={() => setCurrentGroup("friends")}
-						className={`${
-							currentGroup === "friends"
-								? "bg-gray-200 text-gray-900 hover:bg-gray-300"
-								: "text-gray-500"
-						} inline-block relative py-4 px-4 w-full text-sm font-medium text-center hover:text-gray-700 hover:bg-gray-50 text-gray-900 focus:ring-4 focus:ring-blue-300 focus:z-20 active dark:bg-gray-700 dark:text-white`}>
-						Friends
-					</button>
+					<TabButton group={'friends'}  />
 				</li>
 				<li className='w-full'>
-					<button
-						onClick={() => setCurrentGroup("connections")}
-						className={`${
-							currentGroup === "connections"
-								? "bg-gray-200 text-gray-900 hover:bg-gray-300"
-								: "text-gray-500"
-						} inline-block relative py-4 px-4 w-full text-sm font-medium text-center hover:text-gray-700 hover:bg-gray-50 text-gray-900 focus:ring-4 focus:ring-blue-300 focus:z-20 active dark:bg-gray-700 dark:text-white`}>
-						Connections
-					</button>
+					<TabButton group={'connections'} />
 				</li>
 				<li className='w-full'>
-					<button
-						onClick={() => setCurrentGroup("acquaintances")}
-						className={`${
-							currentGroup === "acquaintances"
-								? "bg-gray-200 text-gray-900 hover:bg-gray-300"
-								: "text-gray-500"
-						} inline-block relative py-4 px-4 w-full text-sm font-medium text-center hover:text-gray-700 hover:bg-gray-50 text-gray-900 focus:ring-4 focus:ring-blue-300 focus:z-20 active dark:bg-gray-700 dark:text-white`}>
-						Acquaintances
-					</button>
+					<TabButton group={'acquaintances'} />
 				</li>
 				<li className='w-full'>
-					<button
-						onClick={() => setCurrentGroup("recognizable")}
-						className={`${
-							currentGroup === "recognizable"
-								? "bg-gray-200 text-gray-900 hover:bg-gray-300"
-								: "text-gray-500"
-						} rounded-r-lg inline-block relative py-4 px-4 w-full text-sm font-medium text-center hover:text-gray-700 hover:bg-gray-50 text-gray-900 focus:ring-4 focus:ring-blue-300 focus:z-20 active dark:bg-gray-700 dark:text-white`}>
-						Recognizable
-					</button>
+					<TabButton group={'recognizable'} otherStyles={'rounded-r-lg'} />
 				</li>
 			</ul>
 		</div>
