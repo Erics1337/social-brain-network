@@ -85,27 +85,7 @@ export const UserProvider = ({ children }) => {
 		dispatch(setModal(modalState))
 	}
 
-	const groupNumber = (currentGroup) => {
-		switch (currentGroup) {
-			case "loved":
-				return 7
-			case "family":
-				return 15
-			case "friends":
-				return 50
-			case "connections":
-				return 150
-			case "acquaintances":
-				return 500
-			case "recognizable":
-				return 1500
-			case "all":
-				return 2222
-			default:
-				return 0
-		}
-	}
-
+	
 	// Returns a list of all users in the current Group
 	const combineGroupsUsers = (currentGroup, currentUser) => {
 		switch (currentGroup) {
@@ -153,6 +133,54 @@ export const UserProvider = ({ children }) => {
 		}
 	}
 
+	// Returns number of max users allowed in each group
+	const groupNumber = (currentGroup) => {
+		switch (currentGroup) {
+			case "loved":
+				return {inclusive: 7, exclusive: 7}
+			case "family":
+				return {inclusive: 15, exclusive: 8}
+			case "friends":
+				return {inclusive: 50, exclusive: 28}
+			case "connections":
+				return {inclusive: 150, exclusive: 78}
+			case "acquaintances":
+				return {inclusive: 500, exclusive: 278}
+			case "recognizable":
+				return {inclusive: 1500, exclusive: 778}
+			case "all":
+				return {inclusive: 1500, exclusive: 1500}
+			default:
+				return {inclusive: 0, exclusive: 0}
+		}
+	}
+
+
+	// Returns the number of inclusive users in the current group
+	const usersInGroup = (currentGroup) => {
+		var inclusive = 0
+		switch (currentGroup) {
+			case "all":
+				var num = Object.values(state.currentUser.following).flat().length
+				return {inclusive: num, exclusive: num}
+			case "recognizable":
+				inclusive += state.currentUser.following.recognizable.length
+			case "acquaintances":
+				inclusive += state.currentUser.following.acquaintances.length 
+			case "connections":
+				inclusive += state.currentUser.following.connections.length
+			case "friends":
+				inclusive += state.currentUser.following.friends.length
+			case "family":
+				inclusive += state.currentUser.following.family.length 
+			case "loved":
+				inclusive += state.currentUser.following.loved.length 
+			return {inclusive: inclusive, exclusive: state.currentUser.following[currentGroup].length}
+			default:
+				return 0
+		}
+	}
+
 	// set currrentGroup
 	const setCurrentGroup = (group) => {
 		dispatch(setGroup(group))
@@ -169,7 +197,8 @@ export const UserProvider = ({ children }) => {
 				setCurrentGroup,
 				combineGroupsUsers,
 				groupNumber,
-				setCurrentUser
+				setCurrentUser,
+				usersInGroup
 			}}>
 			{children}
 		</UserContext.Provider>
