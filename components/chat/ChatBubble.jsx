@@ -9,7 +9,7 @@ function ChatBubble({text, timestamp, amSender}) {
     <>
     <li className={`flex hover:cursor-pointer justify-${amSender ? 'start' : 'end'}`}
       onClick={handleShowDate}>
-      <div className={`relative max-w-xl px-4 py-2 text-gray-700 rounded shadow dark:text-gray-100 dark:bg-gray-500 ${amSender && 'bg-gray-100'}`}>
+      <div className={`relative max-w-xl px-4 py-2 text-gray-700 rounded shadow dark:text-gray-100 dark:bg-gray-500 ${amSender && 'bg-gray-100 dark:bg-gray-600'}`}>
         <span className="block">{text}</span>
       </div>
     </li>

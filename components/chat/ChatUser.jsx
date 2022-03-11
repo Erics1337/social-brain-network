@@ -35,7 +35,7 @@ function ChatUser({ user }) {
 							{user.latestMessage.timestamp?.toDate()}
 						</Moment>
 					</div>
-					<span className='block ml-2 text-sm text-gray-600'>
+					<span className='block ml-2 text-sm text-gray-600 dark:text-gray-200'>
 						{user.latestMessage.text?.substring(0, 20)}
 						{user.latestMessage.text?.length > 20 && '...'}
 					</span>
