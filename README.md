@@ -6,7 +6,7 @@ Not a social network, but a social network management system
 - Friend suggestions
 - User profile that displays user's posts and account management options
 - Search for users
-- Feed that displays posts from members of each of your groups
+- Feed that displays posts from members of each of your groups and loads posts on an infinite scroll
 - Make a post from anywhere in app with modal
 - Like/comment on posts
 - Landing page explaining the Social Brain Network
@@ -17,14 +17,13 @@ Not a social network, but a social network management system
 ## Feature Wish-list
 - Group chat messaging
 - A personal journal feature for non-visible posts
-- Infinite scroll pagination
 
 ## The Social Brain Hypothesis and Dunbar's number
 https://youtu.be/zZF6vXMGBOw
 ## Started from tutorial by papareact:
 https://www.youtube.com/watch?v=a6Xs2Ir40OI&list=PLtisOZsxayjEC3ouCwhkTSG4twFqI7eo7&index=9&t=8517s
 
-## This Project Uses:
+## This Project Uses these libraries and technologies:
 + Tailwind
 + Headlessui - tailwind library for use with modal (Dialog, Transition)
 + Heroicons
@@ -34,6 +33,7 @@ https://www.youtube.com/watch?v=a6Xs2Ir40OI&list=PLtisOZsxayjEC3ouCwhkTSG4twFqI7
 + randomuser.me - API for random user data to assign profile images
 + react-dnd - drag and drop library for groups page
 + react-select - dropdown menu library for search box with dynamic options
++ react-infinite-scroll-hook - Infinite scroll library for posts feed
 
 ## Next.js + Tailwind CSS
 This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v2.2)](https://blog.tailwindcss.com/tailwindcss-2-2) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
