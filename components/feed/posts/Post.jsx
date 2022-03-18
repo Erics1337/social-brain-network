@@ -26,16 +26,15 @@ import { useContext, useMemo } from "react"
 import UserContext from "../../../context/userContext"
 import { useRouter } from "next/router";
 
-function Post({ id, username, image, caption, userImg }) {
+function Post({ id, username, image, caption, userImg, likes }) {
 	const router = useRouter()
 	const { currentUser } = useContext(UserContext)
 	const [comment, setComment] = useState("")
 	const [comments, setComments] = useState([])
 	const [openComments, setOpenComments] = useState(false)
-	const [likes, setLikes] = useState([])
 	const [hasLiked, setHasLiked] = useState(false)
 
-	// Get comments and combine user data
+	// Get comments and combine user data for commenters
 	useEffect(() => {
 		const unsubscribe = onSnapshot(
 			query(
@@ -66,14 +65,6 @@ function Post({ id, username, image, caption, userImg }) {
 		return () => unsubscribe()
 	}, [db, id])
 
-	//  Get likes
-	useEffect(() => {
-		const unsubscribe = onSnapshot(
-			collection(db, "posts", id, "likes"),
-			(snapshot) => setLikes(snapshot.docs)
-		)
-		return () => unsubscribe()
-	}, [db, id])
 
 	//   Searches likes array in state if user is in there, and if not (findIndex returns -1) setHasLiked to false
 	useEffect(

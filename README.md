@@ -17,6 +17,7 @@ Not a social network, but a social network management system
 ## Feature Wish-list
 - Group chat messaging
 - A personal journal feature for non-visible posts
+- Infinite scroll pagination
 
 ## The Social Brain Hypothesis and Dunbar's number
 https://youtu.be/zZF6vXMGBOw
