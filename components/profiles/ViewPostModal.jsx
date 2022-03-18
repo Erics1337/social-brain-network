@@ -7,7 +7,7 @@ function ViewPostModal() {
 	if (postData === null) return null
 	const { modalState, setModalState, postData } = useContext(ProfileContext)
 
-	const { image, caption, postId } = postData.postData
+	const { image, caption, postId, likes } = postData.postData
 	const { username, profilePic } = postData.userData
 
 	return (
@@ -53,6 +53,7 @@ function ViewPostModal() {
 								username={username}
 								image={image}
 								caption={caption}
+								likes={likes}
 							/>
 						</div>
 					</Transition.Child>

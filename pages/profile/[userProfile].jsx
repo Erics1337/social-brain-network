@@ -17,7 +17,7 @@ import Head from "next/head";
 
 
 function userProfile({ userSlug }) {
-	const { loading, checkLoggedIn, currentUser } = useContext(UserContext)
+	const { loading, checkLoggedIn, currentUser, dispatch, setLoading } = useContext(UserContext)
 	const [userPosts, setUserPosts] = useState([])
 	const [userData, setUserData] = useState(null)
 
@@ -26,6 +26,7 @@ function userProfile({ userSlug }) {
 	}, [])
 
 	useEffect(() => {
+		dispatch(setLoading(true))
 		// Get user data and posts from userSlug
 		const unsubscribe = onSnapshot(
 			query(
@@ -61,12 +62,13 @@ function userProfile({ userSlug }) {
 				}
 			}
 		)
+		dispatch(setLoading(false))
 		return () => unsubscribe()
 	}, [db, userSlug])
 
 	if (loading) return <Loader />
-	if (userData) {
-		return (
+	if (!userData) return <h1>User not found</h1>
+	else return (
 			<>
 				<main className='bg-gray-100 bg-opacity-25 h-screen dark:bg-gray-700'>
 				<Head>
@@ -78,7 +80,6 @@ function userProfile({ userSlug }) {
 				</main>
 			</>
 		)
-	} else return <h1>User not found</h1>
 }
 
 export const getServerSideProps = async (pageContext) => {

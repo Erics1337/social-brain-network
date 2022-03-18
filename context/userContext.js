@@ -47,11 +47,13 @@ export const UserProvider = ({ children }) => {
 	const checkLoggedIn = () => {
 		const auth = getAuth()
 		onAuthStateChanged(auth, (user) => {
+			dispatch(setLoading(true))
 			if (user) {
 				loginUser(auth)
 			} else {
 				dispatch(setCurrentUser(initialState))
 			}
+			dispatch(setLoading(false))
 		})
 	}
 
@@ -198,7 +200,10 @@ export const UserProvider = ({ children }) => {
 				combineGroupsUsers,
 				groupNumber,
 				setCurrentUser,
-				usersInGroup
+				usersInGroup,
+				dispatch,
+				setLoading
+
 			}}>
 			{children}
 		</UserContext.Provider>

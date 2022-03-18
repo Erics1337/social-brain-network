@@ -26,7 +26,7 @@ function Posts() {
 	const [sentryRef] = useInfiniteScroll({
 		loading,
 		hasNextPage: hasMorePosts,
-		threshold: 400,
+		// threshold: 400,
 		onLoadMore: handleLoadMore,
 	})
 
