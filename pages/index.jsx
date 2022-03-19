@@ -19,7 +19,7 @@ export default function Home() {
 
   if (loading) return <Loader />
   return (
-    <div className='bg-gray-50 h-screen overflow-y-auto scrollbar-hide dark:bg-gray-700'>
+    <div className='bg-gray-50 min-h-screen overflow-y-auto scrollbar-hide dark:bg-gray-700'>
       <Head>
         <title>Social Brain Network</title>
         <link rel="icon" href="/favicon.ico" />
