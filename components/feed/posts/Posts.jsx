@@ -35,7 +35,7 @@ function Posts() {
 	}
 
 	/* ------------------------ Fetch Posts w/ key and batchSize ----------------------- */
-	const fetchPosts = async (key = null, batchSize = 2) => {
+	const fetchPosts = async (cancel, key = null, batchSize = 2) => {
 		try {
 			setLoading(true)
 			// Query to fetch first batch of posts
@@ -65,6 +65,7 @@ function Posts() {
 			postsSnap.forEach((postDoc) => {
 				getDoc(doc(db, "users", postDoc.data().uid))
 					.then((userDoc) => {
+						if (cancel) return
 						setPosts((prevPosts) => [
 							...prevPosts,
 							{
@@ -85,9 +86,14 @@ function Posts() {
 	}
 
 	useEffect(() => {
+		let cancel = false
+
 		if (!loading) setHasMorePosts(true)
 		setPosts([])
-		fetchPosts()
+		fetchPosts(cancel)
+		
+		// cleanup to prevent memory leaks
+		return () => (cancel = true)
 	}, [currentGroup])
 
 	return (

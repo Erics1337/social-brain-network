@@ -48,7 +48,7 @@ function Chat() {
 							).then((message) => {
 						setUsers((prevUsers) => [
 							...prevUsers,
-							{
+							{	uid: userSnap.data().uid,
 								profilePic: userSnap.data().profilePic,
 								username: userSnap.data().username,
 								latestMessage: {

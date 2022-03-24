@@ -45,22 +45,20 @@ export const UserProvider = ({ children }) => {
 	const [state, dispatch] = useReducer(UserReducer, initialState)
 
 	const checkLoggedIn = () => {
+		setLoading(true)
 		const auth = getAuth()
 		onAuthStateChanged(auth, (user) => {
-			dispatch(setLoading(true))
 			if (user) {
 				loginUser(auth)
 			} else {
 				dispatch(setCurrentUser(initialState))
 			}
-			dispatch(setLoading(false))
 		})
 	}
 
 	// On page load, queries db for user obj based on currentlyLoggedInUser and sets profilePic to state
 	const loginUser = (auth) => {
-		if (!auth.currentUser) return
-		dispatch(setLoading(true))
+		if (auth.currentUser){
 			onSnapshot(
 				doc(
 					collection(db, "users"), auth.currentUser.uid
@@ -80,6 +78,7 @@ export const UserProvider = ({ children }) => {
 
 				}
 			)
+		}
 		dispatch(setLoading(false))
 	}
 

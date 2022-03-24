@@ -8,11 +8,7 @@ function ChatUser({ user }) {
 	const { setCurrentChat } = useContext(ChatContext)
 
 
-	const handleSetChat = () => {
-		getDocs(query(collection(db, "users"), where("username", "==", user.username))).then((snapshot) => {
-			setCurrentChat({username: user.username, uid: snapshot.docs[0].data().uid})
-			})
-		}
+	const handleSetChat = () => setCurrentChat({username: user.username, uid: user.uid})
 	
 
 	return (
