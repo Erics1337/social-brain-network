@@ -3,7 +3,7 @@ import { useState, useRef, useEffect, useContext } from "react"
 import UserContext from "../../context/userContext";
 import { db } from "../../firebase";
 
-const EditableInput = (props) => {
+const EditableText = (props) => {
     const { currentUser } = useContext(UserContext);
 	// We use hooks to declare "initial" states
 	const inputRef = useRef(null)
@@ -78,4 +78,4 @@ const EditableInput = (props) => {
 	)
 }
 
-export default EditableInput // We got our component!
+export default EditableText

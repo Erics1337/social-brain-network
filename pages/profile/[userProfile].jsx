@@ -9,6 +9,7 @@ import {
 	getDocs,
 	doc,
 	limit,
+	orderBy,
 } from "@firebase/firestore"
 import Profile from "../../components/profiles/Profile"
 import Navbar from "../../components/Navbar"
@@ -44,7 +45,8 @@ function userProfile({ userSlug }) {
 					getDocs(
 						query(
 							collection(db, "posts"),
-							where("uid", "==", userSnapshot.docs[0].data().uid)
+							where("uid", "==", userSnapshot.docs[0].data().uid),
+							orderBy("timestamp", "desc")
 						)
 					).then((postsSnap) => {
 						setUserPosts([])

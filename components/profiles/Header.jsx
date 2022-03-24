@@ -10,14 +10,14 @@ import DeleteButton from "./DeleteButton";
 function Header({ userData, postCount }) {
 	const { currentUser } = useContext(UserContext)
 
-	// anonymous function to assign value to followers w/gaurd clause to prevent error if no followers
-	const followers = (function () {
+	// anonymous function to assign value to followersCount w/gaurd clause to prevent error if no followersCount
+	const followersCount = (function () {
 		if (userData.followers.length) return userData.followers.length
 		else return 0
 	})()
 
 	// Get number of following
-	const following = Object.values(userData?.following)
+	const followingCount = Object.values(userData?.following)
 		.map((element) => element.length)
 		.reduce((a, b) => a + b, 0)
 
@@ -82,13 +82,13 @@ function Header({ userData, postCount }) {
 
 						<li>
 							<span className='font-semibold pr-2'>
-								{followers}
+								{followersCount}
 							</span>
-							follower{followers != 1 && "s"}
+							follower{followersCount != 1 && "s"}
 						</li>
 						<li>
 							<span className='font-semibold pr-2'>
-								{following}
+								{followingCount}
 							</span>
 							following
 						</li>
@@ -121,13 +121,13 @@ function Header({ userData, postCount }) {
 
 				<li>
 					<span className='font-semibold text-gray-800 dark:text-gray-200 block'>
-						{followers}
+						{followersCount}
 					</span>
-					follower{followers != 1 && "s"}
+					follower{followersCount != 1 && "s"}
 				</li>
 				<li>
 					<span className='font-semibold text-gray-800 dark:text-gray-200 block'>
-						{following}
+						{followingCount}
 					</span>
 					following
 				</li>

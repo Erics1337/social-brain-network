@@ -22,7 +22,7 @@ function SearchBox() {
 		const strlength = searchTerm.length
 		const strFrontCode = searchTerm.slice(0, strlength - 1)
 		const strEndCode = searchTerm.slice(strlength - 1, searchTerm.length)
-		// This is an important bit..
+		// This mumbo jumbo allows dynamic searching in firebase
 		const endCode =
 			strFrontCode + String.fromCharCode(strEndCode.charCodeAt(0) + 1)
 		if (query.length > 0) {

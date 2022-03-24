@@ -14,9 +14,15 @@ Not a social network, but a social network management system
 - 1-on-1 messaging
 - Unread message notifications
 - Dark/Light UI mode based on user system preference
+  
 ## Feature Wish-list
+- Share post functionality
+- Public view of individual posts - change upload to all to public
+- Save post functionality w/ saved posts display in profile
 - Group chat messaging
 - A personal journal feature for non-visible posts
+- Ad a 'my groups' page that displays all other user groups from which you are a member
+
 
 ## The Social Brain Hypothesis and Dunbar's number
 https://youtu.be/zZF6vXMGBOw
