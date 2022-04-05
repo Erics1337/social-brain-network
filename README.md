@@ -16,6 +16,8 @@ Not a social network, but a social network management system
 - Dark/Light UI mode based on user system preference
   
 ## Feature Wish-list
+- Add throttle/debounce to user search
+- Memoize/cache user search results
 - Share post functionality
 - Public view of individual posts - change upload to all to public
 - Save post functionality w/ saved posts display in profile

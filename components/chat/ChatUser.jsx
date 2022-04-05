@@ -13,7 +13,7 @@ function ChatUser({ user }) {
 
 	return (
 		<li onClick={handleSetChat}>
-			<a className='flex items-center px-3 py-2 text-sm transition duration-150 ease-in-out border-b border-gray-300 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-500 focus:outline-none dark:bg-gray-600 dark:border-gray-800'>
+			<div className='flex items-center px-3 py-2 text-sm transition duration-150 ease-in-out border-b border-gray-300 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-500 focus:outline-none dark:bg-gray-600 dark:border-gray-800'>
 				<img
 					className='object-cover w-10 h-10 rounded-full'
 					src={user.profilePic}
@@ -36,7 +36,7 @@ function ChatUser({ user }) {
 						{user.latestMessage.text?.length > 20 && '...'}
 					</span>
 				</div>
-			</a>
+			</div>
 		</li>
 	)
 }
