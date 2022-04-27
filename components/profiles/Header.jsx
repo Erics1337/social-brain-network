@@ -1,11 +1,11 @@
-import Image from "next/image"
-import { auth } from "../../firebase"
-import FollowButton from "./FollowButton"
-import EditableText from "./EditableText"
-import { useContext } from "react"
-import UserContext from "../../context/userContext"
-import UnfollowButton from "./UnfollowButton"
-import DeleteButton from "./DeleteButton";
+import Image from 'next/image'
+import { auth } from '../../firebase'
+import FollowButton from './FollowButton'
+import EditableText from './EditableText'
+import { useContext } from 'react'
+import UserContext from '../../context/userContext'
+import UnfollowButton from './UnfollowButton'
+import DeleteButton from './DeleteButton'
 
 function Header({ userData, postCount }) {
 	const { currentUser } = useContext(UserContext)
@@ -30,7 +30,6 @@ function Header({ userData, postCount }) {
 	}
 
 	const userIsCurrentUser = () => currentUser.uid === userData.uid
-	const userIsLoggedIn = () => currentUser.uid != undefined
 
 	return (
 		<>
@@ -53,22 +52,23 @@ function Header({ userData, postCount }) {
 						<h2 className='text-3xl inline-block font-light md:mr-2 mb-2 sm:mb-0 pr-5 dark:text-gray-100'>
 							{userData.username}
 						</h2>
-						{userIsLoggedIn() &&
-							!userIsCurrentUser() ? (
-							(!userIsFollowed() ? (
+						{auth.currentUser && !userIsCurrentUser() ? (
+							!userIsFollowed() ? (
 								<FollowButton
 									follower={currentUser.uid}
 									followee={userData.uid}
 								/>
 							) : (
-									<UnfollowButton
-										follower={currentUser.uid}
-										followee={userData.uid}
-									/>
-							)))
-						: 
-							<DeleteButton currentUser={currentUser} />
-							}
+								<UnfollowButton
+									follower={currentUser.uid}
+									followee={userData.uid}
+								/>
+							)
+						) : (
+							auth.currentUser && (
+								<DeleteButton currentUser={currentUser} />
+							)
+						)}
 					</div>
 
 					{/* <!-- post, following, followers list for medium screens --> */}
@@ -77,14 +77,14 @@ function Header({ userData, postCount }) {
 							<span className='font-semibold pr-2'>
 								{postCount}
 							</span>
-							post{postCount != 1 && "s"}
+							post{postCount != 1 && 's'}
 						</li>
 
 						<li>
 							<span className='font-semibold pr-2'>
 								{followersCount}
 							</span>
-							follower{followersCount != 1 && "s"}
+							follower{followersCount != 1 && 's'}
 						</li>
 						<li>
 							<span className='font-semibold pr-2'>
@@ -97,12 +97,12 @@ function Header({ userData, postCount }) {
 					<div className='text-sm my-2 md:text-lg md:my-0'>
 						<EditableText
 							text={userData.subName}
-							type={"subName"}
+							type={'subName'}
 							username={userData.username}
 						/>
 						<EditableText
 							text={userData.bio}
-							type={"bio"}
+							type={'bio'}
 							username={userData.username}
 						/>
 					</div>
@@ -116,14 +116,14 @@ function Header({ userData, postCount }) {
 					<span className='font-semibold text-gray-800 dark:text-gray-200 block'>
 						{postCount}
 					</span>
-					post{postCount != 1 && "s"}
+					post{postCount != 1 && 's'}
 				</li>
 
 				<li>
 					<span className='font-semibold text-gray-800 dark:text-gray-200 block'>
 						{followersCount}
 					</span>
-					follower{followersCount != 1 && "s"}
+					follower{followersCount != 1 && 's'}
 				</li>
 				<li>
 					<span className='font-semibold text-gray-800 dark:text-gray-200 block'>

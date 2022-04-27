@@ -9,7 +9,7 @@ import {
 	serverTimestamp,
 	setDoc,
 	getDoc,
-} from "@firebase/firestore"
+} from '@firebase/firestore'
 import {
 	BookmarkIcon,
 	ChatIcon,
@@ -17,19 +17,19 @@ import {
 	EmojiHappyIcon,
 	HeartIcon,
 	PaperAirplaneIcon,
-} from "@heroicons/react/outline"
-import { HeartIcon as HeartIconFilled } from "@heroicons/react/solid"
-import { useEffect, useState } from "react"
-import Moment from "react-moment"
-import { db, auth } from "../../../firebase"
-import { useContext, useMemo } from "react"
-import UserContext from "../../../context/userContext"
-import { useRouter } from "next/router";
+} from '@heroicons/react/outline'
+import { HeartIcon as HeartIconFilled } from '@heroicons/react/solid'
+import { useEffect, useState } from 'react'
+import Moment from 'react-moment'
+import { db, auth } from '../../../firebase'
+import { useContext, useMemo } from 'react'
+import UserContext from '../../../context/userContext'
+import { useRouter } from 'next/router'
 
 function Post({ id, username, image, caption, userImg }) {
 	const router = useRouter()
 	const { currentUser } = useContext(UserContext)
-	const [comment, setComment] = useState("")
+	const [comment, setComment] = useState('')
 	const [comments, setComments] = useState([])
 	const [openComments, setOpenComments] = useState(false)
 	const [likes, setLikes] = useState([])
@@ -39,14 +39,14 @@ function Post({ id, username, image, caption, userImg }) {
 	useEffect(() => {
 		const unsubscribe = onSnapshot(
 			query(
-				collection(db, "posts", id, "comments"),
-				orderBy("timestamp", "desc")
+				collection(db, 'posts', id, 'comments'),
+				orderBy('timestamp', 'desc')
 			),
 			// set Profile Pic and username from userId for each comment
 			(snapshot) => {
 				setComments([])
 				snapshot.forEach((comment) => {
-					getDoc(doc(db, "users", comment.data().uid)).then(
+					getDoc(doc(db, 'users', comment.data().uid)).then(
 						(docSnap) => {
 							setComments((prevComments) => [
 								...prevComments,
@@ -69,7 +69,7 @@ function Post({ id, username, image, caption, userImg }) {
 	//  Get likes
 	useEffect(() => {
 		const unsubscribe = onSnapshot(
-			collection(db, "posts", id, "likes"),
+			collection(db, 'posts', id, 'likes'),
 			(snapshot) => setLikes(snapshot.docs)
 		)
 		return () => unsubscribe()
@@ -87,9 +87,9 @@ function Post({ id, username, image, caption, userImg }) {
 	//   Toggles like
 	const likePost = async () => {
 		if (hasLiked) {
-			await deleteDoc(doc(db, "posts", id, "likes", currentUser.uid))
+			await deleteDoc(doc(db, 'posts', id, 'likes', currentUser.uid))
 		} else {
-			await setDoc(doc(db, "posts", id, "likes", currentUser.uid), {
+			await setDoc(doc(db, 'posts', id, 'likes', currentUser.uid), {
 				uid: currentUser.uid,
 			})
 		}
@@ -102,9 +102,9 @@ function Post({ id, username, image, caption, userImg }) {
 
 		// Create copy of comment from local store and clear state for snappy action
 		const commentToSend = comment
-		setComment("")
+		setComment('')
 
-		await addDoc(collection(db, "posts", id, "comments"), {
+		await addDoc(collection(db, 'posts', id, 'comments'), {
 			comment: commentToSend,
 			uid: currentUser.uid,
 			timestamp: serverTimestamp(),
@@ -143,7 +143,10 @@ function Post({ id, username, image, caption, userImg }) {
 						) : (
 							<HeartIcon className='btn' onClick={likePost} />
 						)}
-						<ChatIcon className='btn' onClick={()=> setOpenComments(!openComments)} />
+						<ChatIcon
+							className='btn'
+							onClick={() => setOpenComments(!openComments)}
+						/>
 						<PaperAirplaneIcon className='btn' />
 					</div>
 					<BookmarkIcon className='btn' />
@@ -162,59 +165,57 @@ function Post({ id, username, image, caption, userImg }) {
 			{/* comments */}
 			{openComments && (
 				<>
-				<div className='ml-10 overflow-y-scroll scrollbar-thumb-black scrollbar-thin'>
-					{comments.map((comment) => (
-						<div
-							key={comment.id}
-							className='flex items-center space-x-2 mb-3'>
-							<img
-								className='h-7 rounded-full'
-								src={comment.userImg}
-								alt=''
+					<div className='ml-10 overflow-y-scroll scrollbar-thumb-black scrollbar-thin'>
+						{comments.map((comment) => (
+							<div
+								key={comment.id}
+								className='flex items-center space-x-2 mb-3'>
+								<img
+									className='h-7 rounded-full'
+									src={comment.userImg}
+									alt=''
+								/>
+								<p className='text-sm flex-1'>
+									<span className='font-bold pr-2'>
+										{comment.username}
+									</span>
+									{comment.comment}
+								</p>
+								<Moment
+									interval={1000}
+									fromNow
+									className='pr-5 text-xs'>
+									{comment.timestamp?.toDate()}
+								</Moment>
+							</div>
+						))}
+					</div>
+
+					{/* input box */}
+					{auth.currentUser && (
+						<form className='flex items-center p-4'>
+							<EmojiHappyIcon className='h-7 mr-3' />
+							<input
+								type='text'
+								value={comment}
+								// Capture comment in state
+								onChange={(e) => setComment(e.target.value)}
+								className='border-none flex-1 focus:ring-0 outline-none dark:text-gray-800 rounded-lg'
+								placeholder='Add a comment...'
 							/>
-							<p className='text-sm flex-1'>
-								<span className='font-bold pr-2'>
-									{comment.username}
-								</span>
-								{comment.comment}
-							</p>
-							<Moment
-								interval={1000}
-								fromNow
-								className='pr-5 text-xs'>
-								{comment.timestamp?.toDate()}
-							</Moment>
-						</div>
-					))}
-				</div>
-
-				{/* input box */}
-				{auth.currentUser && (
-					<form className='flex items-center p-4'>
-						<EmojiHappyIcon className='h-7 mr-3' />
-						<input
-							type='text'
-							value={comment}
-							// Capture comment in state
-							onChange={(e) => setComment(e.target.value)}
-							className='border-none flex-1 focus:ring-0 outline-none dark:text-gray-800 rounded-lg'
-							placeholder='Add a comment...'
-						/>
-						<button
-							// For form submit on enter key
-							type='submit'
-							// Prevents spamming comments with space
-							disabled={!comment.trim()}
-							onClick={sendComment}
-							className='font-semibold text-blue-400 ml-3 p-2 rounded-lg hover:bg-blue-400 hover:text-gray-100'>
-							Post
-						</button>
-					</form>
-				)}
+							<button
+								// For form submit on enter key
+								type='submit'
+								// Prevents spamming comments with space
+								disabled={!comment.trim()}
+								onClick={sendComment}
+								className='font-semibold text-blue-400 ml-3 p-2 rounded-lg hover:bg-blue-400 hover:text-gray-100'>
+								Post
+							</button>
+						</form>
+					)}
 				</>
-			)
-		}
-
+			)}
 		</div>
 	)
 }
