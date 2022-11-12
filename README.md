@@ -28,8 +28,6 @@ Not a social network, but a social network management system
 
 ## The Social Brain Hypothesis and Dunbar's number
 https://youtu.be/zZF6vXMGBOw
-## Started from tutorial by papareact:
-https://www.youtube.com/watch?v=a6Xs2Ir40OI&list=PLtisOZsxayjEC3ouCwhkTSG4twFqI7eo7&index=9&t=8517s
 
 ## This Project Uses these libraries and technologies:
 + Tailwind
