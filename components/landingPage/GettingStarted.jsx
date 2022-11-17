@@ -16,22 +16,20 @@ function GettingStarted() {
 							href='#'
 							className='flex flex-wrap no-underline hover:no-underline'>
 							<p className='w-full text-gray-600 text-xs md:text-sm px-6 pt-5'>
-								xGETTING STARTED
+								Sign up
 							</p>
 							<div className='w-full font-bold text-xl text-gray-800 px-6'>
-								Lorem ipsum dolor sit amet.
+								Sign up for an account using your email address and by creating a secure password
 							</div>
 							<p className='text-gray-800 text-base px-6 mb-5'>
-								Lorem ipsum dolor sit amet, consectetur
-								adipiscing elit. Aliquam at ipsum eu nunc
-								commodo posuere et sit amet ligula.
+								Try out the software by creating an account for free.  You can delete the account any time after it is created.
 							</p>
 						</a>
 					</div>
 					<div className='flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6 dark:bg-gray-200'>
 						<div className='flex items-center justify-start'>
 							<button className='mx-auto lg:mx-0 hover:underline gradient text-black font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out'>
-								Action
+								Sign Up
 							</button>
 						</div>
 					</div>
@@ -42,15 +40,13 @@ function GettingStarted() {
 							href='#'
 							className='flex flex-wrap no-underline hover:no-underline'>
 							<p className='w-full text-gray-600 text-xs md:text-sm px-6 pt-5'>
-								xGETTING STARTED
+								Check it out
 							</p>
 							<div className='w-full font-bold text-xl text-gray-800 px-6'>
-								Lorem ipsum dolor sit amet.
+								Explore the software and see what it can do for you
 							</div>
 							<p className='text-gray-800 text-base px-6 mb-5'>
-								Lorem ipsum dolor sit amet, consectetur
-								adipiscing elit. Aliquam at ipsum eu nunc
-								commodo posuere et sit amet ligula.
+								You can demo the software and try out some of the features
 							</p>
 						</a>
 					</div>
@@ -68,15 +64,13 @@ function GettingStarted() {
 							href='#'
 							className='flex flex-wrap no-underline hover:no-underline'>
 							<p className='w-full text-gray-600 text-xs md:text-sm px-6 pt-5'>
-								xGETTING STARTED
+								Get in contact
 							</p>
 							<div className='w-full font-bold text-xl text-gray-800 px-6'>
-								Lorem ipsum dolor sit amet.
+								Impressed? I thought so!
 							</div>
 							<p className='text-gray-800 text-base px-6 mb-5'>
-								Lorem ipsum dolor sit amet, consectetur
-								adipiscing elit. Aliquam at ipsum eu nunc
-								commodo posuere et sit amet ligula.
+								Although this software is a proof of concept and exemplifies the technical strengths of the developer, it is not yet ready for production use.  If you are interested in the idea behind this project or would like to create something like this for your business, contact the developer.
 							</p>
 						</a>
 					</div>
