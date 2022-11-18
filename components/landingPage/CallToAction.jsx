@@ -4,7 +4,8 @@ import { useRouter } from 'next/router'
 function CallToAction() {
 	const router = useRouter()
 	return (
-		<section className='container mx-auto text-center py-6 mb-12 dark:text-gray-100'>
+		<div className="bg-main-bg dark:bg-main-dark-bg pb-5">
+		<section className='container mx-auto text-center py-6 mb-12 dark:text-gray-100 '>
 			<h1 className='w-full my-2 text-5xl font-bold leading-tight text-center'>
 				Try It For Free!
 			</h1>
@@ -21,6 +22,7 @@ function CallToAction() {
 				You can delete your account and all user data at any time.
 			</div>
 		</section>
+		</div>
 	)
 }
 
